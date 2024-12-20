@@ -173,6 +173,7 @@ plotHeatmap <- function(
           column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
           row_names_max_width = grid::unit(15, "cm"), row_names_side = "left",  top_annotation = col_annotation)
       }
+    }
       else {
             heatmap <- ComplexHeatmap::Heatmap(
       mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
