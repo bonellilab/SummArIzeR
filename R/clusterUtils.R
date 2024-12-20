@@ -157,20 +157,9 @@ plotHeatmap <- function(
     } else {
       NULL
     }
-    # Generate heatmap
-    heatmap <- ComplexHeatmap::Heatmap(
-      mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
-      border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
-      column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
-      row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
-    )
-    # Combine heatmap with row annotation if applicable
-    if (!is.null(row_annotation)) {
-      heatmap <- heatmap + row_annotation
-    }
     
     # Heatap must be turned to combine up- and downregulation
-    if (!is.null(split_by_reg)) {
+    if (split_by_reg) {
       heatmap <- ComplexHeatmap::Heatmap(
         t(mat), name = legend_title, col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
         border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
@@ -183,6 +172,17 @@ plotHeatmap <- function(
           border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
           column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
           row_names_max_width = grid::unit(15, "cm"), row_names_side = "left",  top_annotation = col_annotation)
+      }
+      else {
+            heatmap <- ComplexHeatmap::Heatmap(
+      mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
+      border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
+      column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
+      row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
+    )
+    # Combine heatmap with row annotation if applicable
+      if (!is.null(row_annotation)) {
+        heatmap <- heatmap + row_annotation
       }
       
     }
