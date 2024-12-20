@@ -11,7 +11,7 @@
 #' @param n The number of top terms to return. Default is 10.
 #' @param min_genes_threshold The minimum number of genes required for a term to be kept in the results. Default is 3. 
 #' @return A list with two data frames: `regular` (all terms) and `top` (top terms).
-#' @import dplyr tidyr
+#' @import dplyr tidyr enrichR
 #' @export
 readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logFC_threshold = 0, pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
   if (nrow(listpathSig) == 0) {

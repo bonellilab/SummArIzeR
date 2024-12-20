@@ -16,14 +16,14 @@ Depends:
     plotly,
     proxy,
     stringr,
-    tidyr
+    tidyr, 
+    enrichR
 Imports: 
     grid,
     stats,
     tibble,
     VGAM,
-    factoextra,
-    enrichR
+    factoextra
 Suggests: 
     mockery,
     testthat (>= 3.0.0)
