@@ -22,7 +22,7 @@ Imports:
     stats,
     tibble,
     VGAM,
-    factorextra,
+    factoextra,
     enrichR
 Suggests: 
     mockery,
