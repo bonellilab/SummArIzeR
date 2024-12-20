@@ -5,7 +5,7 @@
 #' @param input A data frame containing terms, genes, and additional metadata.
 #' @param ts A numeric threshold for edge inclusion based on distance weights.
 #' @return A Plotly object representing the network graph.
-#' @import dplyr tidyr igraph plotly proxy factorextra
+#' @import dplyr tidyr igraph plotly proxy factoextra
 #' @export
 TRUplotIgraph <- function(input, ts, seed = 42) {
   # Preprocessing
