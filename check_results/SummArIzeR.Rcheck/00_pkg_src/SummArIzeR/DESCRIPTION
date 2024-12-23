@@ -1,0 +1,24 @@
+Package: SummArIzeR
+Title: Summarize enrichment terms with LLMs
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Marie", "Brinkmann", , "marie.brinkmann@meduniwien.ac.at", role = c("aut", "cre")),
+    person("Anela", "Tosevska", , "anela.tosevska@meduniwien.ac.at", role = "aut")
+  )
+Description: Summarize enrichment terms using graph clustering and LLM
+    based-consensus parent term.
+License: `use_mit_license()`
+Depends: circlize, ComplexHeatmap, dplyr, igraph, plotly, proxy,
+        stringr, tidyr
+Imports: grid, stats, tibble, VGAM, factoextra, enrichR
+Suggests: knitr, rmarkdown, mockery, testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+NeedsCompilation: no
+Packaged: 2024-12-23 13:30:06 UTC; anela
+Author: Marie Brinkmann [aut, cre],
+  Anela Tosevska [aut]
+Maintainer: Marie Brinkmann <marie.brinkmann@meduniwien.ac.at>

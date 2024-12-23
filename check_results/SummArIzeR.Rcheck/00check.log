@@ -1,0 +1,224 @@
+* using log directory ‘/home/anela/SummArIzeR/check_results/SummArIzeR.Rcheck’
+* using R version 4.4.1 (2024-06-14)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Debian 12.2.0-14) 12.2.0
+    GNU Fortran (Debian 12.2.0-14) 12.2.0
+* running under: Debian GNU/Linux 12 (bookworm)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘SummArIzeR/DESCRIPTION’ ... OK
+* this is package ‘SummArIzeR’ version ‘0.0.0.9000’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+Depends: includes the non-default packages:
+  'circlize', 'ComplexHeatmap', 'dplyr', 'igraph', 'plotly', 'proxy',
+  'stringr', 'tidyr'
+Adding so many packages to the search path is excessive and importing
+selectively is preferable.
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘SummArIzeR’ can be installed ... [44s/11s] WARNING
+Found the following significant warnings:
+  Warning: replacing previous import ‘dplyr::as_data_frame’ by ‘igraph::as_data_frame’ when loading ‘SummArIzeR’
+  Warning: replacing previous import ‘dplyr::groups’ by ‘igraph::groups’ when loading ‘SummArIzeR’
+  Warning: replacing previous import ‘dplyr::union’ by ‘igraph::union’ when loading ‘SummArIzeR’
+  Warning: replacing previous import ‘circlize::degree’ by ‘igraph::degree’ when loading ‘SummArIzeR’
+  Warning: replacing previous import ‘ComplexHeatmap::add_heatmap’ by ‘plotly::add_heatmap’ when loading ‘SummArIzeR’
+  Warning: replacing previous import ‘igraph::groups’ by ‘plotly::groups’ when loading ‘SummArIzeR’
+  Warning: replacing previous import ‘igraph::crossing’ by ‘tidyr::crossing’ when loading ‘SummArIzeR’
+See ‘/home/anela/SummArIzeR/check_results/SummArIzeR.Rcheck/00install.out’ for details.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... WARNING
+Non-standard license specification:
+  `use_mit_license()`
+Standardizable: FALSE
+* checking top-level files ... NOTE
+File
+  LICENSE
+is not mentioned in the DESCRIPTION file.
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... WARNING
+Namespace in Imports field not imported from: ‘enrichR’
+  All declared Imports should be used.
+Package in Depends field not imported from: ‘stringr’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+Missing or unexported object: ‘VGAM::pcauchy’
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... [100s/15s] NOTE
+annotateClusters: no visible binding for global variable ‘Cluster’
+annotateClusters: no visible binding for global variable ‘condition’
+annotateClusters: no visible binding for global variable ‘Term’
+annotateClusters: no visible binding for global variable ‘adj_pval’
+annotateClusters: no visible binding for global variable
+  ‘Cluster_Annotation’
+annotateClusters: no visible binding for global variable ‘pval_pooled’
+evaluateThreshold: no visible binding for global variable ‘adj_pval’
+evaluateThreshold: no visible binding for global variable ‘Term’
+evaluateThreshold: no visible binding for global variable ‘Genes’
+evaluateThreshold: no visible binding for global variable ‘Frequency’
+evaluateThreshold: no visible binding for global variable ‘Threshold’
+generateGPTPrompt: no visible binding for global variable ‘Term’
+generateGPTPrompt: no visible binding for global variable ‘Cluster’
+plotHeatmap : prepare_heatmap: no visible binding for global variable
+  ‘condition’
+plotHeatmap : prepare_heatmap: no visible binding for global variable
+  ‘pval_pooled’
+plotHeatmap : prepare_heatmap: no visible binding for global variable
+  ‘Cluster_Annotation’
+plotHeatmap : prepare_heatmap: no visible binding for global variable
+  ‘terms_per_cluster’
+plotHeatmap: no visible binding for global variable ‘regulation’
+plotHeatmap: no visible binding for global variable ‘condition’
+readGeneList: no visible binding for global variable ‘regulation’
+readGeneList: no visible global function definition for ‘enrichr’
+readGeneList: no visible binding for global variable ‘Adjusted.P.value’
+readGeneList: no visible binding for global variable ‘Term’
+readGeneList: no visible binding for global variable ‘Genes’
+readGeneList: no visible binding for global variable ‘adj_pval’
+readGeneList: no visible binding for global variable ‘dbs’
+readGeneList: no visible binding for global variable ‘condition’
+readGeneList: no visible global function definition for ‘str_count’
+readGeneList: no visible binding for global variable ‘Gene_Count’
+returnIgraphCluster: no visible binding for global variable ‘Term’
+returnIgraphCluster: no visible binding for global variable ‘Genes’
+returnIgraphCluster: no visible binding for global variable ‘Frequency’
+returnIgraphCluster : <anonymous>: no visible binding for global
+  variable ‘Term’
+returnIgraphCluster : <anonymous>: no visible binding for global
+  variable ‘dbs’
+returnIgraphCluster: no visible binding for global variable ‘Cluster’
+returnIgraphCluster: no visible binding for global variable ‘dbs.x’
+returnIgraphCluster: no visible binding for global variable ‘dbs.y’
+TRUplotIgraph: no visible binding for global variable ‘adj_pval’
+TRUplotIgraph: no visible binding for global variable ‘Term’
+TRUplotIgraph: no visible binding for global variable ‘Genes’
+TRUplotIgraph: no visible binding for global variable ‘Frequency’
+TRUplotIgraph: no visible binding for global variable ‘weight’
+TRUplotIgraph: no visible global function definition for ‘rainbow’
+TRUplotIgraph: no visible binding for global variable ‘dbs’
+TRUplotIgraph: no visible binding for global variable ‘from’
+TRUplotIgraph: no visible binding for global variable ‘to’
+Undefined global functions or variables:
+  adj_pval Adjusted.P.value Cluster Cluster_Annotation condition dbs
+  dbs.x dbs.y enrichr Frequency from Gene_Count Genes pval_pooled
+  rainbow regulation str_count Term terms_per_cluster Threshold to
+  weight
+Consider adding
+  importFrom("grDevices", "rainbow")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... NOTE
+Rd file 'extractTerms.Rd':
+  \examples lines wider than 100 characters:
+     result <- extract_Terms(input, condition = "Condition1", datab = c("GO_Biological_Process"), top = TRUE)
+
+These lines will be truncated in the PDF manual.
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in Rd file 'TRUplotIgraph.Rd'
+  ‘seed’
+
+Undocumented arguments in Rd file 'evaluateThreshold.Rd'
+  ‘seed’
+
+Undocumented arguments in Rd file 'extractMultipleTerms.Rd'
+  ‘min_genes_threshold’
+
+Undocumented arguments in Rd file 'extractTerms.Rd'
+  ‘min_genes_threshold’
+
+Undocumented arguments in Rd file 'plotHeatmap.Rd'
+  ‘plot_colors’
+Documented arguments not in \usage in Rd file 'plotHeatmap.Rd':
+  ‘colors’
+
+Undocumented arguments in Rd file 'returnIgraphCluster.Rd'
+  ‘seed’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+ WARNING
+‘qpdf’ is needed for checks on size reduction of PDFs
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... ERROR
+Running examples in ‘SummArIzeR-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: extractMultipleTerms
+> ### Title: Extract Enrichment Terms for Multiple Conditions and Categories
+> ### Aliases: extractMultipleTerms
+> 
+> ### ** Examples
+> 
+> # Example usage
+> input <- data.frame(genes = c("Gene1", "Gene2", "Gene3"))
+> result <- extractMultipleTerms(
++   input, 
++   condition_col = c("Condition1", "Condition2"), 
++   categories = c("GO_Biological_Process", "KEGG"), 
++   top = TRUE
++ )
+Error in extractMultipleTerms(input, condition_col = c("Condition1", "Condition2"),  : 
+  unused argument (top = TRUE)
+Execution halted
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... ERROR
+  Running ‘testthat.R’
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  3: replacing previous import 'dplyr::union' by 'igraph::union' when loading 'SummArIzeR' 
+  4: replacing previous import 'circlize::degree' by 'igraph::degree' when loading 'SummArIzeR' 
+  5: replacing previous import 'ComplexHeatmap::add_heatmap' by 'plotly::add_heatmap' when loading 'SummArIzeR' 
+  6: replacing previous import 'igraph::groups' by 'plotly::groups' when loading 'SummArIzeR' 
+  7: replacing previous import 'igraph::crossing' by 'tidyr::crossing' when loading 'SummArIzeR' 
+  > 
+  > test_check("SummArIzeR")
+  Error in `test_dir()`:
+  ! No test files found
+  Backtrace:
+      ▆
+   1. └─testthat::test_check("SummArIzeR")
+   2.   └─testthat::test_dir("testthat", package = package, reporter = reporter, ..., load_package = "installed")
+   3.     └─rlang::abort("No test files found")
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 2 ERRORs, 5 WARNINGs, 5 NOTEs

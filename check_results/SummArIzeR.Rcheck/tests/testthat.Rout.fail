@@ -1,0 +1,171 @@
+
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # This file is part of the standard setup for testthat.
+> # It is recommended that you do not modify it.
+> #
+> # Where should you do additional test configuration?
+> # Learn more about the roles of various files in:
+> # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+> # * https://testthat.r-lib.org/articles/special-files.html
+> 
+> library(testthat)
+> library(SummArIzeR)
+Loading required package: circlize
+========================================
+circlize version 0.4.16
+CRAN page: https://cran.r-project.org/package=circlize
+Github page: https://github.com/jokergoo/circlize
+Documentation: https://jokergoo.github.io/circlize_book/book/
+
+If you use it in published research, please cite:
+Gu, Z. circlize implements and enhances circular visualization
+  in R. Bioinformatics 2014.
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(circlize))
+========================================
+
+Loading required package: ComplexHeatmap
+Loading required package: grid
+========================================
+ComplexHeatmap version 2.20.0
+Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
+Github page: https://github.com/jokergoo/ComplexHeatmap
+Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
+
+If you use it in published research, please cite either one:
+- Gu, Z. Complex Heatmap Visualization. iMeta 2022.
+- Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
+    genomic data. Bioinformatics 2016.
+
+
+The new InteractiveComplexHeatmap package can directly export static 
+complex heatmaps into an interactive Shiny app with zero effort. Have a try!
+
+This message can be suppressed by:
+  suppressPackageStartupMessages(library(ComplexHeatmap))
+========================================
+
+Loading required package: dplyr
+
+Attaching package: 'dplyr'
+
+The following object is masked from 'package:testthat':
+
+    matches
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: igraph
+
+Attaching package: 'igraph'
+
+The following objects are masked from 'package:dplyr':
+
+    as_data_frame, groups, union
+
+The following object is masked from 'package:circlize':
+
+    degree
+
+The following object is masked from 'package:testthat':
+
+    compare
+
+The following objects are masked from 'package:stats':
+
+    decompose, spectrum
+
+The following object is masked from 'package:base':
+
+    union
+
+Loading required package: plotly
+Loading required package: ggplot2
+
+Attaching package: 'plotly'
+
+The following object is masked from 'package:ggplot2':
+
+    last_plot
+
+The following object is masked from 'package:igraph':
+
+    groups
+
+The following object is masked from 'package:ComplexHeatmap':
+
+    add_heatmap
+
+The following object is masked from 'package:stats':
+
+    filter
+
+The following object is masked from 'package:graphics':
+
+    layout
+
+Loading required package: proxy
+
+Attaching package: 'proxy'
+
+The following objects are masked from 'package:stats':
+
+    as.dist, dist
+
+The following object is masked from 'package:base':
+
+    as.matrix
+
+Loading required package: stringr
+Loading required package: tidyr
+
+Attaching package: 'tidyr'
+
+The following object is masked from 'package:igraph':
+
+    crossing
+
+The following object is masked from 'package:testthat':
+
+    matches
+
+Warning messages:
+1: replacing previous import 'dplyr::as_data_frame' by 'igraph::as_data_frame' when loading 'SummArIzeR' 
+2: replacing previous import 'dplyr::groups' by 'igraph::groups' when loading 'SummArIzeR' 
+3: replacing previous import 'dplyr::union' by 'igraph::union' when loading 'SummArIzeR' 
+4: replacing previous import 'circlize::degree' by 'igraph::degree' when loading 'SummArIzeR' 
+5: replacing previous import 'ComplexHeatmap::add_heatmap' by 'plotly::add_heatmap' when loading 'SummArIzeR' 
+6: replacing previous import 'igraph::groups' by 'plotly::groups' when loading 'SummArIzeR' 
+7: replacing previous import 'igraph::crossing' by 'tidyr::crossing' when loading 'SummArIzeR' 
+> 
+> test_check("SummArIzeR")
+Error in `test_dir()`:
+! No test files found
+Backtrace:
+    ▆
+ 1. └─testthat::test_check("SummArIzeR")
+ 2.   └─testthat::test_dir("testthat", package = package, reporter = reporter, ..., load_package = "installed")
+ 3.     └─rlang::abort("No test files found")
+Execution halted
