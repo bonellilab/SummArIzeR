@@ -25,8 +25,11 @@ The goal of SummArIzeR is to ...
 You can install the development version of SummArIzeR from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("anela-86/SummArIzeR")
+# Install devtools if not already installed
+install.packages("devtools")
+
+# Install SummArIzeR
+devtools::install_github("yourusername/SummArIzeR")
 ```
 
 ## Example
