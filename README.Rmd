@@ -18,7 +18,14 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of SummArIzeR is to ...
+`SummArIzeR` is an R package designed for gene enrichment analysis and summarization of gene lists.
+
+## Features
+
+- Perform enrichment analysis using `enrichR`.
+- Analyze up- and down-regulated genes separately.
+- Filter terms by p-value and gene thresholds.
+
 
 ## Installation
 
