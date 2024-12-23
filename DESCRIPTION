@@ -16,18 +16,21 @@ Depends:
     plotly,
     proxy,
     stringr,
-    tidyr, 
-    enrichR
+    tidyr
 Imports: 
     grid,
     stats,
     tibble,
     VGAM,
-    factoextra
+    factoextra, 
+    enrichR
 Suggests: 
+    knitr,
+    rmarkdown,
     mockery,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
