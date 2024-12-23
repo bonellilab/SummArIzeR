@@ -22,6 +22,7 @@
 #' )
 #' @importFrom dplyr %>% mutate
 #' @importFrom tidyr unite
+#' @importFrom factoextra fviz_dist
 #' @export
 extractMultipleTerms <- function(input, condition_col, categories, split_by_reg = FALSE, logFC_threshold = 0, 
                          pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
