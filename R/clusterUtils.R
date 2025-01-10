@@ -98,7 +98,8 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
 #' @param cluster_rows Logical. If `TRUE`, rows are clustered. Defaults to `FALSE`.
 #' @param cluster_columns Logical. If `TRUE`, columns are clustered. Defaults to `FALSE`.
 #' @param legend_name Character. A character for the legend title. Default to "Mean Signif".
-#' @param colors List. A named list of color palettes for the heatmap. Should contain `up`, `down`, and `default`.
+#' @param padding simpleUnit. Unt for adjusting margins. 
+#' @param plot_colors List. A named list of color palettes for the heatmap. Should contain `up`, `down`, and `default`.
 #' @param annotation_bar Logical. If `TRUE`, includes a bar plot annotation for term terms_per_cluster. Defaults to `TRUE`.
 #' @return A combined ComplexHeatmap object.
 #' @import ComplexHeatmap circlize dplyr tidyr
@@ -111,6 +112,7 @@ plotHeatmap <- function(
     cluster_rows = FALSE,
     cluster_columns = FALSE,
     legend_name = "Mean_ Signif",
+    padding = unit(c(2, 20, 2, 2), "mm"),
     plot_colors = list(
       up = c("#ececec", "#e17ecd", "#7900d5"),
       down = c("#ececec", "#41B7C4", "#2A5783"),
@@ -145,7 +147,7 @@ plotHeatmap <- function(
       NULL
     }
     col_annotation <- if (annotation_bar && "terms_per_cluster" %in% colnames(data_wide)) {
-
+      
       ComplexHeatmap::HeatmapAnnotation(
         NumTerms = ComplexHeatmap::anno_barplot(
           data_wide$terms_per_cluster,
@@ -174,22 +176,22 @@ plotHeatmap <- function(
           row_names_max_width = grid::unit(15, "cm"), row_names_side = "left",  top_annotation = col_annotation)
       }
     }
-      else {
-            heatmap <- ComplexHeatmap::Heatmap(
-      mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
-      border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
-      column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
-      row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
-    )
-    # Combine heatmap with row annotation if applicable
+    else {
+      heatmap <- ComplexHeatmap::Heatmap(
+        mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
+        border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
+        column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
+        row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
+      )
+      # Combine heatmap with row annotation if applicable
       if (!is.null(row_annotation)) {
         heatmap <- heatmap + row_annotation
       }
       
     }
     
-    
-    
+    heatmap = draw(heatmap, padding = padding)
+    #return(draw(heatmap, padding = padding))
     return(heatmap)
   }
   
@@ -239,5 +241,6 @@ plotHeatmap <- function(
   ComplexHeatmap::draw(heatmap, heatmap_legend_side = "right")  # Explicitly draw heatmap
   return(invisible(NULL))
 }
+
 
 
