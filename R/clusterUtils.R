@@ -208,13 +208,12 @@ plotHeatmap <- function(
     missing_down <- setdiff(all_conditions, data_down$condition)
     missing_up <- setdiff(all_conditions, data_up$condition)
     
-    if (length(missing_down) > 0) {
-      data_down <- dplyr::bind_rows(data_down, tibble::tibble(condition = missing_down, Cluster = NA, Cluster_Annotation = NA, pval_pooled = NA))
+   if (length(missing_down) > 0) {
+      data_down <- dplyr::bind_rows(data_down, tibble::tibble(condition = missing_down, Cluster = data_down$Cluster[1], terms_per_cluster= data_down$terms_per_cluster[1], Cluster_Annotation = data_down$Cluster_Annotation[1], pval_pooled = NA))
     }
     if (length(missing_up) > 0) {
-      data_up <- dplyr::bind_rows(data_up, tibble::tibble(condition = missing_up, Cluster = NA, Cluster_Annotation = NA, pval_pooled = NA))
+      data_up <- dplyr::bind_rows(data_up, tibble::tibble(condition = missing_up, Cluster = data_up$Cluster[1], terms_per_cluster = data_up$terms_per_cluster[1], Cluster_Annotation = data_up$Cluster_Annotation[1], pval_pooled = NA))
     }
-    
     # Reorder both datasets to match the order of all_conditions
     data_down <- data_down %>%
       dplyr::mutate(condition = factor(condition, levels = all_conditions)) %>%
