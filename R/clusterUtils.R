@@ -111,8 +111,8 @@ plotHeatmap <- function(
     column_names_centered = TRUE,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
-    legend_name = "Mean_ Signif",
     padding = unit(c(2, 20, 2, 2), "mm"),
+    legend_name = "Mean_ Signif",
     plot_colors = list(
       up = c("#ececec", "#e17ecd", "#7900d5"),
       down = c("#ececec", "#41B7C4", "#2A5783"),
@@ -147,7 +147,7 @@ plotHeatmap <- function(
       NULL
     }
     col_annotation <- if (annotation_bar && "terms_per_cluster" %in% colnames(data_wide)) {
-      
+
       ComplexHeatmap::HeatmapAnnotation(
         NumTerms = ComplexHeatmap::anno_barplot(
           data_wide$terms_per_cluster,
@@ -176,22 +176,22 @@ plotHeatmap <- function(
           row_names_max_width = grid::unit(15, "cm"), row_names_side = "left",  top_annotation = col_annotation)
       }
     }
-    else {
-      heatmap <- ComplexHeatmap::Heatmap(
-        mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
-        border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
-        column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
-        row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
-      )
-      # Combine heatmap with row annotation if applicable
+      else {
+            heatmap <- ComplexHeatmap::Heatmap(
+      mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
+      border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
+      column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
+      row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
+    )
+    # Combine heatmap with row annotation if applicable
       if (!is.null(row_annotation)) {
         heatmap <- heatmap + row_annotation
       }
       
     }
     
-    heatmap = draw(heatmap, padding = padding)
-    #return(draw(heatmap, padding = padding))
+    
+    
     return(heatmap)
   }
   
@@ -208,12 +208,13 @@ plotHeatmap <- function(
     missing_down <- setdiff(all_conditions, data_down$condition)
     missing_up <- setdiff(all_conditions, data_up$condition)
     
-   if (length(missing_down) > 0) {
+    if (length(missing_down) > 0) {
       data_down <- dplyr::bind_rows(data_down, tibble::tibble(condition = missing_down, Cluster = data_down$Cluster[1], terms_per_cluster= data_down$terms_per_cluster[1], Cluster_Annotation = data_down$Cluster_Annotation[1], pval_pooled = NA))
     }
     if (length(missing_up) > 0) {
       data_up <- dplyr::bind_rows(data_up, tibble::tibble(condition = missing_up, Cluster = data_up$Cluster[1], terms_per_cluster = data_up$terms_per_cluster[1], Cluster_Annotation = data_up$Cluster_Annotation[1], pval_pooled = NA))
     }
+    
     # Reorder both datasets to match the order of all_conditions
     data_down <- data_down %>%
       dplyr::mutate(condition = factor(condition, levels = all_conditions)) %>%
@@ -240,6 +241,5 @@ plotHeatmap <- function(
   ComplexHeatmap::draw(heatmap, heatmap_legend_side = "right")  # Explicitly draw heatmap
   return(invisible(NULL))
 }
-
 
 
