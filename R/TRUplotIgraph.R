@@ -12,8 +12,8 @@ TRUplotIgraph <- function(input, ts, seed = 42) {
   set.seed(seed)
   input <- input %>% dplyr::select(-adj_pval)
   gene_freq <- as.data.frame(input %>%
-                               group_by(Term,  Genes) %>%
-                               summarise(Frequency = n(), .groups = "drop") %>%
+                               dplyr::group_by(Term,  Genes) %>%
+                               dplyr::summarise(Frequency = dplyr::n(), .groups = "drop") %>%
                                tidyr::pivot_wider(names_from = c(Term), values_from = Frequency, values_fill = 0))
   
   rownames(gene_freq) <- gene_freq$Genes
@@ -33,13 +33,13 @@ TRUplotIgraph <- function(input, ts, seed = 42) {
   ))
   # Create graph
   graph <- igraph::graph_from_adjacency_matrix(as.matrix(distance_matrix), mode = "undirected", weighted = TRUE)
-  graph <- igraph::delete_edges(graph, E(graph)[weight < ts])
+  graph <- igraph::delete_edges(graph, igraph::E(graph)[weight < ts])
   
   clusters <- igraph::cluster_walktrap(graph, merges = T)
-  plot_dendrogram(clusters)
+  igraph::plot_dendrogram(clusters)
   # Generate color palette
   palette <- rainbow(max(igraph::membership(clusters)))
-  V(graph)$color <- palette[igraph::membership(clusters)]
+  igraph::V(graph)$color <- palette[igraph::membership(clusters)]
   
   # Extract graph layout
   layout <- igraph::layout_with_fr(graph)  # Force-directed layout
@@ -47,25 +47,25 @@ TRUplotIgraph <- function(input, ts, seed = 42) {
   # Convert layout to data frame for Plotly
   layout_df <- as.data.frame(layout)
   colnames(layout_df) <- c("x", "y")
-  layout_df$node <- V(graph)$name
-  layout_df$color <- V(graph)$color
-  layout_df$cluster <- igraph::membership(clusters)[match(layout_df$node, V(graph)$name)]
+  layout_df$node <-  igraph::V(graph)$name
+  layout_df$color <-  igraph::V(graph)$color
+  layout_df$cluster <- igraph::membership(clusters)[match(layout_df$node,  igraph::V(graph)$name)]
   # Calculate number of genes per term
   term_gene_counts <- input %>%
-    group_by(Term) %>%
-    summarise(num_genes = n_distinct(Genes), .groups = "drop")
+    dplyr::group_by(Term) %>%
+    dplyr::summarise(num_genes = dplyr::n_distinct(Genes), .groups = "drop")
   
   layout_df <- layout_df %>%
-    left_join(term_gene_counts, by = c("node" = "Term"))
+    dplyr::left_join(term_gene_counts, by = c("node" = "Term"))
  
    # Insert database information
   dbs_info_df <- input %>%
-    group_by(Term) %>%
-    reframe(dbs_info = dbs)
+    dplyr::group_by(Term) %>%
+    dplyr::reframe(dbs_info = dbs)
   
   
   layout_df <- layout_df %>%
-    left_join(dbs_info_df, by = c("node" = "Term"))
+    dplyr::left_join(dbs_info_df, by = c("node" = "Term"))
   
   # Add hover information
   layout_df$hover_info <- paste0(
@@ -76,9 +76,9 @@ TRUplotIgraph <- function(input, ts, seed = 42) {
   )
   
   # Create edges for Plotly
-  edges <- igraph::get.data.frame(graph, what = "edges")
+  edges <- igraph::as_data_frame(graph, what = "edges")
   edges <- edges %>%
-    mutate(
+    dplyr::mutate(
       x_start = layout_df$x[match(from, layout_df$node)],
       y_start = layout_df$y[match(from, layout_df$node)],
       x_end = layout_df$x[match(to, layout_df$node)],
@@ -113,5 +113,3 @@ TRUplotIgraph <- function(input, ts, seed = 42) {
   
   return(plot)
 }
-
-
