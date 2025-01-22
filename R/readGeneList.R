@@ -12,6 +12,7 @@
 #' @param min_genes_threshold The minimum number of genes required for a term to be kept in the results. Default is 3. 
 #' @return A list with two data frames: `regular` (all terms) and `top` (top terms).
 #' @import dplyr tidyr
+#' @import stringr
 #' @export
 
 readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logFC_threshold = 0, pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
@@ -82,14 +83,14 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
       
       regular_terms <- regular_terms %>%
         dplyr::group_by(Term) %>%
-        dplyr::filter(n_distinct(Genes) >= min_genes_threshold) %>%
+        dplyr::filter(dplyr::n_distinct(Genes) >= min_genes_threshold) %>%
         dplyr::ungroup()
       
       top_terms <- BP_gl %>%
-        rowwise() %>%
-        mutate(Gene_Count = str_count(Genes, ",") + 1) %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(Gene_Count = stringr::str_count(Genes, ",") + 1) %>%
         dplyr::filter(Gene_Count >= min_genes_threshold) %>%
-        ungroup() %>%
+        dplyr::ungroup() %>%
         dplyr::select(-Gene_Count) %>%
         dplyr::filter(!is.na(adj_pval) & adj_pval < pval_threshold) %>%
         dplyr::slice_min(adj_pval, n = n) %>%
@@ -140,14 +141,14 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
     
     regular_terms <- regular_terms %>%
       dplyr::group_by(Term) %>%
-      dplyr::filter(n_distinct(Genes) >= min_genes_threshold) %>%
+      dplyr::filter(dplyr::n_distinct(Genes) >= min_genes_threshold) %>%
       dplyr::ungroup()
     
     top_terms <- BP_gl %>%
-      rowwise() %>%
-      mutate(Gene_Count = str_count(Genes, ",") + 1) %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(Gene_Count =  stringr::str_count(Genes, ",") + 1) %>%
       dplyr::filter(Gene_Count >= min_genes_threshold) %>%
-      ungroup() %>%
+      dplyr::ungroup() %>%
       dplyr::select(-Gene_Count) %>%
       dplyr::filter(!is.na(adj_pval) & adj_pval < pval_threshold) %>%
       dplyr::slice_min(adj_pval, n = n) %>%
@@ -159,4 +160,3 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
     return(filtered_regular)
   }
 }
-
