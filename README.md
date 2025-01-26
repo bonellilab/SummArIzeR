@@ -11,11 +11,10 @@
 ## Features
 
 - Perform enrichment analysis using `enrichR`.
-- Allows analysis of multiple conditions
-- Analyze up- and down-regulated genes separately.
+- Allows analysis of multiple conditions and seperate analysis of up-and downregulated genes.
 - Filter terms by p-value and gene thresholds.
-- Calculates similarities of results terms based on included genes
-- Clusters terms using random walk algorithm 
+- Calculate similarities of results terms based on included genes.
+- Cluster terms using random walk algorithm.
 - Generates a prompt for a LLM to summarized cluster annotations
 - Allows easy heatmap visualization
 
@@ -107,7 +106,6 @@ plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 Edges below the similarity treshold (ts) are deleted. 
 The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity:
 ```{r, cluster network, echo = FALSE}
-
 evaluateThreshold(Termlist_all)
 ```
 <img src="examples/evaluate_ts_exampleplot.png" alt="Evaluate Treshold" width="600"/>
@@ -116,7 +114,6 @@ After treshold adjustment, clusters can be assigned to the dataframe and the Pro
 
 ```ruby
 Genelist_test_cluster<-returnIgraphCluster(Termlist_all, ts = 0.3)
-head(Genelist_test_cluster, n = 5)
 generateGPTPrompt(Genelist_test_cluster)
 ```
 The prompt can be queried using a LLM like ChatGPT. The result can be copied into R. 
