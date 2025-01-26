@@ -102,12 +102,16 @@ Now term cluster can be assigned based on included genes:
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 
 ```
+<img src="examples/igraph_exampleplot.png" alt="Network plot" width="600"/>
+
 Edges below the similarity treshold (ts) are deleted. 
 The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity:
 ```{r, cluster network, echo = FALSE}
 
 evaluateThreshold(Termlist_all)
 ```
+<img src="examples/evaluate_ts_exampleplot.png" alt="Evaluate Treshold" width="600"/>
+
 After treshold adjustment, clusters can be assigned to the dataframe and the Prompt can be generated:
 
 ```ruby
@@ -141,3 +145,4 @@ The results can be plotted as Heatmap. If the enrichment was done for up-and dow
 plotHeatmap(Annotation_list, split_by_reg = T, rot = 90, annotation_bar = F, column_names_centered = F)
 
 ```
+<img src="examples/Heatmap_example.png" alt="Heatmap of enrichment results" width="600"/>
