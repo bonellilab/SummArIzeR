@@ -45,7 +45,7 @@ devtools::install_github("wjawaid/enrichR")```
 This is a basic example which shows you how to run SummArIzeR.
 We create an example dataframe from two celltypes comparing a disease and control group:
 
-```{r, example}
+``` ruby
 library(SummArIzeR)
 library(enrichR)
 library(factoextra)
@@ -79,20 +79,27 @@ genelist_df <- data.frame(
 We can perform the enrichment analysis for the different conditions CellType and Group:
 Here we extract the top 5 hits from every database and every condition.
 
-```{r, example, include=FALSE}
+```ruby
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
-```{r, example, echo = F}
+```ruby
 head(Termlist_all, n = 5)
-
 ```
+
+| Term                                                                 | Genes | adj_pval  | dbs                        | condition   | regulation   |
+|----------------------------------------------------------------------|-------|-----------|----------------------------|-------------|--------------|
+| Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509)  | IL21  | 4.42e-12  | GO_Biological_Process_2023 | CD4_Disease | up-regulated |
+| Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509)  | SOCS3 | 4.42e-12  | GO_Biological_Process_2023 | CD4_Disease | up-regulated |
+| Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509)  | IL6   | 4.42e-12  | GO_Biological_Process_2023 | CD4_Disease | up-regulated |
+| Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509)  | IFNG  | 4.42e-12  | GO_Biological_Process_2023 | CD4_Disease | up-regulated |
+| Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509)  | IL23A | 4.42e-12  | GO_Biological_Process_2023 | CD4_Disease | up-regulated |
+
+
 Now term cluster can be assigned based on included genes: 
 
-```{r, cluster network}
+```ruby
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
-htmltools::tagList(plot)
-
 
 ```
 Edges below the similarity treshold (ts) are deleted. 
@@ -103,7 +110,7 @@ evaluateThreshold(Termlist_all)
 ```
 After treshold adjustment, clusters can be assigned to the dataframe and the Prompt can be generated:
 
-```{r, prompt}
+```ruby
 Genelist_test_cluster<-returnIgraphCluster(Termlist_all, ts = 0.3)
 head(Genelist_test_cluster, n = 5)
 generateGPTPrompt(Genelist_test_cluster)
@@ -111,7 +118,7 @@ generateGPTPrompt(Genelist_test_cluster)
 The prompt can be queried using a LLM like ChatGPT. The result can be copied into R. 
 Now, a final data frame containing the cluster annotations can be created: 
 
-```{r cluster annotation, message=FALSE, warning= FALSE}
+```ruby
 #Enter vector from LLM 
 cluster_summary <- c(
   '1' = 'Cytokine Signaling and STAT Pathways',
