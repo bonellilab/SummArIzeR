@@ -3,10 +3,13 @@
 
 <!-- badges: start -->
 <!-- badges: end -->
+<img src="examples/hexlogo.svg" alt="Network plot" align  = "right" width="150"/>
+
 
 `SummArIzeR` is an R package, that allows an easy use of EnrichR to compare enrichment results from multiple databases of multiple conditons. It results in a clustering of enriched terms and enables the annotation of these terms by creating a promt for large language models such as gpt4. Results can be vizualised in a Heatmap.
 
-
+<br/>
+<br/>
 
 ## Features
 
