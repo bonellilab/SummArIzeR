@@ -7,7 +7,9 @@
 #' @return A data frame with terms, clusters, and enriched metadata, including a summary of terms per cluster.
 #' @import dplyr tidyr igraph
 #' @export
-returnIgraphCluster <- function(input, ts, seed = 42) {
+returnIgraphCluster<- function(input, ts, seed = 42) {
+
+
   # Ensure necessary columns exist
   set.seed(seed)
   required_columns <- c("Term", "Genes", "dbs")
@@ -44,10 +46,9 @@ returnIgraphCluster <- function(input, ts, seed = 42) {
     Cluster = as.vector(cluster_membership)
   )
   
-  # Add metadata: `genes_per_term` and `dbs`
+  # Add metadata:`dbs`
   term_cluster <- term_cluster %>%
     dplyr::mutate(
-      genes_per_term = base::colSums(matrix_genes[, Term, drop = FALSE]),
       dbs = sapply(Term, function(term_name) {
         input %>%
           dplyr::filter(Term == term_name) %>%
@@ -56,7 +57,7 @@ returnIgraphCluster <- function(input, ts, seed = 42) {
           base::paste(collapse = ", ")
       })
     )
-  
+
   # Calculate number of unique terms per cluster
   cluster_summary <- term_cluster %>%
     dplyr::group_by(Cluster) %>%
@@ -66,11 +67,21 @@ returnIgraphCluster <- function(input, ts, seed = 42) {
   term_cluster <- term_cluster %>%
     dplyr::left_join(cluster_summary, by = "Cluster")
   
-  # Merge clusters back with the original input for enriched output
+
   Termlist_all <- input %>%
-    dplyr::left_join(term_cluster, by = "Term") %>%
-    dplyr::select(-dbs.x) %>% # Remove redundant dbs column
-    dplyr::rename(dbs = dbs.y) # Rename the remaining dbs column to `dbs`
+    dplyr::left_join(term_cluster, by = "Term") %>%  # Merge clusters
+    dplyr::select(-dbs.x) %>%  # Remove redundant dbs column
+    dplyr::rename(dbs = dbs.y) %>%  # Rename dbs column
+    dplyr::group_by(condition, Term, dbs, Cluster, adj_pval) %>%  # Keep Cluster if it exists
+    dplyr::summarise(
+      num_genes_per_term = length(unique(unlist(Genes))),  # Count unique genes
+      genelist_per_term = paste(unique(unlist(na.omit(Genes))), collapse = ", "),  # Concatenate unique genes
+      .groups = "drop"  # Remove grouping after summarization
+    )
+  
   
   return(Termlist_all)
 }
+
+
+
