@@ -81,13 +81,13 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
     dplyr::group_by(condition, Cluster) %>%
     dplyr::mutate(
       pval_pooled = poolPValues(adj_pval, method = method, weights = weights, min_pval = min_pval))%>%
-    dplyr::distinct(condition, Cluster, .keep_all = TRUE) %>%
+    dplyr::distinct(condition, Cluster,Term, .keep_all = TRUE) %>%
     dplyr::mutate(
       unique_terms_per_cluster = list(unique(Term)),  # Store unique terms as a list
       terms_per_cluster = length(unique(Term)),  # Count unique terms
       unique_genes_per_cluster = list(unique(unlist(genelist_per_term))),  # Store unique genes as a list
-      genes_per_cluster = length(unique(unlist(genelist_per_term))))  # Count unique genes
-  
+      genes_per_cluster = length(unique(unlist(genelist_per_term)))) %>% # Count unique genes
+    dplyr::select(-num_genes_per_term, -genelist_per_term)
   
   return(annotated_df)
 }
