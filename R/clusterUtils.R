@@ -92,7 +92,6 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
   return(annotated_df)
 }
 
-
 #' Plot Enrichment Heatmap
 #'
 #' Generates a heatmap of enrichment results, with options to split by regulation, customize rotation, colors, 
