@@ -58,27 +58,18 @@ returnIgraphCluster<- function(input, ts, seed = 42) {
       })
     )
 
-  # Calculate number of unique terms per cluster
-  cluster_summary <- term_cluster %>%
-    dplyr::group_by(Cluster) %>%
-    dplyr::summarise(terms_per_cluster = dplyr::n(), .groups = "drop")
-  
-  # Merge the summary back into the term_cluster data frame
-  term_cluster <- term_cluster %>%
-    dplyr::left_join(cluster_summary, by = "Cluster")
-  
 
   Termlist_all <- input %>%
     dplyr::left_join(term_cluster, by = "Term") %>%  # Merge clusters
     dplyr::select(-dbs.x) %>%  # Remove redundant dbs column
     dplyr::rename(dbs = dbs.y) %>%  # Rename dbs column
-    dplyr::group_by(condition, Term, dbs, Cluster, adj_pval) %>%  # Keep Cluster if it exists
-    dplyr::summarise(
+    dplyr::group_by(condition, Term) %>%  
+    dplyr::mutate(
       num_genes_per_term = length(unique(unlist(Genes))),  # Count unique genes
       genelist_per_term = paste(unique(unlist(na.omit(Genes))), collapse = ", "),  # Concatenate unique genes
-      .groups = "drop"  # Remove grouping after summarization
-    )
-  
+    ) %>%
+  dplyr::distinct(condition, Cluster,Term,adj_pval, .keep_all = T ) %>% #Keep distinct Terms for every conditions
+    dplyr::select(-Genes)  
   
   return(Termlist_all)
 }
