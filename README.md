@@ -125,12 +125,14 @@ Now, a final data frame containing the cluster annotations can be created:
 ```ruby
 #Enter vector from LLM 
 cluster_summary <- c(
-  '1' = 'Cytokine Signaling and STAT Pathways',
-  '2' = 'T Cell Activation and Response to External Stimuli',
-  '3' = 'Regulation of T Cells and Inflammatory Responses',
-  '4' = 'Interferon and Interleukin-Mediated Signal Transduction',
-  '5' = 'Regulation of Immune Responses and Chemokine Production',
-  '6' = 'General Immune System and Interleukin-2 Signaling'
+  '1' = 'T Cell Activation and Differentiation',
+  '2' = 'Regulation of Cytokine Production and Lymphocyte Proliferation',
+  '3' = 'Th1/Th2 Differentiation and Inflammatory Response',
+  '4' = 'Cytokine Signaling in the Immune System',
+  '5' = 'Viral Response and Pro-Inflammatory Cytokine Signaling',
+  '6' = 'Response to Cytokine Stimuli',
+  '7' = 'Innate Immune Response and Inflammation',
+  '8' = 'Regulation of Protein Localization and Immune Signaling'
 )
 
 
