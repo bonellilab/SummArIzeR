@@ -80,17 +80,32 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
     dplyr::distinct(condition, Cluster, Term, .keep_all = TRUE) %>%
     dplyr::group_by(condition, Cluster) %>%
     dplyr::mutate(
-      pval_pooled = poolPValues(adj_pval, method = method, weights = weights, min_pval = min_pval))%>%
-    dplyr::distinct(condition, Cluster,Term, .keep_all = TRUE) %>%
+      pval_pooled = poolPValues(adj_pval, method = method, weights = weights, min_pval = min_pval)
+    ) %>%
+    dplyr::distinct(condition, Cluster, Term, .keep_all = TRUE) %>%
     dplyr::mutate(
       unique_terms_per_cluster = list(unique(Term)),  # Store unique terms as a list
       terms_per_cluster = length(unique(Term)),  # Count unique terms
       unique_genes_per_cluster = list(unique(unlist(genelist_per_term))),  # Store unique genes as a list
-      genes_per_cluster = length(unique(unlist(genelist_per_term)))) %>% # Count unique genes
-    dplyr::select(-num_genes_per_term, -genelist_per_term)
+      genes_per_cluster = length(unique(unlist(genelist_per_term)))  # Count unique genes
+    )
+  
+  # Conditionally include 'regulation' in distinct() if it exists in input
+  if ("regulation" %in% colnames(input)) {
+    annotated_df <- annotated_df %>%
+      dplyr::distinct(condition, Cluster, regulation, .keep_all = TRUE)
+  } else {
+    annotated_df <- annotated_df %>%
+      dplyr::distinct(condition, Cluster, .keep_all = TRUE)
+  }
+  
+  # Remove unnecessary columns
+  annotated_df <- annotated_df %>%
+    dplyr::select(-num_genes_per_term, -genelist_per_term, -Term)
   
   return(annotated_df)
 }
+
 
 #' Plot Enrichment Heatmap
 #'
