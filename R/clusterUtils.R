@@ -276,14 +276,15 @@ plotHeatmap <- function(
 #' @import dplyr tidyr ggplot2
 #' @export
 
+
 plotBubbleplot <- function(
     input,
+    split_by_reg = FALSE, 
     plot_colors = list(
       up = c("#ececec", "#e17ecd", "#7900d5"),
       down = c("#ececec", "#41B7C4", "#2A5783"),
       default = c("#ececec", "#41B7C4", "#2A5783")
-    ),
-    split_by_reg = FALSE
+    )
 ) {
   
   # Prepare data
@@ -298,12 +299,12 @@ plotBubbleplot <- function(
   )) +
     ggplot2::geom_point() +
     ggplot2::scale_colour_gradient2(low = plot_colors$default[1], mid = plot_colors$default[2], high = plot_colors$default[3]) +
-    ggplot2::scale_size(name = "-log10(pooled adj. pval)", range = c(3, 10)) + 
+    ggplot2::scale_size(name = "p.adj.", range = c(3, 10)) + 
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
   
   # Handle split by regulation
-  if (split_by_reg) {
+  if (split_by_reg == TRUE) {
     input <- input %>%
       dplyr::mutate(color_condition = ifelse(regulation == "down-regulated", -genes_per_cluster, genes_per_cluster))
     
