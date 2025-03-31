@@ -249,3 +249,70 @@ plotHeatmap <- function(
 }
 
 
+
+#' Plot Enrichment Bubble plot
+#'
+#' Generates a Bubble plot of enrichment results, with options to split by regulation
+#'
+#' @param input A data frame containing enrichment results with columns `Cluster_Annotation`, `condition`, `pval_pooled`, and optionally `terms_per_cluster`.
+#' @param split_by_reg Logical. If `TRUE`, splits heatmaps into up-regulated and down-regulated genes.
+#' @param plot_colors List. A named list of color palettes for the heatmap. Should contain `up`, `down`, and `default`.
+#' @return A ggplot object
+#' @import dplyr tidyr ggplot2
+#' @export
+
+plotBubbleplot <- function(
+    input,
+    plot_colors = list(
+      up = c("#ececec", "#e17ecd", "#7900d5"),
+      down = c("#ececec", "#41B7C4", "#2A5783"),
+      default = c("#ececec", "#41B7C4", "#2A5783")
+    ),
+    split_by_reg = FALSE
+) {
+  
+  # Prepare data
+  input <- input %>%
+    dplyr::arrange(adj_pval) %>%
+    dplyr::mutate(Cluster_Annotation = factor(Cluster_Annotation, levels = unique(Cluster_Annotation)))
+  
+  # Base plot
+  Bplot <- ggplot2::ggplot(input, ggplot2::aes(
+    x = condition, y = Cluster_Annotation, 
+    size = -log10(adj_pval), color = genes_per_cluster
+  )) +
+    ggplot2::geom_point() +
+    ggplot2::scale_colour_gradient2(low = plot_colors$default[1], mid = plot_colors$default[2], high = plot_colors$default[3]) +
+    ggplot2::scale_size(name = "-log10(pooled adj. pval)", range = c(3, 10)) + 
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
+  
+  # Handle split by regulation
+  if (split_by_reg) {
+    input <- input %>%
+      dplyr::mutate(color_condition = ifelse(regulation == "down-regulated", -genes_per_cluster, genes_per_cluster))
+    
+    Bplot <- ggplot2::ggplot(input, ggplot2::aes(
+      x = Cluster_Annotation, y = condition, 
+      size = -log10(adj_pval), color = color_condition
+    )) +
+      ggplot2::geom_point() +
+      ggplot2::scale_colour_gradient2(
+        low = plot_colors$down[3], mid = plot_colors$default[1], high = plot_colors$up[3],
+        name = "genes per cluster\n(neg. sign = downreg. genes)"
+      ) +
+      ggplot2::scale_size(name = "p.adj.", range = c(3, 10)) + 
+      ggplot2::theme_minimal() +
+      ggplot2::labs(x = NULL, y = NULL, title = "") +
+      ggplot2::theme(
+        axis.text.x = ggplot2::element_text(angle = 90, hjust = 1),
+        legend.position = "left"
+      ) +
+      ggplot2::facet_wrap(~ regulation)
+  }
+  
+  return(Bplot)
+}
+
+
+
