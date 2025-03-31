@@ -148,3 +148,9 @@ plotHeatmap(Annotation_list, split_by_reg = T, rot = 90, annotation_bar = F, col
 
 ```
 <img src="examples/Heatmap_example.png" alt="Heatmap of enrichment results" width="600"/>
+```{r Bubbleplot,  fig.width=8.27, fig.height=8}
+
+plotBubbleplot(Annotation_list, split_by_reg = T)
+
+```
+<img src="examples/Bubbleplot_example.png" alt="Bubbleplot of enrichment results" 
