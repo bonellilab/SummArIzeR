@@ -23,7 +23,23 @@ extractTerms <- function(input, condition_col, category, split_by_reg = FALSE, l
   if (nrow(input) == 0) {
     stop("Error: The input data frame is empty.")
   }
+   # Check if input contains "genes"
+  if ("genes" %in% colnames(input) == F) {
+   gene_col<- grep("gene", colnames(input), ignore.case = T, value = TRUE)
+   if(length(gene_col) != 1){
+     stop('Error: The input data must contain a gene name column called "genes".')}
+   if(length(gene_col) == 1){
+     colnames(input)[colnames(input) == gene_col] <- "genes"
+     
+   }
+  }
   
+  
+  # Check if input contains "log2fold"
+  if (split_by_reg == T & "log2fold" %in% colnames(input) == F ){
+    stop('Error: The input data must contain column called "log2fold", if split_by_reg is set as true')
+  }
+ 
   # Validate condition_col
   if (!is.character(condition_col) || !(condition_col %in% colnames(input))) {
     stop("Error: Condition column must be a valid column name in the input data frame.")
