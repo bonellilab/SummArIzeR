@@ -46,7 +46,7 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
   
   # Check if input is contains "log2fold"
   if (split_by_reg == T & "log2fold" %in% colnames(input) == F ){
-    stop('Error: The input data must contain a gene name column called "log2fold", if split_by_reg is set as true')
+    stop('Error: The input data must contain column called "log2fold", if split_by_reg is set as true')
   }
  
   # Validate condition_col as a character vector of valid column names
