@@ -26,11 +26,29 @@
 #' @export
 extractMultipleTerms <- function(input, condition_col, categories, split_by_reg = FALSE, logFC_threshold = 0, 
                          pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
+
+  
   # Check if input is empty
   if (nrow(input) == 0) {
     stop("Error: The input data frame is empty.")
   }
+  # Check if input contains "genes"
+  if ("genes" %in% colnames(input) == F) {
+   gene_col<- grep("gene", colnames(input), ignore.case = T, value = TRUE)
+   if(length(gene_col) != 1){
+     stop('Error: The input data must contain a gene name column called "genes".')}
+   if(length(gene_col) == 1){
+     colnames(input)[colnames(input) == gene_col] <- "genes"
+     
+   }
+  }
   
+  
+  # Check if input is contains "log2fold"
+  if (split_by_reg == T & "log2fold" %in% colnames(input) == F ){
+    stop('Error: The input data must contain a gene name column called "log2fold", if split_by_reg is set as true')
+  }
+ 
   # Validate condition_col as a character vector of valid column names
   if (!is.character(condition_col) || any(!condition_col %in% colnames(input))) {
     stop("Error: condition_col must be a character vector with valid column names in the input data frame.")
@@ -94,5 +112,6 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
   
   return(final_results)
 }
+
 
 
