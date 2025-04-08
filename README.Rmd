@@ -141,7 +141,14 @@ print(cluster_summary)
 
 Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
 ```
-The results can be plotted as Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be splitted for up-and downregulated genes.
+The results can be plotted as Bubbleplot. If the enrichment was done for up-and downregulation seperatly, the plot can be splitted for up-and downregulated genes.
+
+```{r Bubbleplot,  fig.width=8.27, fig.height=7}
+
+plotBubbleplot(Annotation_list, split_by_reg = T, rot = 90)
+
+```
+The results can also be plotted as Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be splitted for up-and downregulated genes.
 
 ```{r Heatmap,  fig.width=8.27, fig.height=7}
 
