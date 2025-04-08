@@ -83,7 +83,7 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
       pval_pooled = poolPValues(adj_pval, method = method, weights = weights, min_pval = min_pval)
     ) %>%
     dplyr::distinct(condition, Cluster, Term, .keep_all = TRUE) %>%
-    unlist() %>%
+    ungroup() %>%
     dplyr::group_by(Cluster) %>%
     dplyr::mutate(
       unique_terms_per_cluster = list(unique(Term)),  # Store unique terms as a list
