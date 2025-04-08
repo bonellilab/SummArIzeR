@@ -1,6 +1,6 @@
 Package: SummArIzeR
 Title: Summarize enrichment terms with LLMs
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: c(
     person("Marie", "Brinkmann", , "marie.brinkmann@meduniwien.ac.at", role = c("aut", "cre")),
     person("Anela", "Tosevska", , "anela.tosevska@meduniwien.ac.at", role = "aut")
