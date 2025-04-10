@@ -146,6 +146,10 @@ plotHeatmap <- function(
   # Helper function to prepare data and generate a heatmap
   prepare_heatmap <- function(data, color_palette, legend_title = legend_name) {
     # Pivot data to wide format
+    if (anyNA(data$Cluster_Annotation)) {
+      warning("Column 'Cluster_Annotation' contains NA values. Please make sure all clusters are annotated.")
+    }
+    
     data_wide <- data %>%
       tidyr::pivot_wider(names_from = condition, values_from = pval_pooled, id_cols = c(Cluster_Annotation, terms_per_cluster)) %>%
       dplyr::arrange(desc(terms_per_cluster))  # Sort rows by terms_per_cluster
