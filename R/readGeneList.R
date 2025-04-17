@@ -42,6 +42,7 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
       dplyr::filter(!is.na(regulation))
     
     results <- list()
+    top_term_list<-list()
     
     for (reg in c("up-regulated", "down-regulated")) {
       gl_subset <- gl %>% dplyr::filter(regulation == reg)
@@ -93,17 +94,19 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
         dplyr::ungroup() %>%
         dplyr::select(-Gene_Count) %>%
         dplyr::filter(!is.na(adj_pval) & adj_pval < pval_threshold) %>%
-        dplyr::slice_min(adj_pval, n = n) %>%
-        dplyr::select(Term)
+        dplyr::slice_min(adj_pval, n = n) 
       
       filtered_regular <- regular_terms %>%
         dplyr::filter(Term %in% unique(top_terms$Term))
       
-      results[[reg]] <- filtered_regular
+      results[[reg]] <- regular_terms
+      top_term_list[[reg]]<-top_terms
     }
-    
-    final_result <- dplyr::bind_rows(results[["up-regulated"]], results[["down-regulated"]])
-    return(final_result)
+
+    regular_results <- dplyr::bind_rows(results[["up-regulated"]], results[["down-regulated"]])
+    top_term_results <- dplyr::bind_rows(top_term_list[["up-regulated"]], top_term_list[["down-regulated"]])
+    returnlist<-list(regular_results, top_term_results)
+    return( returnlist)
   } else {
     gl_enr <- tryCatch(
       enrichr(gl$ID, databases = category),
@@ -151,12 +154,13 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
       dplyr::ungroup() %>%
       dplyr::select(-Gene_Count) %>%
       dplyr::filter(!is.na(adj_pval) & adj_pval < pval_threshold) %>%
-      dplyr::slice_min(adj_pval, n = n) %>%
-      dplyr::select(Term)
+      dplyr::slice_min(adj_pval, n = n) 
     
     filtered_regular <- regular_terms %>%
       dplyr::filter(Term %in% unique(top_terms$Term))
-    
-    return(filtered_regular)
+    returnlist<-list(regular_terms, top_terms)
+    return( returnlist)
   }
 }
+
+
