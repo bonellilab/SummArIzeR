@@ -69,7 +69,7 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
   }
   
   results <- list()
-  
+  results_top_terms<-list()
   # Iterate through composite condition values
   for (cond_value in condition_values) {
     # Subset input for the current composite condition
@@ -77,7 +77,7 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
     
     # Iterate through each categories in the vector
     for (cat in categories) {
-      filtered_regular <- tryCatch(
+      filtered_regular_long <- tryCatch(
         readGeneList(
           listpathSig = subset_input,
           name = cond_value, 
@@ -94,16 +94,29 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
           return(NULL)
         }
       )
-      
+      filtered_regular<-filtered_regular_long[[1]]
+      top_list<-filtered_regular_long[[2]]
       # Store results
       if (!is.null(filtered_regular)) {
         results[[paste(cond_value, cat, sep = "_")]] <- filtered_regular
       }
+      if (!is.null(filtered_regular)) {
+        results_top_terms[[paste(cond_value, cat, sep = "_")]] <- top_list
+      }
+      
     }
+
+    
   }
   
   # Combine results across all conditions and categories
   final_results <- do.call(rbind, results)
+  # Combine top terms across all conditions and categories
+  final_top_list <- do.call(rbind, results_top_terms)
+
+  # Filter for top hits only 
+  
+  final_results<-final_results %>% dplyr::filter(Term %in% unique(final_top_list$Term))
   rownames(final_results)<- NULL
   # Warning if no results are generated
   if (is.null(final_results) || nrow(final_results) == 0) {
@@ -112,6 +125,7 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
   
   return(final_results)
 }
+
 
 
 
