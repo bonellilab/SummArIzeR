@@ -10,6 +10,7 @@
 generateGPTPrompt <- function(input) {
   # Extract unique terms per cluster
   unique_terms_per_cluster <- input %>%
+    dplyr::ungroup() %>%
     dplyr::select(Term, Cluster) %>%
     dplyr::distinct() %>%
     dplyr::arrange(Cluster)
