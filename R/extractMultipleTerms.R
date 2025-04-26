@@ -113,17 +113,16 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
   final_results <- do.call(rbind, results)
   # Combine top terms across all conditions and categories
   final_top_list <- do.call(rbind, results_top_terms)
-
-  # Filter for top hits only 
-  
-  final_results<-final_results %>% dplyr::filter(Term %in% unique(final_top_list$Term))
-  rownames(final_results)<- NULL
-  # Warning if no results are generated
+ # Warning if no results are generated
   if (is.null(final_results) || nrow(final_results) == 0) {
     warning("Warning: No results generated for the given categories and conditions.")
   }
-  
-  return(final_results)
+  # Filter for top hits only 
+  if (nrow(final_results) > 0) {
+     final_results<-final_results %>% dplyr::filter(Term %in% unique(final_top_list$Term))
+  rownames(final_results)<- NULL
+      return(final_results)
+  }
 }
 
 
