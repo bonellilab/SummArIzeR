@@ -8,8 +8,8 @@
 #' @import dplyr tidyr igraph
 #' @export
 returnIgraphCluster<- function(input, ts, seed = 42) {
-
-
+  
+  
   # Ensure necessary columns exist
   set.seed(seed)
   required_columns <- c("Term", "Genes", "dbs")
@@ -31,7 +31,7 @@ returnIgraphCluster<- function(input, ts, seed = 42) {
   
   # Generate similarity and distance matrices
   distance_matrix <- proxy::dist(t(matrix_genes), method = "Jaccard", convert_similarities = F)
-
+  
   # Create graph
   graph <- igraph::graph_from_adjacency_matrix(base::as.matrix(distance_matrix), mode = "undirected", weighted = TRUE)
   graph <- igraph::delete_edges(graph, igraph::E(graph)[igraph::E(graph)$weight < ts])
@@ -57,21 +57,34 @@ returnIgraphCluster<- function(input, ts, seed = 42) {
           base::paste(collapse = ", ")
       })
     )
-
-
+  
+  if("regulation" %in% colnames(input)){
   Termlist_all <- input %>%
+    dplyr::left_join(term_cluster, by = "Term") %>%  # Merge clusters
+    dplyr::select(-dbs.x) %>%  # Remove redundant dbs column
+    dplyr::rename(dbs = dbs.y) %>%  # Rename dbs column
+    dplyr::group_by(condition, Term, regulation) %>%  
+    dplyr::mutate(
+      num_genes_per_term = length(unique(unlist(Genes))),
+      genelist_per_term = list(unique(unlist(na.omit(Genes)))),
+    ) %>%
+    dplyr::distinct(condition, regulation, Cluster,Term,adj_pval, .keep_all = T ) %>% #Keep distinct Terms for every conditions
+    dplyr::select(-Genes)  
+  
+  return(Termlist_all)}
+  else{Termlist_all <- input %>%
     dplyr::left_join(term_cluster, by = "Term") %>%  # Merge clusters
     dplyr::select(-dbs.x) %>%  # Remove redundant dbs column
     dplyr::rename(dbs = dbs.y) %>%  # Rename dbs column
     dplyr::group_by(condition, Term) %>%  
     dplyr::mutate(
-      num_genes_per_term = length(unique(unlist(Genes))),  # Count unique genes
-      genelist_per_term = paste(unique(unlist(na.omit(Genes))), collapse = ", "),  # Concatenate unique genes
+      num_genes_per_term = length(unique(unlist(Genes))),
+      genelist_per_term = list(unique(unlist(na.omit(Genes)))),
     ) %>%
-  dplyr::distinct(condition, Cluster,Term,adj_pval, .keep_all = T ) %>% #Keep distinct Terms for every conditions
+    dplyr::distinct(condition, Cluster,Term,adj_pval, .keep_all = T ) %>% #Keep distinct Terms for every conditions
     dplyr::select(-Genes)  
   
-  return(Termlist_all)
+  return(Termlist_all)}
 }
 
 
