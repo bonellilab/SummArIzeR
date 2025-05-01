@@ -95,7 +95,7 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
         genes_per_cluster = length(unique(unlist(genelist_per_term)))  
       )
     
-    annotated_df <- annotated_df %>%
+    annotated_df <- annotated_df %>% ungroup() %>%
       dplyr::distinct(condition, Cluster, regulation, .keep_all = T) %>%
     select(-Term, -adj_pval, -dbs, -num_genes_per_term, -genelist_per_term)
   } else {
@@ -116,7 +116,7 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
         genes_per_cluster = length(unique(unlist(genelist_per_term)))  
       )
     
-    annotated_df <- annotated_df %>%
+    annotated_df <- annotated_df %>%ungroup() %>%
       dplyr::distinct(condition, Cluster, .keep_all = F) %>%
       select(-Term, -adj_pval, -dbs, -num_genes_per_term, -genelist_per_term)
   }
