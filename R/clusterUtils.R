@@ -311,7 +311,7 @@ plotBubbleplot <- function(
     
     Bplot <- ggplot2::ggplot(input, ggplot2::aes(
       x = Cluster_Annotation, y = condition, 
-      size = -log10(adj_pval), color = color_condition
+      size = -log10(pval_pooled), color = color_condition
     )) +
       ggplot2::geom_point() +
       ggplot2::scale_colour_gradient2(
