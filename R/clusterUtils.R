@@ -86,7 +86,7 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
                                                                           condition, regulation) %>% dplyr::mutate(unique_terms_per_cluster = list(unique(Term)), 
                                                                                                                          terms_per_cluster = length(unique(Term)), unique_genes_per_cluster = list(unique(unlist(genelist_per_term))), 
                                                                                                                          genes_per_cluster = length(unique(unlist(genelist_per_term))))
-    annotated_df <- annotated_df %>% dplyr::distinct(condition, 
+    annotated_df <- annotated_df %>%ungroup %>% dplyr::distinct(condition, 
                                                      Cluster, regulation, .keep_all = T) %>% select(-Term, 
                                                                                                     -adj_pval, -dbs, -num_genes_per_term, -genelist_per_term)
   }
@@ -101,7 +101,7 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
                                                                           condition) %>% dplyr::mutate(unique_terms_per_cluster = list(unique(Term)), 
                                                                                                                    terms_per_cluster = length(unique(Term)), unique_genes_per_cluster = list(unique(unlist(genelist_per_term))), 
                                                                                                                    genes_per_cluster = length(unique(unlist(genelist_per_term))))
-    annotated_df <- annotated_df %>% dplyr::distinct(condition, 
+    annotated_df <- annotated_df %>% ungroup %>% dplyr::distinct(condition, 
                                                      Cluster, .keep_all = T) %>% select(-Term, 
                                                                                                     -adj_pval, -dbs, -num_genes_per_term, -genelist_per_term)
   }
