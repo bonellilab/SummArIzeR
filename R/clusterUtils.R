@@ -144,132 +144,126 @@ plotHeatmap <- function(
     ),
     annotation_bar = TRUE
 ) {
-  # Helper function to prepare data and generate a heatmap
+  if("regulation" %in% colnames(input)){split_by_reg = T}
+  #add colum with terms_per_cluster for all conditons
+  terms_per_cluster_all <- input %>%
+    dplyr::select(Cluster_Annotation, condition, regulation, unique_terms_per_cluster) %>%
+    dplyr::group_by(Cluster_Annotation) %>%
+    dplyr::mutate(terms_all = length(unique(unlist(unique_terms_per_cluster)))) %>%
+    dplyr::select(-unique_terms_per_cluster)
+  # merge it back
+  input <- input %>%
+      dplyr::left_join(terms_per_cluster_all, by = c("Cluster_Annotation", "condition", "regulation"))
+  
   prepare_heatmap <- function(data, color_palette, legend_title = legend_name) {
-    # Pivot data to wide format
     if (anyNA(data$Cluster_Annotation)) {
       warning("Column 'Cluster_Annotation' contains NA values. Please make sure all clusters are annotated.")
     }
-    
-    data_wide <- data %>%
-      tidyr::pivot_wider(names_from = condition, values_from = pval_pooled, id_cols = c(Cluster_Annotation, terms_per_cluster)) %>%
-      dplyr::arrange(desc(terms_per_cluster))  # Sort rows by terms_per_cluster
-    
-    # Create matrix for heatmap
-    mat <- base::as.matrix(data_wide %>% dplyr::select(-Cluster_Annotation, -terms_per_cluster))
+    data_wide <- data %>% tidyr::pivot_wider(names_from = condition, 
+                                             values_from = pval_pooled, id_cols = c(Cluster_Annotation, 
+                                                                                    terms_all)) %>% dplyr::arrange(desc(terms_all))
+    mat <- base::as.matrix(data_wide %>% dplyr::select(-Cluster_Annotation, 
+                                                       -terms_all))
     rownames(mat) <- data_wide$Cluster_Annotation
-    mat[is.na(mat)] <- 1  # Fill missing values with p-value = 1
-    mat[mat == 0] <- 1e-6  # Avoid log(0)
+    mat[is.na(mat)] <- 1
+    mat[mat == 0] <- 1e-06
     mat <- -log10(mat)
     max_val <- max(mat[is.finite(mat)], na.rm = TRUE)
-    mat[is.infinite(mat)] <- max_val + max_val / 2  # Cap infinite values
-    
-    # Create color function
-    col_fun <- circlize::colorRamp2(c(0, max_val / 2, max_val), color_palette)
-    
-    # Add optional frequency annotation
-    row_annotation <- if (annotation_bar && "terms_per_cluster" %in% colnames(data_wide)) {
-      ComplexHeatmap::rowAnnotation(NumTerms = ComplexHeatmap::anno_barplot(data_wide$terms_per_cluster, width = grid::unit(4, "cm")))
-      
-    } else {
+    mat[is.infinite(mat)] <- max_val + max_val/2
+    col_fun <- circlize::colorRamp2(c(0, max_val/2, max_val), 
+                                    color_palette)
+    row_annotation <- if (annotation_bar && "terms_all" %in% 
+                          colnames(data_wide)) {
+      ComplexHeatmap::rowAnnotation(NumTerms = ComplexHeatmap::anno_barplot(data_wide$terms_all, 
+                                                                            width = grid::unit(4, "cm")))
+    }
+    else {
       NULL
     }
-    col_annotation <- if (annotation_bar && "terms_per_cluster" %in% colnames(data_wide)) {
-
-      ComplexHeatmap::HeatmapAnnotation(
-        NumTerms = ComplexHeatmap::anno_barplot(
-          data_wide$terms_per_cluster,
-          width = grid::unit(4, "cm"),
-          axis_param = list(at = seq(0, max(data_wide$terms_per_cluster, na.rm = TRUE), length.out = 5))
-        ),
-        show_annotation_name = split_by_reg && legend_title == "Mean Signif down reg. genes"
-      )
-    } else {
+    col_annotation <- if (annotation_bar && "terms_all" %in% 
+                          colnames(data_wide)) {
+      ComplexHeatmap::HeatmapAnnotation(NumTerms = ComplexHeatmap::anno_barplot(data_wide$terms_all, 
+                                                                                width = grid::unit(4, "cm"), axis_param = list(at = seq(0, 
+                                                                                                                                        max(data_wide$terms_all, na.rm = TRUE), 
+                                                                                                                                        length.out = 5))), show_annotation_name = split_by_reg && 
+                                          legend_title == "Mean Signif down reg. genes")
+    }
+    else {
       NULL
     }
-    
-    # Heatap must be turned to combine up- and downregulation
     if (split_by_reg) {
-      heatmap <- ComplexHeatmap::Heatmap(
-        t(mat), name = legend_title, col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
-        border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
-        column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
-        row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
-      )
+      heatmap <- ComplexHeatmap::Heatmap(t(mat), name = legend_title, 
+                                         col = col_fun, cluster_rows = cluster_rows, 
+                                         cluster_columns = cluster_columns, border = FALSE, 
+                                         rect_gp = grid::gpar(col = "white", lwd = 1), 
+                                         column_names_rot = rot, column_names_centered = column_names_centered, 
+                                         column_names_max_height = grid::unit(15, "cm"), 
+                                         row_names_max_width = grid::unit(15, "cm"), 
+                                         row_names_side = "left")
       if (!is.null(col_annotation)) {
-        heatmap <- ComplexHeatmap::Heatmap(
-          t(mat), name = legend_title, col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
-          border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
-          column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
-          row_names_max_width = grid::unit(15, "cm"), row_names_side = "left",  top_annotation = col_annotation)
+        heatmap <- ComplexHeatmap::Heatmap(t(mat), name = legend_title, 
+                                           col = col_fun, cluster_rows = cluster_rows, 
+                                           cluster_columns = cluster_columns, border = FALSE, 
+                                           rect_gp = grid::gpar(col = "white", lwd = 1), 
+                                           column_names_rot = rot, column_names_centered = column_names_centered, 
+                                           column_names_max_height = grid::unit(15, "cm"), 
+                                           row_names_max_width = grid::unit(15, "cm"), 
+                                           row_names_side = "left", top_annotation = col_annotation)
       }
     }
-      else {
-            heatmap <- ComplexHeatmap::Heatmap(
-      mat, name = "Mean Signif", col = col_fun, cluster_rows = cluster_rows, cluster_columns = cluster_columns,
-      border = FALSE, rect_gp = grid::gpar(col = "white", lwd = 1), column_names_rot = rot,
-      column_names_centered = column_names_centered, column_names_max_height = grid::unit(15, "cm"),
-      row_names_max_width = grid::unit(15, "cm"), row_names_side = "left"
-    )
-    # Combine heatmap with row annotation if applicable
+    else {
+      heatmap <- ComplexHeatmap::Heatmap(mat, name = "Mean Signif", 
+                                         col = col_fun, cluster_rows = cluster_rows, 
+                                         cluster_columns = cluster_columns, border = FALSE, 
+                                         rect_gp = grid::gpar(col = "white", lwd = 1), 
+                                         column_names_rot = rot, column_names_centered = column_names_centered, 
+                                         column_names_max_height = grid::unit(15, "cm"), 
+                                         row_names_max_width = grid::unit(15, "cm"), 
+                                         row_names_side = "left")
       if (!is.null(row_annotation)) {
         heatmap <- heatmap + row_annotation
       }
-      
     }
-    
-    
-    
     return(heatmap)
   }
-  
   if (split_by_reg) {
-    # Split input into up-regulated and down-regulated data
-    data_down <- input %>%
-      dplyr::filter(stringr::str_detect(regulation, "down")) 
-    
-    data_up <- input %>%
-      dplyr::filter(stringr::str_detect(regulation, "up")) 
-    
-    # Ensure both datasets have matching conditions
-    all_conditions <- union(unique(data_down$condition), unique(data_up$condition))
+    data_down <- input %>% dplyr::filter(stringr::str_detect(regulation, 
+                                                             "down"))
+    data_up <- input %>% dplyr::filter(stringr::str_detect(regulation, 
+                                                           "up"))
+    all_conditions <- union(unique(data_down$condition), 
+                            unique(data_up$condition))
     missing_down <- setdiff(all_conditions, data_down$condition)
     missing_up <- setdiff(all_conditions, data_up$condition)
-    
     if (length(missing_down) > 0) {
-      data_down <- dplyr::bind_rows(data_down, tibble::tibble(condition = missing_down, Cluster = data_down$Cluster[1], terms_per_cluster= data_down$terms_per_cluster[1], Cluster_Annotation = data_down$Cluster_Annotation[1], pval_pooled = NA))
+      data_down <- dplyr::bind_rows(data_down, tibble::tibble(condition = missing_down, 
+                                                              Cluster = data_down$Cluster[1], terms_all = data_down$terms_all[1], 
+                                                              Cluster_Annotation = data_down$Cluster_Annotation[1], 
+                                                              pval_pooled = NA))
     }
     if (length(missing_up) > 0) {
-      data_up <- dplyr::bind_rows(data_up, tibble::tibble(condition = missing_up, Cluster = data_up$Cluster[1], terms_per_cluster = data_up$terms_per_cluster[1], Cluster_Annotation = data_up$Cluster_Annotation[1], pval_pooled = NA))
+      data_up <- dplyr::bind_rows(data_up, tibble::tibble(condition = missing_up, 
+                                                          Cluster = data_up$Cluster[1], terms_all = data_up$terms_all[1], 
+                                                          Cluster_Annotation = data_up$Cluster_Annotation[1], 
+                                                          pval_pooled = NA))
     }
-    
-    # Reorder both datasets to match the order of all_conditions
-    data_down <- data_down %>%
-      dplyr::mutate(condition = factor(condition, levels = all_conditions)) %>%
-      dplyr::arrange(condition)
-    
-    data_up <- data_up %>%
-      dplyr::mutate(condition = factor(condition, levels = all_conditions)) %>%
-      dplyr::arrange(condition)
-    
-    # Generate heatmaps for up and down regulation
-    heatmap_down <- prepare_heatmap(data_down, plot_colors$down, legend_title = "Mean Signif down reg. genes")
-    heatmap_up <- prepare_heatmap(data_up, plot_colors$up,  legend_title = "Mean Signif up reg. genes")
-    
-    
-    # Combine heatmaps and force plot
+    data_down <- data_down %>% dplyr::mutate(condition = factor(condition, 
+                                                                levels = all_conditions)) %>% dplyr::arrange(condition)
+    data_up <- data_up %>% dplyr::mutate(condition = factor(condition, 
+                                                            levels = all_conditions)) %>% dplyr::arrange(condition)
+    heatmap_down <- prepare_heatmap(data_down, plot_colors$down, 
+                                    legend_title = "Mean Signif down reg. genes")
+    heatmap_up <- prepare_heatmap(data_up, plot_colors$up, 
+                                  legend_title = "Mean Signif up reg. genes")
     grid::grid.newpage()
     ComplexHeatmap::draw(heatmap_up + heatmap_down, heatmap_legend_side = "right")
     return(invisible(NULL))
   }
-  
-  # Single heatmap for non-split data
   heatmap <- prepare_heatmap(input, plot_colors$default)
   grid::grid.newpage()
-  ComplexHeatmap::draw(heatmap, heatmap_legend_side = "right")  # Explicitly draw heatmap
+  ComplexHeatmap::draw(heatmap, heatmap_legend_side = "right")
   return(invisible(NULL))
 }
-
 
 
 #' Plot Enrichment Bubble plot
