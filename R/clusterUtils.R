@@ -290,13 +290,13 @@ plotBubbleplot <- function(
   
   # Prepare data
   input <- input %>%
-    dplyr::arrange(adj_pval) %>%
+    dplyr::arrange(pval_pooled) %>%
     dplyr::mutate(Cluster_Annotation = factor(Cluster_Annotation, levels = unique(Cluster_Annotation)))
   
   # Base plot
   Bplot <- ggplot2::ggplot(input, ggplot2::aes(
     x = condition, y = Cluster_Annotation, 
-    size = -log10(adj_pval), color = genes_per_cluster
+    size = -log10(pval_pooled), color = genes_per_cluster
   )) +
     ggplot2::geom_point() +
     ggplot2::scale_colour_gradient2(low = plot_colors$default[1], mid = plot_colors$default[2], high = plot_colors$default[3]) +
