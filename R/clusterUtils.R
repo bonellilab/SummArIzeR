@@ -116,7 +116,6 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
 #' and include additional annotations like terms per cluster.
 #'
 #' @param input A data frame containing enrichment results with columns `Cluster_Annotation`, `condition`, `pval_pooled`, and optionally `terms_per_cluster`.
-#' @param split_by_reg Logical. If `TRUE`, splits heatmaps into up-regulated and down-regulated genes.
 #' @param rot Numeric. Rotation angle for column names. Defaults to `0`.
 #' @param column_names_centered Logical. If `TRUE`, centers column names. Defaults to `TRUE`.
 #' @param cluster_rows Logical. If `TRUE`, rows are clustered. Defaults to `FALSE`.
@@ -130,8 +129,7 @@ annotateClusters <- function(input, term_annotation_vector, method = "fisher", w
 #' @export
 plotHeatmap <- function(
     input,
-    split_by_reg = FALSE,
-    rot = 0,
+    rot = 90,
     column_names_centered = TRUE,
     cluster_rows = FALSE,
     cluster_columns = FALSE,
@@ -145,16 +143,28 @@ plotHeatmap <- function(
     annotation_bar = TRUE
 ) {
   if("regulation" %in% colnames(input)){split_by_reg = T}
+  else{split_by_reg = F}
   #add colum with terms_per_cluster for all conditons
-  terms_per_cluster_all <- input %>%
+  if(split_by_reg == T){
+    terms_per_cluster_all <- input %>%
     dplyr::select(Cluster_Annotation, condition, regulation, unique_terms_per_cluster) %>%
     dplyr::group_by(Cluster_Annotation) %>%
     dplyr::mutate(terms_all = length(unique(unlist(unique_terms_per_cluster)))) %>%
     dplyr::select(-unique_terms_per_cluster)
   # merge it back
   input <- input %>%
-      dplyr::left_join(terms_per_cluster_all, by = c("Cluster_Annotation", "condition", "regulation"))
-  
+    dplyr::left_join(terms_per_cluster_all, by = c("Cluster_Annotation", "condition", "regulation"))
+  }
+  else{
+    terms_per_cluster_all <- input %>%
+      dplyr::select(Cluster_Annotation, condition, unique_terms_per_cluster) %>%
+      dplyr::group_by(Cluster_Annotation) %>%
+      dplyr::mutate(terms_all = length(unique(unlist(unique_terms_per_cluster)))) %>%
+      dplyr::select(-unique_terms_per_cluster)
+    # merge it back
+    input <- input %>%
+      dplyr::left_join(terms_per_cluster_all, by = c("Cluster_Annotation", "condition"))    
+  }
   prepare_heatmap <- function(data, color_palette, legend_title = legend_name) {
     if (anyNA(data$Cluster_Annotation)) {
       warning("Column 'Cluster_Annotation' contains NA values. Please make sure all clusters are annotated.")
@@ -271,7 +281,6 @@ plotHeatmap <- function(
 #' Generates a Bubble plot of enrichment results, with options to split by regulation
 #'
 #' @param input A data frame containing enrichment results with columns `Cluster_Annotation`, `condition`, `pval_pooled`, and optionally `terms_per_cluster`.
-#' @param split_by_reg Logical. If `TRUE`, splits heatmaps into up-regulated and down-regulated genes.
 #' @param plot_colors List. A named list of color palettes for the heatmap. Should contain `up`, `down`, and `default`.
 #' @return A ggplot object
 #' @import dplyr tidyr ggplot2
@@ -280,30 +289,20 @@ plotHeatmap <- function(
 
 plotBubbleplot <- function(
     input,
-    split_by_reg = FALSE, 
     plot_colors = list(
       up = c("#ececec", "#e17ecd", "#7900d5"),
       down = c("#ececec", "#41B7C4", "#2A5783"),
       default = c("#ececec", "#41B7C4", "#2A5783")
     )
 ) {
+  if ("regulation" %in% colnames(input)) {split_by_reg = T}
+  else{split_by_reg = F}
   
   # Prepare data
   input <- input %>%
     dplyr::arrange(pval_pooled) %>%
     dplyr::mutate(Cluster_Annotation = factor(Cluster_Annotation, levels = unique(Cluster_Annotation)))
-  
-  # Base plot
-  Bplot <- ggplot2::ggplot(input, ggplot2::aes(
-    x = condition, y = Cluster_Annotation, 
-    size = -log10(pval_pooled), color = genes_per_cluster
-  )) +
-    ggplot2::geom_point() +
-    ggplot2::scale_colour_gradient2(low = plot_colors$default[1], mid = plot_colors$default[2], high = plot_colors$default[3]) +
-    ggplot2::scale_size(name = "p.adj.", range = c(3, 10)) + 
-    ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
-  
+
   # Handle split by regulation
   if (split_by_reg == TRUE) {
     input <- input %>%
@@ -327,9 +326,20 @@ plotBubbleplot <- function(
       ) +
       ggplot2::facet_wrap(~ regulation)
   }
+  else{  
+    # Base plot
+    Bplot <- ggplot2::ggplot(input, ggplot2::aes(
+      x = condition, y = Cluster_Annotation, 
+      size = -log10(pval_pooled), color = genes_per_cluster
+    )) +
+      ggplot2::geom_point() +
+      ggplot2::scale_colour_gradient2(low = plot_colors$default[1], mid = plot_colors$default[2], high = plot_colors$default[3]) +
+      ggplot2::scale_size(name = "p.adj.", range = c(3, 10)) + 
+      ggplot2::theme_minimal() +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
+  }
   
   return(Bplot)
 }
-
 
 
