@@ -91,5 +91,6 @@ cluster_summary <- c(
 print(cluster_summary)
 Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
 #Vizualisation
-plotBubbleplot(Annotation_list, split_by_reg =  T)
+plotHeatmap(Annotation_list, annotation_bar = F, column_names_centered = F)
+
 
