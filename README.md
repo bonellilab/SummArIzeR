@@ -6,20 +6,20 @@
 <img src="examples/hexlogo.svg" alt="Network plot" align  = "right" width="150"/>
 
 
-`SummArIzeR` is an R package, that allows an easy use of EnrichR to compare enrichment results from multiple databases of multiple conditons. It results in a clustering of enriched terms and enables the annotation of these terms by creating a promt for large language models such as gpt4. Results can be vizualised in a Heatmap.
+`SummArIzeR` is an R package, that allows an easy use of EnrichR to compare enrichment results from multiple databases of multiple conditons. It results in a clustering of enriched terms and enables the annotation of these clusters by creating a promt for large language models (LLMs) such as ChatGPT. Results can be vizualised as a heatmap or bubbleplot.
 
 <br/>
 <br/>
 
 ## Features
 
-- Perform enrichment analysis using `enrichR`.
+- Performs enrichment analysis using `enrichR`.
 - Allows analysis of multiple conditions and seperate analysis of up-and downregulated genes.
-- Filter terms by p-value and gene thresholds.
-- Calculate similarities of results terms based on included genes.
-- Cluster terms using random walk algorithm.
-- Generates a prompt for a LLM to summarized cluster annotations
-- Allows easy heatmap visualization
+- Filters terms by p-value and gene thresholds.
+- Calculates similarities of results terms based on included genes.
+- Clusters terms using random walk algorithm.
+- Generates a prompt for a LLM to perform cluster annotations.
+- Allows easy heatmap and bubbleplot visualization.
 
 ## Installation
 
@@ -79,7 +79,7 @@ genelist_df <- data.frame(
 )
 ```
 We can perform the enrichment analysis for the different conditions CellType and Group:
-Here we extract the top 5 hits from every database and every condition.
+Here we extract the top 5 hits from every database and every condition and perform a separate analysis for up- and downregulated genes.
 
 ```ruby
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
@@ -106,21 +106,21 @@ plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 ```
 <img src="examples/igraph_exampleplot.png" alt="Network plot" width="600"/>
 
-Edges below the similarity treshold (ts) are deleted. 
-The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity:
+Edges below the similarity threshold (ts) are deleted. 
+The optimal threshold can be validated by checking the number of clusters, the connected terms and the modularity:
 ```{r, cluster network, echo = FALSE}
 evaluateThreshold(Termlist_all)
 ```
 <img src="examples/evaluate_ts_exampleplot.png" alt="Evaluate Treshold" width="600"/>
 
-After treshold adjustment, clusters can be assigned to the dataframe and the Prompt can be generated:
+After threshold adjustment, clusters can be assigned and the prompt can be generated:
 
 ```ruby
 Genelist_test_cluster<-returnIgraphCluster(Termlist_all, ts = 0.3)
 generateGPTPrompt(Genelist_test_cluster)
 ```
-The prompt can be queried using a LLM like ChatGPT. The result can be copied into R. 
-Now, a final data frame containing the cluster annotations can be created: 
+The prompt can be queried using a LLM like ChatGPT. The result can be copied back into R. 
+Now, a final dataframe containing the cluster annotations can be created: 
 
 ```ruby
 #Enter vector from LLM 
@@ -140,18 +140,22 @@ print(cluster_summary)
 
 Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
 ```
-The results can be plotted as Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be splitted for up-and downregulated genes.
+The results can be plotted as a heatmap. If the enrichment was done for up-and downregulation separately, the heatmap will be splitted for up-and downregulated genes.
 
 ```{r Heatmap,  fig.width=8.27, fig.height=7}
 
-plotHeatmap(Annotation_list, split_by_reg = T, rot = 90, annotation_bar = F, column_names_centered = F)
+plotHeatmap(Annotation_list, rot = 90, annotation_bar = F, column_names_centered = F)
 
 ```
+
 <img src="examples/Heatmap_example.png" alt="Heatmap of enrichment results" width="600"/>
+
+The results can also be plotted as a bubbleplot (ggplot2 object). If the enrichment was done for up-and downregulation separately, the plot will be splitted for up-and downregulated genes.
+<br/>
 
 ```{r Bubbleplot,  fig.width=8.27, fig.height=8}
 
-plotBubbleplot(Annotation_list, split_by_reg = T)
+plotBubbleplot(Annotation_list)
 
 ```
 
