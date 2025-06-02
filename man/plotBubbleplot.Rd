@@ -6,15 +6,12 @@
 \usage{
 plotBubbleplot(
   input,
-  split_by_reg = FALSE,
   plot_colors = list(up = c("#ececec", "#e17ecd", "#7900d5"), down = c("#ececec",
     "#41B7C4", "#2A5783"), default = c("#ececec", "#41B7C4", "#2A5783"))
 )
 }
 \arguments{
 \item{input}{A data frame containing enrichment results with columns \code{Cluster_Annotation}, \code{condition}, \code{pval_pooled}, and optionally \code{terms_per_cluster}.}
-
-\item{split_by_reg}{Logical. If \code{TRUE}, splits heatmaps into up-regulated and down-regulated genes.}
 
 \item{plot_colors}{List. A named list of color palettes for the heatmap. Should contain \code{up}, \code{down}, and \code{default}.}
 }

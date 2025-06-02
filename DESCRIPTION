@@ -16,7 +16,8 @@ Depends:
     plotly,
     proxy,
     stringr,
-    tidyr
+    tidyr,
+    ggplot2
 Imports: 
     grid,
     stats,

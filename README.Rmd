@@ -37,21 +37,20 @@ knitr::opts_chunk$set(
 
 You can install the development version of SummArIzeR from [GitHub](https://github.com/) with:
 
-``` {r}
+``` {r, installation}
 # Install devtools if not already installed
 install.packages("devtools")
 
 # Install SummArIzeR
 devtools::install_github("bonellilab/SummArIzeR")
-```
-Additional packages to load: 
 
-``` {r}
+# Additional packages
+
 # Install factoextra from CRAN
 install.packages("factoextra")
 
 # Install `enrichR`
-devtools::install_github("wjawaid/enrichR")```
+devtools::install_github("wjawaid/enrichR")
 ```
 
 ## Example
@@ -93,11 +92,11 @@ genelist_df <- data.frame(
 We can perform the enrichment analysis for the different conditions CellType and Group:
 Here we extract the top 5 hits from every database and every condition.
 
-```{r, example, include=FALSE}
+```{r, enrichment, include=FALSE}
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
-```{r, example, echo = F}
+```{r, view, echo = F}
 head(Termlist_all, n = 5)
 
 ```
@@ -111,7 +110,7 @@ htmltools::tagList(plot)
 ```
 Edges below the similarity treshold (ts) are deleted. 
 The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity:
-```{r, cluster network, echo = FALSE}
+```{r, evaluate cluster, echo = FALSE}
 
 evaluateThreshold(Termlist_all)
 ```
@@ -143,16 +142,16 @@ Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
 ```
 The results can be plotted as Bubbleplot. If the enrichment was done for up-and downregulation seperatly, the plot can be splitted for up-and downregulated genes.
 
-```{r Bubbleplot,  fig.width=8.27, fig.height=7}
+```{r, Bubbleplot,  fig.width=8.27, fig.height=7}
 
-plotBubbleplot(Annotation_list, split_by_reg = T, rot = 90)
+plotBubbleplot(Annotation_list)
 
 ```
 The results can also be plotted as Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be splitted for up-and downregulated genes.
 
-```{r Heatmap,  fig.width=8.27, fig.height=7}
+```{r, Heatmap,  fig.width=8.27, fig.height=7}
 
-plotHeatmap(Annotation_list, split_by_reg = T, rot = 90, annotation_bar = F, column_names_centered = F)
+plotHeatmap(Annotation_list, rot = 90, annotation_bar = F, column_names_centered = F)
 
 ```
 
