@@ -116,6 +116,9 @@ Here we extract the top 5 hits from every database and every condition. The inpu
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
+
+
+
 ```{r, view, echo = F}
 head(Termlist_all, n = 5)
 
