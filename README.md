@@ -42,22 +42,81 @@ You can install the development version of SummArIzeR from
 ``` r
 # Install devtools if not already installed
 install.packages("devtools")
-#> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
-#> (as 'lib' is unspecified)
+#> Error in install.packages : Updating loaded packages
 
 # Install SummArIzeR
 devtools::install_github("bonellilab/SummArIzeR")
-#> Skipping install of 'SummArIzeR' from a github remote, the SHA1 (e6d509d7) has not changed since last install.
-#>   Use `force = TRUE` to force installation
+#> Using GitHub PAT from the git credential store.
+#> Downloading GitHub repo bonellilab/SummArIzeR@HEAD
+#> These packages have more recent versions available.
+#> It is recommended to update all of them.
+#> Which would you like to update?
+#> 
+#>  1: All                                   
+#>  2: CRAN packages only                    
+#>  3: None                                  
+#>  4: utf8         (1.2.4  -> 1.2.5 ) [CRAN]
+#>  5: pillar       (1.10.1 -> 1.10.2) [CRAN]
+#>  6: scales       (1.3.0  -> 1.4.0 ) [CRAN]
+#>  7: rlang        (1.1.5  -> 1.1.6 ) [CRAN]
+#>  8: cli          (3.6.4  -> 3.6.5 ) [CRAN]
+#>  9: openssl      (2.3.2  -> 2.3.3 ) [CRAN]
+#> 10: mime         (0.12   -> 0.13  ) [CRAN]
+#> 11: jsonlite     (1.8.9  -> 2.0.0 ) [CRAN]
+#> 12: curl         (6.2.0  -> 6.2.3 ) [CRAN]
+#> 13: stringi      (1.8.4  -> 1.8.7 ) [CRAN]
+#> 14: generics     (0.1.3  -> 0.1.4 ) [CRAN]
+#> 15: cpp11        (0.5.1  -> 0.5.2 ) [CRAN]
+#> 16: ggplot2      (3.5.1  -> 3.5.2 ) [CRAN]
+#> 17: Rdpack       (2.6.2  -> 2.6.4 ) [CRAN]
+#> 18: MatrixModels (0.5-3  -> 0.5-4 ) [CRAN]
+#> 19: doBy         (4.6.25 -> 4.6.27) [CRAN]
+#> 20: reformulas   (0.4.0  -> 0.4.1 ) [CRAN]
+#> 21: nloptr       (2.1.1  -> 2.2.1 ) [CRAN]
+#> 22: lme4         (1.1-36 -> 1.1-37) [CRAN]
+#> 23: quantreg     (6.00   -> 6.1   ) [CRAN]
+#> 24: pbkrtest     (0.5.3  -> 0.5.4 ) [CRAN]
+#> 25: broom        (1.0.7  -> 1.0.8 ) [CRAN]
+#> 26: fs           (1.6.5  -> 1.6.6 ) [CRAN]
+#> 27: sass         (0.4.9  -> 0.4.10) [CRAN]
+#> 28: tinytex      (0.54   -> 0.57  ) [CRAN]
+#> 29: xfun         (0.50   -> 0.52  ) [CRAN]
+#> 30: later        (1.4.1  -> 1.4.2 ) [CRAN]
+#> 31: knitr        (1.49   -> 1.50  ) [CRAN]
+#> 32: promises     (1.3.2  -> 1.3.3 ) [CRAN]
+#> 33: httpuv       (1.6.15 -> 1.6.16) [CRAN]
+#> 34: emmeans      (1.10.7 -> 1.11.1) [CRAN]
+#> 35: WriteXLS     (6.7.0  -> 6.8.0 ) [CRAN]
+#> 36: data.table   (1.16.4 -> 1.17.4) [CRAN]
+#> 
+#> ── R CMD build ───────────────────────────────────────────────────────────────────────────────
+#>   ✔  checking for file ‘/tmp/Rtmp6gotUv/remotes3a64635e1de3b4/bonellilab-SummArIzeR-351aed5/DESCRIPTION’ (943ms)
+#>   ─  preparing ‘SummArIzeR’:
+#>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
+#>   ─  checking for LF line-endings in source and make files and shell scripts
+#>   ─  checking for empty or unneeded directories
+#>   ─  looking to see if a ‘data/datalist’ file should be added
+#>        NB: this package now depends on R (>= 3.5.0)
+#>        WARNING: Added dependency on R >= 3.5.0 because serialized objects in
+#>      serialize/load version 3 cannot be read in older versions of R.
+#>      File(s) containing such objects:
+#>        ‘SummArIzeR/data/example_data.rda’
+#>   ─  building ‘SummArIzeR_0.0.1.tar.gz’
+#>      
+#> 
+#> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
+#> (as 'lib' is unspecified)
 
 # Additional packages
 
 # Install factoextra from CRAN
 install.packages("factoextra")
-#> Error in install.packages : Updating loaded packages
+#> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
+#> (as 'lib' is unspecified)
 
 # Install `enrichR`
 devtools::install_github("wjawaid/enrichR")
+#> Using GitHub PAT from the git credential store.
 #> Skipping install of 'enrichR' from a github remote, the SHA1 (79fad70a) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
