@@ -129,7 +129,7 @@ Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "G
 
 ```
 
-```{r, view, echo = F}
+```{r, view}
 head(Termlist_all, n = 5)
 
 ```
@@ -141,7 +141,7 @@ edges between terms (nodes) are retained in the network (those with a
 distance weight higher than ts). Smaller values include more edges;
 larger values result in sparser graphs:
 
-```{r, evaluate_cluster, echo = FALSE, fig.width=8.27, fig.height=7}
+```{r, evaluate_cluster, fig.width=8.27, fig.height=7}
 
 evaluateThreshold(Termlist_all)
 
