@@ -1,4 +1,7 @@
-ab---
+---
+title: "README"
+author: Anela Tosevska
+date: June 5, 2025
 output: github_document
 ---
 
@@ -19,6 +22,12 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 `SummArIzeR` is an R package, that allows an easy use of EnrichR to compare enrichment results from multiple databases of multiple conditons. It results in a clustering of enriched terms and enables the annotation of these terms by creating a promt for large language models such as gpt4. Results can be vizualised in a Heatmap.
+
+If you are using `SummArIzeR` for your publication, please cite  us:
+
+SummArIzeR: Simplifying cross-database enrichment result clustering and annotation via large language models
+Marie Brinkmann, Michael Bonelli, Anela Tosevska
+bioRxiv 2025.05.28.656331; doi: https://doi.org/10.1101/2025.05.28.656331 
 
 
 
@@ -63,6 +72,8 @@ library(SummArIzeR)
 library(enrichR)
 library(factoextra)
 
+set.seed(1234)
+
 genelist_df <- data.frame(
   genes = c(
     "IL6", "IFNG", "IL10", "TNF", "CXCL8", "STAT3", "STAT1", "JAK1", "JAK2", "SOCS1", 
@@ -85,12 +96,12 @@ genelist_df <- data.frame(
     "CD4", "CD4", "Monocytes", "CD4", "CD4", "CD4", "Monocytes", "Monocytes", "CD4", "CD4", 
     "CD4", "Monocytes", "CD4", "CD4", "Monocytes", "Monocytes", "CD4", "CD4", "CD4"
   ),
-  log2fold = runif(49, -2, 2) # Generate random log2 fold changes between -2 and 2
-
+  log2fold = c(1.65922417, 1.74830165, -0.85544186, 1.32179050, 0.56698208, 0.07638380, 0.94635326, -1.46133361, 0.62796916, 0.82025914, -0.16903290, 0.87644901, 1.73868899, -0.97828470, -0.15082871, 1.76005809, 1.91290571, -1.53005055, -0.10001167, 0.24133098, 1.61612555, -1.44515933, 1.95556692, 1.78667293, -1.67024977, 0.05684714, -0.43918613, 1.62295252, -0.21212149, 1.34401704, 0.95038247, 1.24422057, -0.44756687, 0.74067892, -1.98420664, 1.33166432, -1.97066341, -1.16936411, 1.62640563, 0.44711457, -0.48176304, -0.25691366, -1.85027587, 1.89415966, -0.27299500, 1.83030639, 1.55101962, 0.55991508, 1.88386644)
 )
 ```
 We can perform the enrichment analysis for the different conditions CellType and Group:
-Here we extract the top 5 hits from every database and every condition.
+Here we extract the top 5 hits from every database and every condition. The input is data.frame with gene-level data. Must include a "genes" column, conditions column, and, optionally, "log2fold" if splitting by regulation. If split_by_reg (default = FALSE) is set to TRUE, enrichment is performed separately on up- and down-regulated genes. The logFC_threshold (default = 0) parameter defines the log fold-change cutoff used to define up/down regulation when split_by_reg = TRUE. The adjusted p-value cutoff is used to filter significant enriched terms. The parameter n (default = 10) shwos the number of top enriched terms to return per condition and per category, whereas the min_genes_threshold (default = 3) is the minimum number of genes required to consider a term in downstream analysis. The enrichment categories can be chosen from the set of libraries available in [EnrichR] (https://maayanlab.cloud/Enrichr/#libraries).
+
 
 ```{r, enrichment, include=FALSE}
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
@@ -100,20 +111,26 @@ Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "G
 head(Termlist_all, n = 5)
 
 ```
-Now term cluster can be assigned based on included genes: 
-
-```{r, cluster network}
-plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
-htmltools::tagList(plot)
 
 
-```
+
 Edges below the similarity treshold (ts) are deleted. 
-The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity:
-```{r, evaluate cluster, echo = FALSE}
+The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity. The threshold value determins which edges between terms (nodes) are retained in the network (those with a distance weight higher than ts). Smaller values include more edges; larger values result in sparser graphs.
+
+```{r, evaluate_cluster, echo = FALSE}
 
 evaluateThreshold(Termlist_all)
+
 ```
+
+
+The network can be interactively visualized, and if needed, the threshold can be readjusted. 
+
+```{r, cluster_network}
+plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
+#htmltools::tagList(plot)
+```
+
 After treshold adjustment, clusters can be assigned to the dataframe and the Prompt can be generated:
 
 ```{r, prompt}
@@ -124,35 +141,48 @@ generateGPTPrompt(Genelist_test_cluster)
 The prompt can be queried using a LLM like ChatGPT. The result can be copied into R. 
 Now, a final data frame containing the cluster annotations can be created: 
 
-```{r cluster annotation, message=FALSE, warning= FALSE}
+```{r cluster_annotation, message=FALSE, warning= FALSE}
 #Enter vector from LLM 
 cluster_summary <- c(
-  '1' = 'Cytokine Signaling and STAT Pathways',
-  '2' = 'T Cell Activation and Response to External Stimuli',
-  '3' = 'Regulation of T Cells and Inflammatory Responses',
-  '4' = 'Interferon and Interleukin-Mediated Signal Transduction',
-  '5' = 'Regulation of Immune Responses and Chemokine Production',
-  '6' = 'General Immune System and Interleukin-2 Signaling'
+  '1' = 'T Cell Transcriptional Regulation',
+  '2' = 'Interleukin Signaling Pathways',
+  '3' = 'Inflammatory Response Activation',
+  '4' = 'STAT and IL-17 Pathway Regulation',
+  '5' = 'Cytokine-Mediated Immune Signaling',
+  '6' = 'T Cell Proliferation and Inflammatory Regulation',
+  '7' = 'IL-20 Family Signaling',
+  '8' = 'Cytokine Response',
+  '9' = 'Type II Interferon Response',
+  '10' = 'Antiviral Cellular Response',
+  '11' = 'Chemokine Signaling',
+  '12' = 'Negative Regulation of Organismal Processes',
+  '13' = 'Th17 Cell Differentiation',
+  '14' = 'Th1/Th2 Cell Differentiation'
 )
+
 
 
 print(cluster_summary)
 
+```
+The clusters can now be annotated based on the vectors defined above. Here, one could specify different methods for pooling p-values resulting from multiple terms. In addition, this pooled p-value is capped at a min_pval (default = 1e-10), making it better suitable for plotting. However, users can select a lower min_pval threshold.
+
+```{r, annotation}
 Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
 ```
-The results can be plotted as Bubbleplot. If the enrichment was done for up-and downregulation seperatly, the plot can be splitted for up-and downregulated genes.
+The results can be plotted as a Bubbleplot. If the enrichment was done for up-and downregulation seperatly, the plot will be split for up-and downregulated genes.
 
 ```{r, Bubbleplot,  fig.width=8.27, fig.height=7}
 
 plotBubbleplot(Annotation_list)
 
 ```
-The results can also be plotted as Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be splitted for up-and downregulated genes.
+Additionally, the results can be plotted as a Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be split for up-and downregulated genes. The heatmap can be further customized by setting cluster_rows/columns to TRUE. 
 
 ```{r, Heatmap,  fig.width=8.27, fig.height=7}
 
-plotHeatmap(Annotation_list, rot = 90, annotation_bar = F, column_names_centered = F)
+#plotHeatmap(Annotation_list, rot = 90, annotation_bar = F, column_names_centered = F)
 
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+If you encounter any errors or issues, or if you have a suggestion please file an issue [here] (https://github.com/bonellilab/SummArIzeR/issues).
