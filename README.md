@@ -1,7 +1,6 @@
-README
-================
-Anela Tosevska
-June 5, 2025
+------------------------------------------------------------------------
+
+output: rmarkdown::github_document editor_options: markdown: wrap: 72 —
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -42,8 +41,7 @@ You can install the development version of SummArIzeR from
 ``` r
 # Install devtools if not already installed
 install.packages("devtools")
-#> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
-#> (as 'lib' is unspecified)
+#> Error in install.packages : Updating loaded packages
 
 # Install SummArIzeR
 devtools::install_github("bonellilab/SummArIzeR")
@@ -91,7 +89,7 @@ devtools::install_github("bonellilab/SummArIzeR")
 #> 36: data.table   (1.16.4 -> 1.17.4) [CRAN]
 #> 
 #> ── R CMD build ───────────────────────────────────────────────────────────────────────────────
-#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c345c8712a/bonellilab-SummArIzeR-e0fe305/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c345c8712a/bonellilab-SummArIzeR-e0fe305/DESCRIPTION’ (858ms)
+#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c345953ee2/bonellilab-SummArIzeR-2e0e1a8/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c345953ee2/bonellilab-SummArIzeR-2e0e1a8/DESCRIPTION’ (922ms)
 #>   ─  preparing ‘SummArIzeR’:
 #>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
@@ -112,7 +110,8 @@ devtools::install_github("bonellilab/SummArIzeR")
 
 # Install factoextra from CRAN
 install.packages("factoextra")
-#> Error in install.packages : Updating loaded packages
+#> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
+#> (as 'lib' is unspecified)
 
 # Install `enrichR`
 devtools::install_github("wjawaid/enrichR")
@@ -129,95 +128,8 @@ group:
 
 ``` r
 library(SummArIzeR)
-#> Loading required package: circlize
-#> ========================================
-#> circlize version 0.4.16
-#> CRAN page: https://cran.r-project.org/package=circlize
-#> Github page: https://github.com/jokergoo/circlize
-#> Documentation: https://jokergoo.github.io/circlize_book/book/
-#> 
-#> If you use it in published research, please cite:
-#> Gu, Z. circlize implements and enhances circular visualization
-#>   in R. Bioinformatics 2014.
-#> 
-#> This message can be suppressed by:
-#>   suppressPackageStartupMessages(library(circlize))
-#> ========================================
-#> 
-#> Attaching package: 'circlize'
-#> The following object is masked from 'package:igraph':
-#> 
-#>     degree
-#> Loading required package: ComplexHeatmap
-#> Loading required package: grid
-#> ========================================
-#> ComplexHeatmap version 2.20.0
-#> Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
-#> Github page: https://github.com/jokergoo/ComplexHeatmap
-#> Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
-#> 
-#> If you use it in published research, please cite either one:
-#> - Gu, Z. Complex Heatmap Visualization. iMeta 2022.
-#> - Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
-#>     genomic data. Bioinformatics 2016.
-#> 
-#> 
-#> The new InteractiveComplexHeatmap package can directly export static 
-#> complex heatmaps into an interactive Shiny app with zero effort. Have a try!
-#> 
-#> This message can be suppressed by:
-#>   suppressPackageStartupMessages(library(ComplexHeatmap))
-#> ========================================
-#> Loading required package: plotly
-#> 
-#> Attaching package: 'plotly'
-#> The following object is masked from 'package:ComplexHeatmap':
-#> 
-#>     add_heatmap
-#> The following object is masked from 'package:ggplot2':
-#> 
-#>     last_plot
-#> The following object is masked from 'package:igraph':
-#> 
-#>     groups
-#> The following object is masked from 'package:stats':
-#> 
-#>     filter
-#> The following object is masked from 'package:graphics':
-#> 
-#>     layout
-#> Loading required package: proxy
-#> 
-#> Attaching package: 'proxy'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     as.dist, dist
-#> The following object is masked from 'package:base':
-#> 
-#>     as.matrix
-#> Loading required package: stringr
-#> Loading required package: tidyr
-#> 
-#> Attaching package: 'tidyr'
-#> The following object is masked from 'package:igraph':
-#> 
-#>     crossing
-#> 
-#> Attaching package: 'SummArIzeR'
-#> The following objects are masked _by_ '.GlobalEnv':
-#> 
-#>     annotateClusters, plotBubbleplot, plotHeatmap, poolPValues
 library(enrichR)
-#> Welcome to enrichR
-#> Checking connections ...
-#> Enrichr ... Connection is Live!
-#> FlyEnrichr ... Connection is Live!
-#> WormEnrichr ... Connection is Live!
-#> YeastEnrichr ... Connection is Live!
-#> FishEnrichr ... Connection is Live!
-#> OxEnrichr ... Connection is Live!
 library(factoextra)
-#> Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
 
 set.seed(1234)
 
@@ -279,8 +191,6 @@ edges between terms (nodes) are retained in the network (those with a
 distance weight higher than ts). Smaller values include more edges;
 larger values result in sparser graphs.
 
-    #> `google-chrome`, `chromium-browser` and `chrome` were not found. Try setting the `CHROMOTE_CHROME` environment variable to the executable of a Chromium-based browser, such as Google Chrome, Chromium or Brave or adding one of these executables to your PATH.
-
 <img src="man/figures/README-evaluate_cluster-1.png" width="100%" />
 
 The network can be interactively visualized, and if needed, the
@@ -306,35 +216,35 @@ head(Genelist_test_cluster, n = 5)
 #> # Groups:   condition, Term, regulation [5]
 #>   Term        adj_pval condition regulation Cluster dbs   num_genes_per_term genelist_per_term
 #>   <chr>          <dbl> <chr>     <chr>        <dbl> <chr>              <int> <list>           
-#> 1 Cellular R…  3.46e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
-#> 2 Positive R…  6.17e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
-#> 3 Inflammato…  6.87e-8 CD4_Dise… up-regula…       6 GO_B…                  6 <chr [6]>        
-#> 4 Regulation…  6.87e-8 CD4_Dise… up-regula…       4 GO_B…                  6 <chr [6]>        
+#> 1 Cellular R…  3.46e-8 CD4_Dise… up-regula…       3 GO_B…                  5 <chr [5]>        
+#> 2 Positive R…  6.17e-8 CD4_Dise… up-regula…       3 GO_B…                  5 <chr [5]>        
+#> 3 Inflammato…  6.87e-8 CD4_Dise… up-regula…       5 GO_B…                  6 <chr [6]>        
+#> 4 Regulation…  6.87e-8 CD4_Dise… up-regula…       3 GO_B…                  6 <chr [6]>        
 #> 5 Cytokine-M…  8.30e-8 CD4_Dise… up-regula…       1 GO_B…                  6 <chr [6]>
 generateGPTPrompt(Genelist_test_cluster)
 #> Cluster 1:
 #> Please find a summary term for the following terms: Cytokine-Mediated Signaling Pathway (GO:0019221), Positive Regulation Of Cytokine Production (GO:0001819), Signaling By Interleukins R-HSA-449147, Cytokine Signaling In Immune System R-HSA-1280215, Interleukin-4 And Interleukin-13 Signaling R-HSA-6785807, Immune System R-HSA-168256, Jak-STAT signaling pathway, Interleukin-23-mediated signaling events, Cytokine-cytokine receptor interaction, Immune system signaling by interferons, interleukins, prolactin, and growth hormones, Signaling by interleukins, Interleukin-2 signaling pathway, Immune system, Interleukin-7 signaling pathway
 #> 
 #> Cluster 2:
-#> Please find a summary term for the following terms: T Cell Differentiation (GO:0030217), T Cell Receptor Signaling Pathway (GO:0050852), T Cell Activation (GO:0042110), Costimulation By CD28 Family R-HSA-388841
-#> 
-#> Cluster 3:
-#> Please find a summary term for the following terms: Regulation of NFAT transcription factors, RUNX1 And FOXP3 Control Development Of Regulatory T Lymphocytes (Tregs) R-HSA-8877330, Transcriptional Regulation By RUNX1 R-HSA-8878171
-#> 
-#> Cluster 4:
-#> Please find a summary term for the following terms: Cellular Response To Virus (GO:0098586), Positive Regulation Of Tumor Necrosis Factor Superfamily Cytokine Production (GO:1903557), Regulation Of Inflammatory Response (GO:0050727), Regulation Of Interleukin-17 Production (GO:0032660), Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509), Positive Regulation Of Lymphocyte Proliferation (GO:0050671), Interleukin-6 Signaling R-HSA-1059683, Interleukin-27-mediated signaling events, Interleukin-22 soluble receptor signaling pathway, Interleukin-12/STAT4 pathway
-#> 
-#> Cluster 5:
 #> Please find a summary term for the following terms: Th1/Th2 differentiation pathway, Inflammatory response pathway
 #> 
-#> Cluster 6:
-#> Please find a summary term for the following terms: Inflammatory Response (GO:0006954), Response To Lipopolysaccharide (GO:0032496), Cellular Response To Lipid (GO:0071396), Cellular Response To Molecule Of Bacterial Origin (GO:0071219), Cellular Response To Lipopolysaccharide (GO:0071222), Cellular Response To Cytokine Stimulus (GO:0071345), Interleukin-10 Signaling R-HSA-6783783, Toll-like receptor signaling pathway regulation, Regulation Of Calcidiol 1-Monooxygenase Activity (GO:0060558), Interleukin-3 regulation of hematopoietic cells, NOD signaling pathway, Chagas disease, Interleukin-1 regulation of extracellular matrix, NF-kappaB activation by non-typeable Hemophilus influenzae
+#> Cluster 3:
+#> Please find a summary term for the following terms: Cellular Response To Virus (GO:0098586), Positive Regulation Of Tumor Necrosis Factor Superfamily Cytokine Production (GO:1903557), Regulation Of Inflammatory Response (GO:0050727), Regulation Of Interleukin-17 Production (GO:0032660), Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509), Positive Regulation Of Lymphocyte Proliferation (GO:0050671), Interleukin-6 Signaling R-HSA-1059683, Interleukin-27-mediated signaling events, Interleukin-22 soluble receptor signaling pathway, Interleukin-12/STAT4 pathway
 #> 
-#> Cluster 7:
+#> Cluster 4:
+#> Please find a summary term for the following terms: Regulation of NFAT transcription factors, RUNX1 And FOXP3 Control Development Of Regulatory T Lymphocytes (Tregs) R-HSA-8877330, Transcriptional Regulation By RUNX1 R-HSA-8878171
+#> 
+#> Cluster 5:
+#> Please find a summary term for the following terms: Inflammatory Response (GO:0006954), Response To Lipopolysaccharide (GO:0032496), Cellular Response To Lipid (GO:0071396), Cellular Response To Molecule Of Bacterial Origin (GO:0071219), Cellular Response To Lipopolysaccharide (GO:0071222), Interleukin-10 Signaling R-HSA-6783783, Toll-like receptor signaling pathway regulation, Regulation Of Calcidiol 1-Monooxygenase Activity (GO:0060558), Interleukin-3 regulation of hematopoietic cells, NOD signaling pathway, Chagas disease, Interleukin-1 regulation of extracellular matrix, NF-kappaB activation by non-typeable Hemophilus influenzae
+#> 
+#> Cluster 6:
 #> Please find a summary term for the following terms: Regulation Of Protein Localization To Nucleus (GO:1900180), Positive Regulation Of Protein Localization To Nucleus (GO:1900182), Positive Regulation Of Protein Localization (GO:1903829)
 #> 
-#> Cluster 8:
+#> Cluster 7:
 #> Please find a summary term for the following terms: Positive Regulation Of Interleukin-10 Production (GO:0032733), Positive Regulation Of Interleukin-12 Production (GO:0032735)
+#> 
+#> Cluster 8:
+#> Please find a summary term for the following terms: Costimulation By CD28 Family R-HSA-388841
 #> 
 #> Cluster 9:
 #> Please find a summary term for the following terms: Selective expression of chemokine receptors during T-cell polarization
