@@ -143,7 +143,7 @@ threshold can be readjusted.
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 ```
 
-<img src="man/figures/README-cluster_network-1.png" width="100%" /><img src="man/figures/README-cluster_network-2.png" width="100%" />
+<img src="man/figures/README-cluster_network-1.svg" width="100%" /><img src="man/figures/README-cluster_network-2.svg" width="100%" />
 
 ``` r
 #htmltools::tagList(plot)
@@ -264,7 +264,7 @@ downregulated genes.
 plotBubbleplot(Annotation_list)
 ```
 
-<img src="man/figures/README-Bubbleplot-1.png" width="100%" />
+<img src="man/figures/README-Bubbleplot-1.svg" width="100%" />
 
 Additionally, the results can be plotted as a Heatmap. If the enrichment
 was done for up-and downregulation seperatly, the Heatmap can be split
