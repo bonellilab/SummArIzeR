@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138" /></a>
+# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138"/></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -130,7 +130,6 @@ distance weight higher than ts). Smaller values include more edges;
 larger values result in sparser graphs:
 
 ``` r
-
 evaluateThreshold(Termlist_all)
 ```
 
@@ -147,13 +146,16 @@ plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 
 ``` r
 #htmltools::tagList(plot)
+```
+
+``` r
+
 plot
 ```
 
-<img src="man/figures/README-cluster_network-3.png" width="100%" />
-
-After treshold adjustment, clusters can be assigned to the dataframe and
-the Prompt can be generated:
+<img src="man/figures/README-plot_network-1.png" width="100%" /> After
+treshold adjustment, clusters can be assigned to the dataframe and the
+Prompt can be generated:
 
 ``` r
 Genelist_test_cluster<-returnIgraphCluster(Termlist_all, ts = 0.3)
