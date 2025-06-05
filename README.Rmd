@@ -19,7 +19,6 @@ library(knitr)
 ```
 # SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138" /></a>
 
-# SummArIzeR
 
 <!-- badges: start -->
 
