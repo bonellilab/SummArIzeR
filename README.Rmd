@@ -239,7 +239,7 @@ visualized, and if
 needed, the threshold
 can be readjusted.
 
-```{r, cluster_network, include=T, fig.width=30, fig.height=25}
+```{r, cluster_network, include=T, fig.width=25, fig.height=20}
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 #htmltools::tagList(plot)
 ```
