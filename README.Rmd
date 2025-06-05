@@ -124,7 +124,7 @@ required to consider a term in downstream analysis. The enrichment
 categories can be chosen from the set of libraries available in
 [EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
 
-```{r, enrichment, include=FALSE}
+```{r, enrichment, include=T}
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```

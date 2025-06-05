@@ -86,7 +86,7 @@ devtools::install_github("bonellilab/SummArIzeR")
 #> 36: data.table   (1.16.4 -> 1.17.4) [CRAN]
 #> 
 #> ── R CMD build ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c32bfb5343/bonellilab-SummArIzeR-472195e/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c32bfb5343/bonellilab-SummArIzeR-472195e/DESCRIPTION’ (897ms)
+#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c37acad50f/bonellilab-SummArIzeR-e4a0a52/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c37acad50f/bonellilab-SummArIzeR-e4a0a52/DESCRIPTION’ (926ms)
 #>   ─  preparing ‘SummArIzeR’:
 #>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
@@ -171,6 +171,82 @@ min_genes_threshold (default = 3) is the minimum number of genes
 required to consider a term in downstream analysis. The enrichment
 categories can be chosen from the set of libraries available in
 [EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
+
+``` r
+Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying GO_Biological_Process_2023... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying Reactome_2022... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+#> Uploading data to Enrichr... Done.
+#>   Querying BioPlanet_2019... Done.
+#> Parsing results... Done.
+```
 
     #> # A tibble: 5 × 6
     #>   Term                                    Genes      adj_pval dbs                        condition   regulation  
