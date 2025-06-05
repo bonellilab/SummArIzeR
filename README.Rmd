@@ -2,7 +2,7 @@
 title: "README"
 author: Anela Tosevska
 date: June 5, 2025
-output: github_document
+output: rmarkdown::github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -14,6 +14,15 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  eval = FALSE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(knitr)
 ```
 
 # SummArIzeR
@@ -100,7 +109,7 @@ genelist_df <- data.frame(
 )
 ```
 We can perform the enrichment analysis for the different conditions CellType and Group:
-Here we extract the top 5 hits from every database and every condition. The input is data.frame with gene-level data. Must include a "genes" column, conditions column, and, optionally, "log2fold" if splitting by regulation. If split_by_reg (default = FALSE) is set to TRUE, enrichment is performed separately on up- and down-regulated genes. The logFC_threshold (default = 0) parameter defines the log fold-change cutoff used to define up/down regulation when split_by_reg = TRUE. The adjusted p-value cutoff is used to filter significant enriched terms. The parameter n (default = 10) shwos the number of top enriched terms to return per condition and per category, whereas the min_genes_threshold (default = 3) is the minimum number of genes required to consider a term in downstream analysis. The enrichment categories can be chosen from the set of libraries available in [EnrichR] (https://maayanlab.cloud/Enrichr/#libraries).
+Here we extract the top 5 hits from every database and every condition. The input is data.frame with gene-level data. Must include a "genes" column, conditions column, and, optionally, "log2fold" if splitting by regulation. If split_by_reg (default = FALSE) is set to TRUE, enrichment is performed separately on up- and down-regulated genes. The logFC_threshold (default = 0) parameter defines the log fold-change cutoff used to define up/down regulation when split_by_reg = TRUE. The adjusted p-value cutoff is used to filter significant enriched terms. The parameter n (default = 10) shwos the number of top enriched terms to return per condition and per category, whereas the min_genes_threshold (default = 3) is the minimum number of genes required to consider a term in downstream analysis. The enrichment categories can be chosen from the set of libraries available in [EnrichR](https://maayanlab.cloud/Enrichr/#libraries).
 
 
 ```{r, enrichment, include=FALSE}
@@ -185,4 +194,4 @@ Additionally, the results can be plotted as a Heatmap. If the enrichment was don
 
 ```
 
-If you encounter any errors or issues, or if you have a suggestion please file an issue [here] (https://github.com/bonellilab/SummArIzeR/issues).
+If you encounter any errors or issues, or if you have a suggestion please file an issue [here](https://github.com/bonellilab/SummArIzeR/issues).
