@@ -108,7 +108,7 @@ terms to return per condition and per category, whereas the
 min_genes_threshold (default = 3) is the minimum number of genes
 required to consider a term in downstream analysis. The enrichment
 categories can be chosen from the set of libraries available in
-\[EnrichR\] (<https://maayanlab.cloud/Enrichr/#libraries>).
+[EnrichR](https://maayanlab.cloud/Enrichr/#libraries).
 
 Edges below the similarity treshold (ts) are deleted. The optimal
 treshold can be validated by checking the number of clusters, the
@@ -192,5 +192,5 @@ setting cluster_rows/columns to TRUE.
 ```
 
 If you encounter any errors or issues, or if you have a suggestion
-please file an issue \[here\]
-(<https://github.com/bonellilab/SummArIzeR/issues>).
+please file an issue
+[here](https://github.com/bonellilab/SummArIzeR/issues).
