@@ -85,10 +85,10 @@ devtools::install_github("bonellilab/SummArIzeR")
 #> 35: WriteXLS     (6.7.0  -> 6.8.0 ) [CRAN]
 #> 36: data.table   (1.16.4 -> 1.17.4) [CRAN]
 #> 
-#> ── R CMD build ───────────────────────────────────────────────────────────────────────────────
-#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c3549e1be4/bonellilab-SummArIzeR-23aaca0/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c3549e1be4/bonellilab-SummArIzeR-23aaca0/DESCRIPTION’ (875ms)
+#> ── R CMD build ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c32bfb5343/bonellilab-SummArIzeR-472195e/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c32bfb5343/bonellilab-SummArIzeR-472195e/DESCRIPTION’ (897ms)
 #>   ─  preparing ‘SummArIzeR’:
-#>      checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
+#>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
 #>   ─  checking for empty or unneeded directories
 #>   ─  looking to see if a ‘data/datalist’ file should be added
@@ -97,7 +97,7 @@ devtools::install_github("bonellilab/SummArIzeR")
 #>      serialize/load version 3 cannot be read in older versions of R.
 #>      File(s) containing such objects:
 #>        ‘SummArIzeR/data/example_data.rda’
-#> ─  building ‘SummArIzeR_0.0.1.tar.gz’
+#>   ─  building ‘SummArIzeR_0.0.1.tar.gz’
 #>      
 #> 
 #> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
@@ -170,23 +170,23 @@ terms to return per condition and per category, whereas the
 min_genes_threshold (default = 3) is the minimum number of genes
 required to consider a term in downstream analysis. The enrichment
 categories can be chosen from the set of libraries available in
-[EnrichR](https://maayanlab.cloud/Enrichr/#libraries).
+[EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
 
     #> # A tibble: 5 × 6
-    #>   Term                                    Genes      adj_pval dbs         condition regulation
-    #>   <chr>                                   <chr>         <dbl> <chr>       <chr>     <chr>     
-    #> 1 Cellular Response To Virus (GO:0098586) IL21   0.0000000346 GO_Biologi… CD4_Dise… up-regula…
-    #> 2 Cellular Response To Virus (GO:0098586) CXCL10 0.0000000346 GO_Biologi… CD4_Dise… up-regula…
-    #> 3 Cellular Response To Virus (GO:0098586) IL6    0.0000000346 GO_Biologi… CD4_Dise… up-regula…
-    #> 4 Cellular Response To Virus (GO:0098586) IFNG   0.0000000346 GO_Biologi… CD4_Dise… up-regula…
-    #> 5 Cellular Response To Virus (GO:0098586) JAK2   0.0000000346 GO_Biologi… CD4_Dise… up-regula…
+    #>   Term                                    Genes      adj_pval dbs                        condition   regulation  
+    #>   <chr>                                   <chr>         <dbl> <chr>                      <chr>       <chr>       
+    #> 1 Cellular Response To Virus (GO:0098586) IL21   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+    #> 2 Cellular Response To Virus (GO:0098586) CXCL10 0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+    #> 3 Cellular Response To Virus (GO:0098586) IL6    0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+    #> 4 Cellular Response To Virus (GO:0098586) IFNG   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+    #> 5 Cellular Response To Virus (GO:0098586) JAK2   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
 
 Edges below the similarity treshold (ts) are deleted. The optimal
 treshold can be validated by checking the number of clusters, the
 connected terms and the modularity. The threshold value determins which
 edges between terms (nodes) are retained in the network (those with a
 distance weight higher than ts). Smaller values include more edges;
-larger values result in sparser graphs.
+larger values result in sparser graphs:
 
 <img src="man/figures/README-evaluate_cluster-1.png" width="100%" />
 
@@ -211,13 +211,13 @@ Genelist_test_cluster<-returnIgraphCluster(Termlist_all, ts = 0.3)
 head(Genelist_test_cluster, n = 5)
 #> # A tibble: 5 × 8
 #> # Groups:   condition, Term, regulation [5]
-#>   Term        adj_pval condition regulation Cluster dbs   num_genes_per_term genelist_per_term
-#>   <chr>          <dbl> <chr>     <chr>        <dbl> <chr>              <int> <list>           
-#> 1 Cellular R…  3.46e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
-#> 2 Positive R…  6.17e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
-#> 3 Inflammato…  6.87e-8 CD4_Dise… up-regula…       6 GO_B…                  6 <chr [6]>        
-#> 4 Regulation…  6.87e-8 CD4_Dise… up-regula…       4 GO_B…                  6 <chr [6]>        
-#> 5 Cytokine-M…  8.30e-8 CD4_Dise… up-regula…       1 GO_B…                  6 <chr [6]>
+#>   Term                                                                                    adj_pval condition regulation Cluster dbs   num_genes_per_term genelist_per_term
+#>   <chr>                                                                                      <dbl> <chr>     <chr>        <dbl> <chr>              <int> <list>           
+#> 1 Cellular Response To Virus (GO:0098586)                                                  3.46e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
+#> 2 Positive Regulation Of Tumor Necrosis Factor Superfamily Cytokine Production (GO:19035…  6.17e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
+#> 3 Inflammatory Response (GO:0006954)                                                       6.87e-8 CD4_Dise… up-regula…       6 GO_B…                  6 <chr [6]>        
+#> 4 Regulation Of Inflammatory Response (GO:0050727)                                         6.87e-8 CD4_Dise… up-regula…       4 GO_B…                  6 <chr [6]>        
+#> 5 Cytokine-Mediated Signaling Pathway (GO:0019221)                                         8.30e-8 CD4_Dise… up-regula…       1 GO_B…                  6 <chr [6]>
 generateGPTPrompt(Genelist_test_cluster)
 #> Cluster 1:
 #> Please find a summary term for the following terms: Cytokine-Mediated Signaling Pathway (GO:0019221), Positive Regulation Of Cytokine Production (GO:0001819), Signaling By Interleukins R-HSA-449147, Cytokine Signaling In Immune System R-HSA-1280215, Interleukin-4 And Interleukin-13 Signaling R-HSA-6785807, Immune System R-HSA-168256, Jak-STAT signaling pathway, Interleukin-23-mediated signaling events, Cytokine-cytokine receptor interaction, Immune system signaling by interferons, interleukins, prolactin, and growth hormones, Signaling by interleukins, Interleukin-2 signaling pathway, Immune system, Interleukin-7 signaling pathway
@@ -277,34 +277,16 @@ cluster_summary <- c(
 
 
 print(cluster_summary)
-#>                                                  1 
-#>                "T Cell Transcriptional Regulation" 
-#>                                                  2 
-#>                   "Interleukin Signaling Pathways" 
-#>                                                  3 
-#>                 "Inflammatory Response Activation" 
-#>                                                  4 
-#>                "STAT and IL-17 Pathway Regulation" 
-#>                                                  5 
-#>               "Cytokine-Mediated Immune Signaling" 
-#>                                                  6 
-#> "T Cell Proliferation and Inflammatory Regulation" 
-#>                                                  7 
-#>                           "IL-20 Family Signaling" 
-#>                                                  8 
-#>                                "Cytokine Response" 
-#>                                                  9 
-#>                      "Type II Interferon Response" 
-#>                                                 10 
-#>                      "Antiviral Cellular Response" 
-#>                                                 11 
-#>                              "Chemokine Signaling" 
-#>                                                 12 
-#>      "Negative Regulation of Organismal Processes" 
-#>                                                 13 
-#>                        "Th17 Cell Differentiation" 
-#>                                                 14 
-#>                     "Th1/Th2 Cell Differentiation"
+#>                                                  1                                                  2                                                  3 
+#>                "T Cell Transcriptional Regulation"                   "Interleukin Signaling Pathways"                 "Inflammatory Response Activation" 
+#>                                                  4                                                  5                                                  6 
+#>                "STAT and IL-17 Pathway Regulation"               "Cytokine-Mediated Immune Signaling" "T Cell Proliferation and Inflammatory Regulation" 
+#>                                                  7                                                  8                                                  9 
+#>                           "IL-20 Family Signaling"                                "Cytokine Response"                      "Type II Interferon Response" 
+#>                                                 10                                                 11                                                 12 
+#>                      "Antiviral Cellular Response"                              "Chemokine Signaling"      "Negative Regulation of Organismal Processes" 
+#>                                                 13                                                 14 
+#>                        "Th17 Cell Differentiation"                     "Th1/Th2 Cell Differentiation"
 ```
 
 The clusters can now be annotated based on the vectors defined above.
@@ -317,8 +299,7 @@ However, users can select a lower min_pval threshold.
 Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
 #> Warning: There were 11 warnings in `dplyr::mutate()`.
 #> The first warning was:
-#> ℹ In argument: `pval_pooled = poolPValues(adj_pval, method = method, weights = weights,
-#>   min_pval = min_pval)`.
+#> ℹ In argument: `pval_pooled = poolPValues(adj_pval, method = method, weights = weights, min_pval = min_pval)`.
 #> ℹ In group 1: `condition = "CD4_Control"` `Cluster = 1`.
 #> Caused by warning in `poolPValues()`:
 #> ! Pooled p-value capped to minimum threshold: 1.0e-10

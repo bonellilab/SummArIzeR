@@ -122,7 +122,7 @@ terms to return per condition and per category, whereas the
 min_genes_threshold (default = 3) is the minimum number of genes
 required to consider a term in downstream analysis. The enrichment
 categories can be chosen from the set of libraries available in
-[EnrichR](https://maayanlab.cloud/Enrichr/#libraries).
+[EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
 
 ```{r, enrichment, include=FALSE}
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
@@ -139,7 +139,7 @@ treshold can be validated by checking the number of clusters, the
 connected terms and the modularity. The threshold value determins which
 edges between terms (nodes) are retained in the network (those with a
 distance weight higher than ts). Smaller values include more edges;
-larger values result in sparser graphs.
+larger values result in sparser graphs:
 
 ```{r, evaluate_cluster, echo = FALSE}
 
