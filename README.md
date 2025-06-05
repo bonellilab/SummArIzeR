@@ -1,6 +1,3 @@
-------------------------------------------------------------------------
-
-output: rmarkdown::github_document editor_options: markdown: wrap: 72 —
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -89,7 +86,7 @@ devtools::install_github("bonellilab/SummArIzeR")
 #> 36: data.table   (1.16.4 -> 1.17.4) [CRAN]
 #> 
 #> ── R CMD build ───────────────────────────────────────────────────────────────────────────────
-#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c345953ee2/bonellilab-SummArIzeR-2e0e1a8/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c345953ee2/bonellilab-SummArIzeR-2e0e1a8/DESCRIPTION’ (922ms)
+#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c321442a01/bonellilab-SummArIzeR-aac87d6/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c321442a01/bonellilab-SummArIzeR-aac87d6/DESCRIPTION’ (892ms)
 #>   ─  preparing ‘SummArIzeR’:
 #>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
@@ -216,35 +213,35 @@ head(Genelist_test_cluster, n = 5)
 #> # Groups:   condition, Term, regulation [5]
 #>   Term        adj_pval condition regulation Cluster dbs   num_genes_per_term genelist_per_term
 #>   <chr>          <dbl> <chr>     <chr>        <dbl> <chr>              <int> <list>           
-#> 1 Cellular R…  3.46e-8 CD4_Dise… up-regula…       3 GO_B…                  5 <chr [5]>        
-#> 2 Positive R…  6.17e-8 CD4_Dise… up-regula…       3 GO_B…                  5 <chr [5]>        
-#> 3 Inflammato…  6.87e-8 CD4_Dise… up-regula…       5 GO_B…                  6 <chr [6]>        
-#> 4 Regulation…  6.87e-8 CD4_Dise… up-regula…       3 GO_B…                  6 <chr [6]>        
+#> 1 Cellular R…  3.46e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
+#> 2 Positive R…  6.17e-8 CD4_Dise… up-regula…       4 GO_B…                  5 <chr [5]>        
+#> 3 Inflammato…  6.87e-8 CD4_Dise… up-regula…       6 GO_B…                  6 <chr [6]>        
+#> 4 Regulation…  6.87e-8 CD4_Dise… up-regula…       4 GO_B…                  6 <chr [6]>        
 #> 5 Cytokine-M…  8.30e-8 CD4_Dise… up-regula…       1 GO_B…                  6 <chr [6]>
 generateGPTPrompt(Genelist_test_cluster)
 #> Cluster 1:
 #> Please find a summary term for the following terms: Cytokine-Mediated Signaling Pathway (GO:0019221), Positive Regulation Of Cytokine Production (GO:0001819), Signaling By Interleukins R-HSA-449147, Cytokine Signaling In Immune System R-HSA-1280215, Interleukin-4 And Interleukin-13 Signaling R-HSA-6785807, Immune System R-HSA-168256, Jak-STAT signaling pathway, Interleukin-23-mediated signaling events, Cytokine-cytokine receptor interaction, Immune system signaling by interferons, interleukins, prolactin, and growth hormones, Signaling by interleukins, Interleukin-2 signaling pathway, Immune system, Interleukin-7 signaling pathway
 #> 
 #> Cluster 2:
-#> Please find a summary term for the following terms: Th1/Th2 differentiation pathway, Inflammatory response pathway
+#> Please find a summary term for the following terms: T Cell Differentiation (GO:0030217), T Cell Receptor Signaling Pathway (GO:0050852), T Cell Activation (GO:0042110), Costimulation By CD28 Family R-HSA-388841
 #> 
 #> Cluster 3:
-#> Please find a summary term for the following terms: Cellular Response To Virus (GO:0098586), Positive Regulation Of Tumor Necrosis Factor Superfamily Cytokine Production (GO:1903557), Regulation Of Inflammatory Response (GO:0050727), Regulation Of Interleukin-17 Production (GO:0032660), Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509), Positive Regulation Of Lymphocyte Proliferation (GO:0050671), Interleukin-6 Signaling R-HSA-1059683, Interleukin-27-mediated signaling events, Interleukin-22 soluble receptor signaling pathway, Interleukin-12/STAT4 pathway
-#> 
-#> Cluster 4:
 #> Please find a summary term for the following terms: Regulation of NFAT transcription factors, RUNX1 And FOXP3 Control Development Of Regulatory T Lymphocytes (Tregs) R-HSA-8877330, Transcriptional Regulation By RUNX1 R-HSA-8878171
 #> 
+#> Cluster 4:
+#> Please find a summary term for the following terms: Cellular Response To Virus (GO:0098586), Positive Regulation Of Tumor Necrosis Factor Superfamily Cytokine Production (GO:1903557), Regulation Of Inflammatory Response (GO:0050727), Regulation Of Interleukin-17 Production (GO:0032660), Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509), Positive Regulation Of Lymphocyte Proliferation (GO:0050671), Interleukin-6 Signaling R-HSA-1059683, Interleukin-27-mediated signaling events, Interleukin-22 soluble receptor signaling pathway, Interleukin-12/STAT4 pathway
+#> 
 #> Cluster 5:
-#> Please find a summary term for the following terms: Inflammatory Response (GO:0006954), Response To Lipopolysaccharide (GO:0032496), Cellular Response To Lipid (GO:0071396), Cellular Response To Molecule Of Bacterial Origin (GO:0071219), Cellular Response To Lipopolysaccharide (GO:0071222), Interleukin-10 Signaling R-HSA-6783783, Toll-like receptor signaling pathway regulation, Regulation Of Calcidiol 1-Monooxygenase Activity (GO:0060558), Interleukin-3 regulation of hematopoietic cells, NOD signaling pathway, Chagas disease, Interleukin-1 regulation of extracellular matrix, NF-kappaB activation by non-typeable Hemophilus influenzae
+#> Please find a summary term for the following terms: Th1/Th2 differentiation pathway, Inflammatory response pathway
 #> 
 #> Cluster 6:
-#> Please find a summary term for the following terms: Regulation Of Protein Localization To Nucleus (GO:1900180), Positive Regulation Of Protein Localization To Nucleus (GO:1900182), Positive Regulation Of Protein Localization (GO:1903829)
+#> Please find a summary term for the following terms: Inflammatory Response (GO:0006954), Response To Lipopolysaccharide (GO:0032496), Cellular Response To Lipid (GO:0071396), Cellular Response To Molecule Of Bacterial Origin (GO:0071219), Cellular Response To Lipopolysaccharide (GO:0071222), Cellular Response To Cytokine Stimulus (GO:0071345), Interleukin-10 Signaling R-HSA-6783783, Toll-like receptor signaling pathway regulation, Regulation Of Calcidiol 1-Monooxygenase Activity (GO:0060558), Interleukin-3 regulation of hematopoietic cells, NOD signaling pathway, Chagas disease, Interleukin-1 regulation of extracellular matrix, NF-kappaB activation by non-typeable Hemophilus influenzae
 #> 
 #> Cluster 7:
-#> Please find a summary term for the following terms: Positive Regulation Of Interleukin-10 Production (GO:0032733), Positive Regulation Of Interleukin-12 Production (GO:0032735)
+#> Please find a summary term for the following terms: Regulation Of Protein Localization To Nucleus (GO:1900180), Positive Regulation Of Protein Localization To Nucleus (GO:1900182), Positive Regulation Of Protein Localization (GO:1903829)
 #> 
 #> Cluster 8:
-#> Please find a summary term for the following terms: Costimulation By CD28 Family R-HSA-388841
+#> Please find a summary term for the following terms: Positive Regulation Of Interleukin-10 Production (GO:0032733), Positive Regulation Of Interleukin-12 Production (GO:0032735)
 #> 
 #> Cluster 9:
 #> Please find a summary term for the following terms: Selective expression of chemokine receptors during T-cell polarization
