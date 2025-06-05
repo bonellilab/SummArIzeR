@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138" /></a>
+
 # SummArIzeR
 
 <!-- badges: start -->
@@ -86,7 +88,7 @@ devtools::install_github("bonellilab/SummArIzeR")
 #> 36: data.table   (1.16.4 -> 1.17.4) [CRAN]
 #> 
 #> ── R CMD build ───────────────────────────────────────────────────────────────────────────────
-#>      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c321442a01/bonellilab-SummArIzeR-aac87d6/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c321442a01/bonellilab-SummArIzeR-aac87d6/DESCRIPTION’ (892ms)
+#>   ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c363db5930/bonellilab-SummArIzeR-6317caa/DESCRIPTION’ (979ms)
 #>   ─  preparing ‘SummArIzeR’:
 #>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
 #>   ─  checking for LF line-endings in source and make files and shell scripts
@@ -97,7 +99,7 @@ devtools::install_github("bonellilab/SummArIzeR")
 #>      serialize/load version 3 cannot be read in older versions of R.
 #>      File(s) containing such objects:
 #>        ‘SummArIzeR/data/example_data.rda’
-#> ─  building ‘SummArIzeR_0.0.1.tar.gz’
+#>   ─  building ‘SummArIzeR_0.0.1.tar.gz’
 #>      
 #> 
 #> Installing package into '/home/anela/R/x86_64-pc-linux-gnu-library/4.4'
