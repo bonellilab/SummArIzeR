@@ -110,14 +110,17 @@ categories can be chosen from the set of libraries available in
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 ```
 
-    #> # A tibble: 5 × 6
-    #>   Term                                    Genes      adj_pval dbs                        condition   regulation  
-    #>   <chr>                                   <chr>         <dbl> <chr>                      <chr>       <chr>       
-    #> 1 Cellular Response To Virus (GO:0098586) IL21   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
-    #> 2 Cellular Response To Virus (GO:0098586) CXCL10 0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
-    #> 3 Cellular Response To Virus (GO:0098586) IL6    0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
-    #> 4 Cellular Response To Virus (GO:0098586) IFNG   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
-    #> 5 Cellular Response To Virus (GO:0098586) JAK2   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+``` r
+head(Termlist_all, n = 5)
+#> # A tibble: 5 × 6
+#>   Term                                    Genes      adj_pval dbs                        condition   regulation  
+#>   <chr>                                   <chr>         <dbl> <chr>                      <chr>       <chr>       
+#> 1 Cellular Response To Virus (GO:0098586) IL21   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+#> 2 Cellular Response To Virus (GO:0098586) CXCL10 0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+#> 3 Cellular Response To Virus (GO:0098586) IL6    0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+#> 4 Cellular Response To Virus (GO:0098586) IFNG   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+#> 5 Cellular Response To Virus (GO:0098586) JAK2   0.0000000346 GO_Biological_Process_2023 CD4_Disease up-regulated
+```
 
 Edges below the similarity treshold (ts) are deleted. The optimal
 treshold can be validated by checking the number of clusters, the
@@ -125,6 +128,11 @@ connected terms and the modularity. The threshold value determins which
 edges between terms (nodes) are retained in the network (those with a
 distance weight higher than ts). Smaller values include more edges;
 larger values result in sparser graphs:
+
+``` r
+
+evaluateThreshold(Termlist_all)
+```
 
 <img src="man/figures/README-evaluate_cluster-1.png" width="100%" />
 
@@ -139,7 +147,10 @@ plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 
 ``` r
 #htmltools::tagList(plot)
+plot
 ```
+
+<img src="man/figures/README-cluster_network-3.png" width="100%" />
 
 After treshold adjustment, clusters can be assigned to the dataframe and
 the Prompt can be generated:
