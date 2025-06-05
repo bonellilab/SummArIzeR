@@ -53,7 +53,7 @@ Anela Tosevska bioRxiv 2025.05.28.656331; doi:
 You can install the development version of SummArIzeR from
 [GitHub](https://github.com/) with:
 
-```{r, installation}
+```{r, installation, eval = FALSE}
 # Install devtools if not already installed
 install.packages("devtools")
 

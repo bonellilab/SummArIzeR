@@ -636,83 +636,17 @@ genes</li>
 <p>You can install the development version of SummArIzeR from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Install devtools if not already installed</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; Error in install.packages : Updating loaded packages</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Install SummArIzeR</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;bonellilab/SummArIzeR&quot;</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; Using GitHub PAT from the git credential store.</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; Downloading GitHub repo bonellilab/SummArIzeR@HEAD</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; These packages have more recent versions available.</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; It is recommended to update all of them.</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; Which would you like to update?</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt;  1: All                                   </span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt;  2: CRAN packages only                    </span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt;  3: None                                  </span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt;  4: utf8         (1.2.4  -&gt; 1.2.5 ) [CRAN]</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt;  5: pillar       (1.10.1 -&gt; 1.10.2) [CRAN]</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt;  6: scales       (1.3.0  -&gt; 1.4.0 ) [CRAN]</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt;  7: rlang        (1.1.5  -&gt; 1.1.6 ) [CRAN]</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt;  8: cli          (3.6.4  -&gt; 3.6.5 ) [CRAN]</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt;  9: openssl      (2.3.2  -&gt; 2.3.3 ) [CRAN]</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; 10: mime         (0.12   -&gt; 0.13  ) [CRAN]</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; 11: jsonlite     (1.8.9  -&gt; 2.0.0 ) [CRAN]</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; 12: curl         (6.2.0  -&gt; 6.2.3 ) [CRAN]</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; 13: stringi      (1.8.4  -&gt; 1.8.7 ) [CRAN]</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; 14: generics     (0.1.3  -&gt; 0.1.4 ) [CRAN]</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; 15: cpp11        (0.5.1  -&gt; 0.5.2 ) [CRAN]</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; 16: ggplot2      (3.5.1  -&gt; 3.5.2 ) [CRAN]</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; 17: Rdpack       (2.6.2  -&gt; 2.6.4 ) [CRAN]</span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; 18: MatrixModels (0.5-3  -&gt; 0.5-4 ) [CRAN]</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; 19: doBy         (4.6.25 -&gt; 4.6.27) [CRAN]</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; 20: reformulas   (0.4.0  -&gt; 0.4.1 ) [CRAN]</span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; 21: nloptr       (2.1.1  -&gt; 2.2.1 ) [CRAN]</span></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="co">#&gt; 22: lme4         (1.1-36 -&gt; 1.1-37) [CRAN]</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="co">#&gt; 23: quantreg     (6.00   -&gt; 6.1   ) [CRAN]</span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="co">#&gt; 24: pbkrtest     (0.5.3  -&gt; 0.5.4 ) [CRAN]</span></span>
-<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="co">#&gt; 25: broom        (1.0.7  -&gt; 1.0.8 ) [CRAN]</span></span>
-<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co">#&gt; 26: fs           (1.6.5  -&gt; 1.6.6 ) [CRAN]</span></span>
-<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="co">#&gt; 27: sass         (0.4.9  -&gt; 0.4.10) [CRAN]</span></span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt; 28: tinytex      (0.54   -&gt; 0.57  ) [CRAN]</span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="co">#&gt; 29: xfun         (0.50   -&gt; 0.52  ) [CRAN]</span></span>
-<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="co">#&gt; 30: later        (1.4.1  -&gt; 1.4.2 ) [CRAN]</span></span>
-<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="co">#&gt; 31: knitr        (1.49   -&gt; 1.50  ) [CRAN]</span></span>
-<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="co">#&gt; 32: promises     (1.3.2  -&gt; 1.3.3 ) [CRAN]</span></span>
-<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="co">#&gt; 33: httpuv       (1.6.15 -&gt; 1.6.16) [CRAN]</span></span>
-<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="co">#&gt; 34: emmeans      (1.10.7 -&gt; 1.11.1) [CRAN]</span></span>
-<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="co">#&gt; 35: WriteXLS     (6.7.0  -&gt; 6.8.0 ) [CRAN]</span></span>
-<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="co">#&gt; 36: data.table   (1.16.4 -&gt; 1.17.4) [CRAN]</span></span>
-<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="co">#&gt; ── R CMD build ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a><span class="co">#&gt;      checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c37acad50f/bonellilab-SummArIzeR-e4a0a52/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpVicWYv/remotes3ab7c37acad50f/bonellilab-SummArIzeR-e4a0a52/DESCRIPTION’ (926ms)</span></span>
-<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="co">#&gt;   ─  preparing ‘SummArIzeR’:</span></span>
-<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a><span class="co">#&gt;    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information</span></span>
-<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="co">#&gt;   ─  checking for LF line-endings in source and make files and shell scripts</span></span>
-<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="co">#&gt;   ─  checking for empty or unneeded directories</span></span>
-<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="co">#&gt;   ─  looking to see if a ‘data/datalist’ file should be added</span></span>
-<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="co">#&gt;        NB: this package now depends on R (&gt;= 3.5.0)</span></span>
-<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="co">#&gt;        </span><span class="al">WARNING</span><span class="co">: Added dependency on R &gt;= 3.5.0 because serialized objects in</span></span>
-<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="co">#&gt;      serialize/load version 3 cannot be read in older versions of R.</span></span>
-<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="co">#&gt;      File(s) containing such objects:</span></span>
-<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="co">#&gt;        ‘SummArIzeR/data/example_data.rda’</span></span>
-<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="co">#&gt;   ─  building ‘SummArIzeR_0.0.1.tar.gz’</span></span>
-<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="co">#&gt;      </span></span>
-<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a><span class="co">#&gt; Installing package into &#39;/home/anela/R/x86_64-pc-linux-gnu-library/4.4&#39;</span></span>
-<span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a><span class="co">#&gt; (as &#39;lib&#39; is unspecified)</span></span>
-<span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a><span class="co"># Additional packages</span></span>
-<span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a><span class="co"># Install factoextra from CRAN</span></span>
-<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;factoextra&quot;</span>)</span>
-<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a><span class="co">#&gt; Installing package into &#39;/home/anela/R/x86_64-pc-linux-gnu-library/4.4&#39;</span></span>
-<span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a><span class="co">#&gt; (as &#39;lib&#39; is unspecified)</span></span>
-<span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" tabindex="-1"></a><span class="co"># Install `enrichR`</span></span>
-<span id="cb1-76"><a href="#cb1-76" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;wjawaid/enrichR&quot;</span>)</span>
-<span id="cb1-77"><a href="#cb1-77" tabindex="-1"></a><span class="co">#&gt; Using GitHub PAT from the git credential store.</span></span>
-<span id="cb1-78"><a href="#cb1-78" tabindex="-1"></a><span class="co">#&gt; Skipping install of &#39;enrichR&#39; from a github remote, the SHA1 (79fad70a) has not changed since last install.</span></span>
-<span id="cb1-79"><a href="#cb1-79" tabindex="-1"></a><span class="co">#&gt;   Use `force = TRUE` to force installation</span></span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Install SummArIzeR</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;bonellilab/SummArIzeR&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Additional packages</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Install factoextra from CRAN</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;factoextra&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co"># Install `enrichR`</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;wjawaid/enrichR&quot;</span>)</span></code></pre></div>
 <h2 id="example">Example</h2>
 <p>This is a basic example which shows you how to run SummArIzeR. We
 create an example dataframe from two celltypes comparing a disease and
