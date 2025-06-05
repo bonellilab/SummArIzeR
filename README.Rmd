@@ -2,7 +2,7 @@
 output: rmarkdown::github_document
 editor_options: 
   markdown: 
-    wrap: 72
+    wrap: 24
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -124,7 +124,7 @@ required to consider a term in downstream analysis. The enrichment
 categories can be chosen from the set of libraries available in
 [EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
 
-```{r, enrichment, include=T}
+```{r, enrichment, include=T, eval = FALSE}
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Group"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
@@ -141,7 +141,7 @@ edges between terms (nodes) are retained in the network (those with a
 distance weight higher than ts). Smaller values include more edges;
 larger values result in sparser graphs:
 
-```{r, evaluate_cluster, echo = FALSE}
+```{r, evaluate_cluster, echo = FALSE, fig.width=8.27, fig.height=7}
 
 evaluateThreshold(Termlist_all)
 
@@ -150,7 +150,7 @@ evaluateThreshold(Termlist_all)
 The network can be interactively visualized, and if needed, the
 threshold can be readjusted.
 
-```{r, cluster_network}
+```{r, cluster_network, fig.width=8.27, fig.height=7}
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 #htmltools::tagList(plot)
 ```
