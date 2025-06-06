@@ -2,15 +2,16 @@
 output: rmarkdown::github_document
 editor_options: 
   markdown: 
-    wrap: 24
+    wrap: 5
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+
 knitr::opts_chunk$set(dpi=300,
-  fig.width=7,
   dev = "svg",
+  dpi = 300,
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
