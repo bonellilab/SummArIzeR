@@ -5,6 +5,7 @@
 #' @param listpathSig A data frame containing the gene list with columns `genes` and optionally `log2fold`.
 #' @param name The name of the condition (used in results).
 #' @param category The enrichment database to use.
+#' @param background A background list of genes to use with enrichR. See enrichr documentation for details. 
 #' @param split_by_reg Logical. If `TRUE`, splits genes by up- and down-regulation.
 #' @param logFC_threshold The threshold for determining up/down-regulation. Defaults to `0`.
 #' @param pval_threshold The adjusted p-value threshold for filtering results.
@@ -15,7 +16,7 @@
 #' @import stringr
 #' @export
 
-readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logFC_threshold = 0, pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
+readGeneList <- function(listpathSig, name, category, background = NULL, split_by_reg = FALSE, logFC_threshold = 0, pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
   if (nrow(listpathSig) == 0) {
     stop("Error: The input gene list (listpathSig) is empty.")
   }
@@ -48,7 +49,7 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
       gl_subset <- gl %>% dplyr::filter(regulation == reg)
       
       gl_enr <- tryCatch(
-        enrichr(gl_subset$ID, databases = category),
+        enrichr(gl_subset$ID, databases = category, background = background),
         error = function(e) {
           warning(paste("Warning: Enrichment analysis failed for", reg, "genes in category:", category, "-", e$message))
           return(NULL)
@@ -109,7 +110,7 @@ readGeneList <- function(listpathSig, name, category, split_by_reg = FALSE, logF
     return( returnlist)
   } else {
     gl_enr <- tryCatch(
-      enrichr(gl$ID, databases = category),
+      enrichr(gl$ID, databases = category, background = background),
       error = function(e) {
         warning(paste("Warning: Enrichment analysis failed for category:", category, "-", e$message))
         return(NULL)

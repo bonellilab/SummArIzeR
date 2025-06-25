@@ -5,6 +5,7 @@
 #' @param input A data frame containing gene data.
 #' @param condition_col A character vector of the column name(s) of the conditions to analyze.
 #' @param categories A character vector of database categories for enrichment analysis.
+#' @param background A background list of genes to use with enrichR. See enrichr documentation for details.
 #' @param split_by_reg Logical. If `TRUE`, splits genes by up- and down-regulation.
 #' @param logFC_threshold The threshold for determining up/down-regulation. Defaults to `0`.
 #' @param pval_threshold Numeric; adjusted p-value cutoff. Default is 0.05.
@@ -24,7 +25,7 @@
 #' @importFrom tidyr unite
 #' @importFrom factoextra fviz_dist
 #' @export
-extractMultipleTerms <- function(input, condition_col, categories, split_by_reg = FALSE, logFC_threshold = 0, 
+extractMultipleTerms <- function(input, condition_col, categories, background = NULL, split_by_reg = FALSE, logFC_threshold = 0, 
                          pval_threshold = 0.05, n = 10, min_genes_threshold = 3) {
 
   
@@ -81,6 +82,7 @@ extractMultipleTerms <- function(input, condition_col, categories, split_by_reg 
         readGeneList(
           listpathSig = subset_input,
           name = cond_value, 
+	  background = background,
           category = cat,
           split_by_reg = split_by_reg,
           logFC_threshold = logFC_threshold,
