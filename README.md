@@ -142,7 +142,7 @@ threshold can be readjusted.
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 ```
 
-<img src="man/figures/README-cluster_network-1.svg" width="100%" /><img src="man/figures/README-cluster_network-2.svg" width="100%" />
+<img src="man/figures/network.png" width="100%" /><img src="man/figures/README-cluster_network-2.svg" width="100%" />
 
 ``` r
 #htmltools::tagList(plot)
