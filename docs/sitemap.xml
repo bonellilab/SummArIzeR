@@ -1,0 +1,21 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/articles/SummArIzeR.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/TRUplotIgraph.html</loc></url>
+<url><loc>/reference/annotateClusters.html</loc></url>
+<url><loc>/reference/evaluateThreshold.html</loc></url>
+<url><loc>/reference/extractMultipleTerms.html</loc></url>
+<url><loc>/reference/extractTerms.html</loc></url>
+<url><loc>/reference/generateGPTPrompt.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/plotBubbleplot.html</loc></url>
+<url><loc>/reference/plotHeatmap.html</loc></url>
+<url><loc>/reference/poolPValues.html</loc></url>
+<url><loc>/reference/readGeneList.html</loc></url>
+<url><loc>/reference/returnIgraphCluster.html</loc></url>
+</urlset>
+
