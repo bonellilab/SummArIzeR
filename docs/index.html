@@ -31,8 +31,9 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="articles/SummArIzeR.html">Get started</a></li>
-<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/01-getting-started.html">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/02-detailed_workflow.html">Detailed Workflow</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -88,181 +89,18 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"wjawaid/enrichR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="vignettestutorials">Vignettes/Tutorials<a class="anchor" aria-label="anchor" href="#vignettestutorials"></a>
 </h2>
-<p>This is a basic example which shows you how to run SummArIzeR. We create an example dataframe from two celltypes comparing a disease and control group:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SummArIzeR</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">enrichR</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra" class="external-link">factoextra</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">genelist_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"IL6"</span>, <span class="st">"IFNG"</span>, <span class="st">"IL10"</span>, <span class="st">"TNF"</span>, <span class="st">"CXCL8"</span>, <span class="st">"STAT3"</span>, <span class="st">"STAT1"</span>, <span class="st">"JAK1"</span>, <span class="st">"JAK2"</span>, <span class="st">"SOCS1"</span>, </span>
-<span>    <span class="st">"SOCS3"</span>, <span class="st">"IL1B"</span>, <span class="st">"IL18"</span>, <span class="st">"IL12A"</span>, <span class="st">"IL23A"</span>, <span class="st">"GATA3"</span>, <span class="st">"RORC"</span>, <span class="st">"CCR7"</span>, <span class="st">"CXCR3"</span>, <span class="st">"CCL2"</span>,</span>
-<span>    <span class="st">"CCL5"</span>, <span class="st">"IRF4"</span>, <span class="st">"IRF5"</span>, <span class="st">"IL4R"</span>, <span class="st">"IL2"</span>, <span class="st">"FOXP3"</span>, <span class="st">"TGFB1"</span>, <span class="st">"IL7R"</span>, <span class="st">"IL15"</span>, <span class="st">"NFKB1"</span>, </span>
-<span>    <span class="st">"IL21"</span>, <span class="st">"CXCR5"</span>, <span class="st">"TYK2"</span>, <span class="st">"IL22"</span>, <span class="st">"IL17A"</span>, <span class="st">"IL17F"</span>, <span class="st">"MCP1"</span>, <span class="st">"IL1RN"</span>, <span class="st">"CXCL10"</span>, <span class="st">"CXCL11"</span>, </span>
-<span>    <span class="st">"CD40LG"</span>, <span class="st">"IL6R"</span>, <span class="st">"IL27"</span>, <span class="st">"CD28"</span>, <span class="st">"CD80"</span>, <span class="st">"CD86"</span>, <span class="st">"IL2RA"</span>, <span class="st">"CTLA4"</span>, <span class="st">"PDCD1"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, </span>
-<span>    <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, </span>
-<span>    <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, </span>
-<span>    <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, </span>
-<span>    <span class="st">"Disease"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Disease"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  CellType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, </span>
-<span>    <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, </span>
-<span>    <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"Monocytes"</span>, </span>
-<span>    <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, </span>
-<span>    <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"Monocytes"</span>, <span class="st">"Monocytes"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span>, <span class="st">"CD4"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  log2fold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.65922417</span>, <span class="fl">1.74830165</span>, <span class="op">-</span><span class="fl">0.85544186</span>, <span class="fl">1.32179050</span>, <span class="fl">0.56698208</span>, <span class="fl">0.07638380</span>, <span class="fl">0.94635326</span>, <span class="op">-</span><span class="fl">1.46133361</span>, <span class="fl">0.62796916</span>, <span class="fl">0.82025914</span>, <span class="op">-</span><span class="fl">0.16903290</span>, <span class="fl">0.87644901</span>, <span class="fl">1.73868899</span>, <span class="op">-</span><span class="fl">0.97828470</span>, <span class="op">-</span><span class="fl">0.15082871</span>, <span class="fl">1.76005809</span>, <span class="fl">1.91290571</span>, <span class="op">-</span><span class="fl">1.53005055</span>, <span class="op">-</span><span class="fl">0.10001167</span>, <span class="fl">0.24133098</span>, <span class="fl">1.61612555</span>, <span class="op">-</span><span class="fl">1.44515933</span>, <span class="fl">1.95556692</span>, <span class="fl">1.78667293</span>, <span class="op">-</span><span class="fl">1.67024977</span>, <span class="fl">0.05684714</span>, <span class="op">-</span><span class="fl">0.43918613</span>, <span class="fl">1.62295252</span>, <span class="op">-</span><span class="fl">0.21212149</span>, <span class="fl">1.34401704</span>, <span class="fl">0.95038247</span>, <span class="fl">1.24422057</span>, <span class="op">-</span><span class="fl">0.44756687</span>, <span class="fl">0.74067892</span>, <span class="op">-</span><span class="fl">1.98420664</span>, <span class="fl">1.33166432</span>, <span class="op">-</span><span class="fl">1.97066341</span>, <span class="op">-</span><span class="fl">1.16936411</span>, <span class="fl">1.62640563</span>, <span class="fl">0.44711457</span>, <span class="op">-</span><span class="fl">0.48176304</span>, <span class="op">-</span><span class="fl">0.25691366</span>, <span class="op">-</span><span class="fl">1.85027587</span>, <span class="fl">1.89415966</span>, <span class="op">-</span><span class="fl">0.27299500</span>, <span class="fl">1.83030639</span>, <span class="fl">1.55101962</span>, <span class="fl">0.55991508</span>, <span class="fl">1.88386644</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>We can perform the enrichment analysis for the different conditions CellType and Group: Here we extract the top 5 hits from every database and every condition. The input is data.frame with gene-level data. Must include a “genes” column, conditions column, and, optionally, “log2fold” if splitting by regulation. If split_by_reg (default = FALSE) is set to TRUE, enrichment is performed separately on up- and down-regulated genes. The logFC_threshold (default = 0) parameter defines the log fold-change cutoff used to define up/down regulation when split_by_reg = TRUE. The adjusted p-value cutoff is used to filter significant enriched terms. The parameter n (default = 10) shwos the number of top enriched terms to return per condition and per category, whereas the min_genes_threshold (default = 3) is the minimum number of genes required to consider a term in downstream analysis. The enrichment categories can be chosen from the set of libraries available in <a href="https://maayanlab.cloud/Enrichr/#libraries" class="external-link">EnrichR</a>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Termlist_all</span><span class="op">&lt;-</span><span class="fu"><a href="reference/extractMultipleTerms.html">extractMultipleTerms</a></span><span class="op">(</span><span class="va">genelist_df</span>, condition_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CellType"</span>, <span class="st">"Group"</span><span class="op">)</span>, categories <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO_Biological_Process_2023"</span>,<span class="st">"Reactome_2022"</span>, <span class="st">"BioPlanet_2019"</span><span class="op">)</span>, pval_threshold <span class="op">=</span> <span class="fl">0.05</span>, n <span class="op">=</span> <span class="fl">5</span>, split_by_reg <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Termlist_all</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 6</span></span>
-<span><span class="co">#&gt;   Term                                    Genes      adj_pval dbs              condition regulation</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;                                   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt; 1 Cellular Response To Virus (GO:0098586) IL21   0.0000000346 GO_Biological_P… CD4_Dise… up-regula…</span></span>
-<span><span class="co">#&gt; 2 Cellular Response To Virus (GO:0098586) CXCL10 0.0000000346 GO_Biological_P… CD4_Dise… up-regula…</span></span>
-<span><span class="co">#&gt; 3 Cellular Response To Virus (GO:0098586) IL6    0.0000000346 GO_Biological_P… CD4_Dise… up-regula…</span></span>
-<span><span class="co">#&gt; 4 Cellular Response To Virus (GO:0098586) IFNG   0.0000000346 GO_Biological_P… CD4_Dise… up-regula…</span></span>
-<span><span class="co">#&gt; 5 Cellular Response To Virus (GO:0098586) JAK2   0.0000000346 GO_Biological_P… CD4_Dise… up-regula…</span></span></code></pre></div>
-<p>Edges below the similarity treshold (ts) are deleted. The optimal treshold can be validated by checking the number of clusters, the connected terms and the modularity. The threshold value determins which edges between terms (nodes) are retained in the network (those with a distance weight higher than ts). Smaller values include more edges; larger values result in sparser graphs:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/evaluateThreshold.html">evaluateThreshold</a></span><span class="op">(</span><span class="va">Termlist_all</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-evaluate_cluster-1.png" width="100%"></p>
-<p>The network can be interactively visualized, and if needed, the threshold can be readjusted.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plot</span><span class="op">&lt;-</span><span class="fu"><a href="reference/TRUplotIgraph.html">TRUplotIgraph</a></span><span class="op">(</span><span class="va">Termlist_all</span>, ts  <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-cluster_network-1.svg" width="100%"><img src="reference/figures/README-cluster_network-2.svg" width="100%"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#htmltools::tagList(plot)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">plot</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot_network-1.png" width="100%"> After treshold adjustment, clusters can be assigned to the dataframe and the Prompt can be generated:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Genelist_test_cluster</span><span class="op">&lt;-</span><span class="fu"><a href="reference/returnIgraphCluster.html">returnIgraphCluster</a></span><span class="op">(</span><span class="va">Termlist_all</span>, ts <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Genelist_test_cluster</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 8</span></span>
-<span><span class="co">#&gt; # Groups:   condition, Term, regulation [5]</span></span>
-<span><span class="co">#&gt;   Term             adj_pval condition regulation Cluster dbs   num_genes_per_term genelist_per_term</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;              &lt;int&gt; &lt;list&gt;           </span></span>
-<span><span class="co">#&gt; 1 Cellular Respon…  3.46e-8 CD4_Dise… up-regula…       4 GO_B…                  5 &lt;chr [5]&gt;        </span></span>
-<span><span class="co">#&gt; 2 Positive Regula…  6.17e-8 CD4_Dise… up-regula…       4 GO_B…                  5 &lt;chr [5]&gt;        </span></span>
-<span><span class="co">#&gt; 3 Inflammatory Re…  6.87e-8 CD4_Dise… up-regula…       6 GO_B…                  6 &lt;chr [6]&gt;        </span></span>
-<span><span class="co">#&gt; 4 Regulation Of I…  6.87e-8 CD4_Dise… up-regula…       4 GO_B…                  6 &lt;chr [6]&gt;        </span></span>
-<span><span class="co">#&gt; 5 Cytokine-Mediat…  8.30e-8 CD4_Dise… up-regula…       1 GO_B…                  6 &lt;chr [6]&gt;</span></span>
-<span><span class="fu"><a href="reference/generateGPTPrompt.html">generateGPTPrompt</a></span><span class="op">(</span><span class="va">Genelist_test_cluster</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Cluster 1:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Cytokine-Mediated Signaling Pathway (GO:0019221), Positive Regulation Of Cytokine Production (GO:0001819), Signaling By Interleukins R-HSA-449147, Cytokine Signaling In Immune System R-HSA-1280215, Interleukin-4 And Interleukin-13 Signaling R-HSA-6785807, Immune System R-HSA-168256, Jak-STAT signaling pathway, Interleukin-23-mediated signaling events, Cytokine-cytokine receptor interaction, Immune system signaling by interferons, interleukins, prolactin, and growth hormones, Signaling by interleukins, Interleukin-2 signaling pathway, Immune system, Interleukin-7 signaling pathway</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 2:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: T Cell Differentiation (GO:0030217), T Cell Receptor Signaling Pathway (GO:0050852), T Cell Activation (GO:0042110), Costimulation By CD28 Family R-HSA-388841</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 3:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Regulation of NFAT transcription factors, RUNX1 And FOXP3 Control Development Of Regulatory T Lymphocytes (Tregs) R-HSA-8877330, Transcriptional Regulation By RUNX1 R-HSA-8878171</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 4:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Cellular Response To Virus (GO:0098586), Positive Regulation Of Tumor Necrosis Factor Superfamily Cytokine Production (GO:1903557), Regulation Of Inflammatory Response (GO:0050727), Regulation Of Interleukin-17 Production (GO:0032660), Regulation Of Tyrosine Phosphorylation Of STAT Protein (GO:0042509), Positive Regulation Of Lymphocyte Proliferation (GO:0050671), Interleukin-6 Signaling R-HSA-1059683, Interleukin-27-mediated signaling events, Interleukin-22 soluble receptor signaling pathway, Interleukin-12/STAT4 pathway</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 5:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Th1/Th2 differentiation pathway, Inflammatory response pathway</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 6:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Inflammatory Response (GO:0006954), Response To Lipopolysaccharide (GO:0032496), Cellular Response To Lipid (GO:0071396), Cellular Response To Molecule Of Bacterial Origin (GO:0071219), Cellular Response To Lipopolysaccharide (GO:0071222), Cellular Response To Cytokine Stimulus (GO:0071345), Interleukin-10 Signaling R-HSA-6783783, Toll-like receptor signaling pathway regulation, Regulation Of Calcidiol 1-Monooxygenase Activity (GO:0060558), Interleukin-3 regulation of hematopoietic cells, NOD signaling pathway, Chagas disease, Interleukin-1 regulation of extracellular matrix, NF-kappaB activation by non-typeable Hemophilus influenzae</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 7:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Regulation Of Protein Localization To Nucleus (GO:1900180), Positive Regulation Of Protein Localization To Nucleus (GO:1900182), Positive Regulation Of Protein Localization (GO:1903829)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 8:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Positive Regulation Of Interleukin-10 Production (GO:0032733), Positive Regulation Of Interleukin-12 Production (GO:0032735)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Cluster 9:</span></span>
-<span><span class="co">#&gt; Please find a summary term for the following terms: Selective expression of chemokine receptors during T-cell polarization</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Please summarize the following clusters of terms with a single term for each cluster. </span></span>
-<span><span class="co">#&gt;  Then, assign the cluster numbers to these summary terms in an R vector, called `cluster_summary`, formatted as:</span></span>
-<span><span class="co">#&gt;  '1' = 'Summary Term 1', '2' = 'Summary Term 2', ..., 'n' = 'Summary Term n'.</span></span></code></pre></div>
-<p>The prompt can be queried using a LLM like ChatGPT. The result can be copied into R. Now, a final data frame containing the cluster annotations can be created:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Enter vector from LLM </span></span>
-<span><span class="va">cluster_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="st">'1'</span> <span class="op">=</span> <span class="st">'T Cell Transcriptional Regulation'</span>,</span>
-<span>  <span class="st">'2'</span> <span class="op">=</span> <span class="st">'Interleukin Signaling Pathways'</span>,</span>
-<span>  <span class="st">'3'</span> <span class="op">=</span> <span class="st">'Inflammatory Response Activation'</span>,</span>
-<span>  <span class="st">'4'</span> <span class="op">=</span> <span class="st">'STAT and IL-17 Pathway Regulation'</span>,</span>
-<span>  <span class="st">'5'</span> <span class="op">=</span> <span class="st">'Cytokine-Mediated Immune Signaling'</span>,</span>
-<span>  <span class="st">'6'</span> <span class="op">=</span> <span class="st">'T Cell Proliferation and Inflammatory Regulation'</span>,</span>
-<span>  <span class="st">'7'</span> <span class="op">=</span> <span class="st">'IL-20 Family Signaling'</span>,</span>
-<span>  <span class="st">'8'</span> <span class="op">=</span> <span class="st">'Cytokine Response'</span>,</span>
-<span>  <span class="st">'9'</span> <span class="op">=</span> <span class="st">'Type II Interferon Response'</span>,</span>
-<span>  <span class="st">'10'</span> <span class="op">=</span> <span class="st">'Antiviral Cellular Response'</span>,</span>
-<span>  <span class="st">'11'</span> <span class="op">=</span> <span class="st">'Chemokine Signaling'</span>,</span>
-<span>  <span class="st">'12'</span> <span class="op">=</span> <span class="st">'Negative Regulation of Organismal Processes'</span>,</span>
-<span>  <span class="st">'13'</span> <span class="op">=</span> <span class="st">'Th17 Cell Differentiation'</span>,</span>
-<span>  <span class="st">'14'</span> <span class="op">=</span> <span class="st">'Th1/Th2 Cell Differentiation'</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cluster_summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                                  1 </span></span>
-<span><span class="co">#&gt;                "T Cell Transcriptional Regulation" </span></span>
-<span><span class="co">#&gt;                                                  2 </span></span>
-<span><span class="co">#&gt;                   "Interleukin Signaling Pathways" </span></span>
-<span><span class="co">#&gt;                                                  3 </span></span>
-<span><span class="co">#&gt;                 "Inflammatory Response Activation" </span></span>
-<span><span class="co">#&gt;                                                  4 </span></span>
-<span><span class="co">#&gt;                "STAT and IL-17 Pathway Regulation" </span></span>
-<span><span class="co">#&gt;                                                  5 </span></span>
-<span><span class="co">#&gt;               "Cytokine-Mediated Immune Signaling" </span></span>
-<span><span class="co">#&gt;                                                  6 </span></span>
-<span><span class="co">#&gt; "T Cell Proliferation and Inflammatory Regulation" </span></span>
-<span><span class="co">#&gt;                                                  7 </span></span>
-<span><span class="co">#&gt;                           "IL-20 Family Signaling" </span></span>
-<span><span class="co">#&gt;                                                  8 </span></span>
-<span><span class="co">#&gt;                                "Cytokine Response" </span></span>
-<span><span class="co">#&gt;                                                  9 </span></span>
-<span><span class="co">#&gt;                      "Type II Interferon Response" </span></span>
-<span><span class="co">#&gt;                                                 10 </span></span>
-<span><span class="co">#&gt;                      "Antiviral Cellular Response" </span></span>
-<span><span class="co">#&gt;                                                 11 </span></span>
-<span><span class="co">#&gt;                              "Chemokine Signaling" </span></span>
-<span><span class="co">#&gt;                                                 12 </span></span>
-<span><span class="co">#&gt;      "Negative Regulation of Organismal Processes" </span></span>
-<span><span class="co">#&gt;                                                 13 </span></span>
-<span><span class="co">#&gt;                        "Th17 Cell Differentiation" </span></span>
-<span><span class="co">#&gt;                                                 14 </span></span>
-<span><span class="co">#&gt;                     "Th1/Th2 Cell Differentiation"</span></span></code></pre></div>
-<p>The clusters can now be annotated based on the vectors defined above. Here, one could specify different methods for pooling p-values resulting from multiple terms. In addition, this pooled p-value is capped at a min_pval (default = 1e-10), making it better suitable for plotting. However, users can select a lower min_pval threshold.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Annotation_list</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/annotateClusters.html">annotateClusters</a></span><span class="op">(</span><span class="va">Genelist_test_cluster</span>, <span class="va">cluster_summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: There were 11 warnings in `dplyr::mutate()`.</span></span>
-<span><span class="co">#&gt; The first warning was:</span></span>
-<span><span class="co">#&gt; ℹ In argument: `pval_pooled = poolPValues(adj_pval, method = method, weights = weights, min_pval =</span></span>
-<span><span class="co">#&gt;   min_pval)`.</span></span>
-<span><span class="co">#&gt; ℹ In group 1: `condition = "CD4_Control"` `Cluster = 1`.</span></span>
-<span><span class="co">#&gt; Caused by warning in `poolPValues()`:</span></span>
-<span><span class="co">#&gt; ! Pooled p-value capped to minimum threshold: 1.0e-10</span></span>
-<span><span class="co">#&gt; ℹ Run `dplyr::last_dplyr_warnings()` to see the 10 remaining warnings.</span></span></code></pre></div>
-<p>The results can be plotted as a Bubbleplot. If the enrichment was done for up-and downregulation seperatly, the plot will be split for up-and downregulated genes.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="reference/plotBubbleplot.html">plotBubbleplot</a></span><span class="op">(</span><span class="va">Annotation_list</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-Bubbleplot-1.svg" width="100%"></p>
-<p>Additionally, the results can be plotted as a Heatmap. If the enrichment was done for up-and downregulation seperatly, the Heatmap can be split for up-and downregulated genes. The heatmap can be further customized by setting cluster_rows/columns to TRUE.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">#plotHeatmap(Annotation_list, rot = 90, annotation_bar = F, column_names_centered = F)</span></span></code></pre></div>
+<p>Visit the SummArIzeR website for Info’s about:</p>
+<ul>
+<li>getting started</li>
+<li>a detailed workflow and customization</li>
+<li>how to prepare the input data from a DESeq2 object</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="bug-reports">Bug Reports<a class="anchor" aria-label="anchor" href="#bug-reports"></a>
+</h2>
 <p>If you encounter any errors or issues, or if you have a suggestion please file an issue <a href="https://github.com/bonellilab/SummArIzeR/issues" class="external-link">here</a>.</p>
 </div>
 </div>

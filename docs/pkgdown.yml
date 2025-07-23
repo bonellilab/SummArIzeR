@@ -2,5 +2,7 @@ pandoc: '3.2'
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
+  01-getting-started: 01-getting-started.html
+  02-detailed_workflow: 02-detailed_workflow.html
   SummArIzeR: SummArIzeR.html
-last_built: 2025-07-19T08:22Z
+last_built: 2025-07-19T19:16Z
