@@ -1,0 +1,312 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  dpi = 300,
+  dev = "png",        # Switch to png
+  fig.path = "figures/", # Save figures in a local folder per vignette
+  fig.width = 7,
+  fig.height = 5,
+  out.width = "100%"
+)
+
+
+library(knitr)
+```
+
+# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138"/></a>
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+`SummArIzeR` is an R
+package, that allows an
+easy use of EnrichR to
+compare enrichment
+results from multiple
+databases of multiple
+conditons. It results in
+a clustering of enriched
+terms and enables the
+annotation of these
+terms by creating a
+promt for large language
+models such as gpt4.
+Results can be
+vizualised in a Heatmap.
+
+If you are using
+`SummArIzeR` for your
+publication, please cite
+us:
+
+SummArIzeR: Simplifying
+cross-database
+enrichment result
+clustering and
+annotation via large
+language models Marie
+Brinkmann, Michael
+Bonelli, Anela Tosevska
+bioRxiv
+2025.05.28.656331; doi:
+<https://doi.org/10.1101/2025.05.28.656331>
+
+## Features
+
+-   Perform enrichment
+    analysis using
+    `enrichR`.
+-   Allows analysis of
+    multiple conditions
+-   Analyze up- and
+    down-regulated genes
+    separately.
+-   Filter terms by
+    p-value and gene
+    thresholds.
+-   Calculates
+    similarities of
+    results terms based
+    on included genes
+-   Clusters terms using
+    random walk
+    algorithm
+-   Generates a prompt
+    for a LLM to
+    summarized cluster
+    annotations
+-   Allows easy heatmap
+    visualization
+
+## Installation
+
+You can install the
+development version of
+SummArIzeR from
+[GitHub](https://github.com/)
+with:
+
+```{r, installation, eval = FALSE}
+# Install devtools if not already installed
+install.packages("devtools")
+
+# Install SummArIzeR
+devtools::install_github("bonellilab/SummArIzeR")
+
+# Additional packages
+
+# Install factoextra from CRAN
+install.packages("factoextra")
+
+# Install `enrichR`
+devtools::install_github("wjawaid/enrichR")
+```
+
+## Example
+
+This is a basic example
+which shows you how to
+run SummArIzeR. We
+create an example
+dataframe from two
+celltypes comparing a
+disease and control
+group:
+
+```{r, warning = FALSE,message = FALSE, example}
+library(SummArIzeR)
+library(enrichR)
+library(factoextra)
+
+set.seed(1234)
+
+genelist_df <- data.frame(
+  genes = c(
+    "IL6", "IFNG", "IL10", "TNF", "CXCL8", "STAT3", "STAT1", "JAK1", "JAK2", "SOCS1", 
+    "SOCS3", "IL1B", "IL18", "IL12A", "IL23A", "GATA3", "RORC", "CCR7", "CXCR3", "CCL2",
+    "CCL5", "IRF4", "IRF5", "IL4R", "IL2", "FOXP3", "TGFB1", "IL7R", "IL15", "NFKB1", 
+    "IL21", "CXCR5", "TYK2", "IL22", "IL17A", "IL17F", "MCP1", "IL1RN", "CXCL10", "CXCL11", 
+    "CD40LG", "IL6R", "IL27", "CD28", "CD80", "CD86", "IL2RA", "CTLA4", "PDCD1"
+  ),
+  Condition = c(
+    "Disease", "Disease", "Control", "Disease", "Disease", "Disease", "Control", "Control", "Disease", "Control", 
+    "Disease", "Disease", "Control", "Disease", "Disease", "Control", "Disease", "Control", "Disease", "Disease", 
+    "Control", "Disease", "Disease", "Control", "Disease", "Control", "Control", "Control", "Disease", "Disease", 
+    "Disease", "Control", "Control", "Disease", "Disease", "Disease", "Disease", "Control", "Disease", "Disease", 
+    "Disease", "Disease", "Control", "Control", "Control", "Disease", "Control", "Control", "Control"
+  ),
+  CellType = c(
+    "CD4", "CD4", "CD4", "Monocytes", "Monocytes", "CD4", "CD4", "Monocytes", "CD4", "Monocytes", 
+    "CD4", "Monocytes", "Monocytes", "CD4", "CD4", "CD4", "CD4", "CD4", "CD4", "Monocytes", 
+    "Monocytes", "CD4", "Monocytes", "CD4", "CD4", "CD4", "Monocytes", "CD4", "Monocytes", "Monocytes", 
+    "CD4", "CD4", "Monocytes", "CD4", "CD4", "CD4", "Monocytes", "Monocytes", "CD4", "CD4", 
+    "CD4", "Monocytes", "CD4", "CD4", "Monocytes", "Monocytes", "CD4", "CD4", "CD4"
+  ),
+  log2fold = c(1.65922417, 1.74830165, -0.85544186, 1.32179050, 0.56698208, 0.07638380, 0.94635326, -1.46133361, 0.62796916, 0.82025914, -0.16903290, 0.87644901, 1.73868899, -0.97828470, -0.15082871, 1.76005809, 1.91290571, -1.53005055, -0.10001167, 0.24133098, 1.61612555, -1.44515933, 1.95556692, 1.78667293, -1.67024977, 0.05684714, -0.43918613, 1.62295252, -0.21212149, 1.34401704, 0.95038247, 1.24422057, -0.44756687, 0.74067892, -1.98420664, 1.33166432, -1.97066341, -1.16936411, 1.62640563, 0.44711457, -0.48176304, -0.25691366, -1.85027587, 1.89415966, -0.27299500, 1.83030639, 1.55101962, 0.55991508, 1.88386644)
+)
+```
+
+We can perform the
+enrichment analysis for
+the different conditions
+CellType and Group: Here
+we extract the top 5
+hits from every database
+and every condition. The
+input is data.frame with
+gene-level data. Must
+include a "genes"
+column, conditions
+column, and, optionally,
+"log2fold" if splitting
+by regulation. If
+split_by_reg (default =
+FALSE) is set to TRUE,
+enrichment is performed
+separately on up- and
+down-regulated genes.
+The logFC_threshold
+(default = 0) parameter
+defines the log
+fold-change cutoff used
+to define up/down
+regulation when
+split_by_reg = TRUE. The
+adjusted p-value cutoff
+is used to filter
+significant enriched
+terms. The parameter n
+(default = 10) shwos the
+number of top enriched
+terms to return per
+condition and per
+category, whereas the
+min_genes_threshold
+(default = 3) is the
+minimum number of genes
+required to consider a
+term in downstream
+analysis. The enrichment
+categories can be chosen
+from the set of
+libraries available in
+[EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
+
+```{r, enrichment, message = FALSE, cache=TRUE, results='hide'}
+Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Condition"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
+
+```
+
+```{r, view, include=T}
+head(Termlist_all, n = 5)
+
+```
+
+Edges below the
+similarity treshold (ts)
+are deleted. The optimal
+treshold can be
+validated by checking
+the number of clusters,
+the connected terms and
+the modularity. The
+threshold value
+determins which edges
+between terms (nodes)
+are retained in the
+network (those with a
+distance weight higher
+than ts). Smaller values
+include more edges;
+larger values result in
+sparser graphs:
+
+```{r, evaluate_cluster, include=T, fig.width=1, fig.height=1}
+evaluateThreshold(Termlist_all)
+```
+
+The network can be
+interactively
+visualized, and if
+needed, the threshold
+can be readjusted.
+
+```{r, cluster_network, include=F, fig.width=15, fig.height=12}
+plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
+#htmltools::tagList(plot)
+```
+
+```{r, plot_network, fig.width=1, fig.height=1}
+plot
+```
+After treshold
+adjustment, clusters can
+be assigned to the
+dataframe and the Prompt
+can be generated:
+
+```{r, prompt, include=T}
+Genelist_test_cluster<-returnIgraphCluster(Termlist_all, ts = 0.3)
+head(Genelist_test_cluster, n = 5)
+generateGPTPrompt(Genelist_test_cluster)
+```
+
+The prompt can be
+queried using a LLM like
+ChatGPT. The result can
+be copied into R. Now, a
+final data frame
+containing the cluster
+annotations can be
+created:
+
+```{r cluster_annotation, message=FALSE, warning= FALSE}
+#Enter vector from LLM 
+cluster_summary <- c(
+  '1' = 'Cytokine and Interleukin Signaling in Immune Regulation',
+  '2' = 'T Cell Activation and Differentiation',
+  '3' = 'Regulation of T Cell Transcription Factors',
+  '4' = 'Regulation of Inflammatory Cytokine Responses',
+  '5' = 'T Helper Cell Differentiation and Inflammatory Responses',
+  '6' = 'Innate Immune and Inflammatory Response to Pathogens',
+  '7' = 'Regulation of Protein Localization to the Nucleus',
+  '8' = 'Positive Regulation of Interleukin Production',
+  '9' = 'Chemokine Receptor Expression During T Cell Polarization'
+)
+
+print(cluster_summary)
+
+```
+
+The clusters can now be
+annotated based on the
+vectors defined above.
+
+
+```{r, annotation, warning = FALSE,message = FALSE}
+Annotation_list<- annotateClusters(Genelist_test_cluster, cluster_summary)
+```
+
+The results can be
+plotted as a Bubbleplot.
+If the enrichment was
+done for up-and
+downregulation
+seperatly, the plot will
+be split for up-and
+downregulated genes.
+
+```{r, Bubbleplot,  fig.width=8.27, fig.height=7}
+plotBubbleplot(Annotation_list)
+```

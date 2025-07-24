@@ -1,0 +1,13 @@
+knitr
+circlize
+ComplexHeatmap
+dplyr
+igraph
+ggplot2
+plotly
+proxy
+stringr
+tidyr
+SummArIzeR
+enrichR
+factoextra
