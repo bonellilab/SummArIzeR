@@ -1,4 +1,13 @@
-url: ~
 template:
   bootstrap: 5
 
+navbar:
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Getting Started"
+      href: articles/01-getting-started.html
+    - text: "Detailed Workflow"
+      href: articles/02-detailed_workflow.html
+    - text: "Create input file from DeSeq2 object"
+      href: articles/03-dataframe-creation.html
