@@ -3,12 +3,14 @@
 <url><loc>/LICENSE-text.html</loc></url>
 <url><loc>/articles/01-getting-started.html</loc></url>
 <url><loc>/articles/02-detailed_workflow.html</loc></url>
+<url><loc>/articles/03-dataframe-creation.html</loc></url>
 <url><loc>/articles/SummArIzeR.html</loc></url>
 <url><loc>/articles/index.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/reference/TRUplotIgraph.html</loc></url>
 <url><loc>/reference/annotateClusters.html</loc></url>
+<url><loc>/reference/ddsqReducedF.html</loc></url>
 <url><loc>/reference/evaluateThreshold.html</loc></url>
 <url><loc>/reference/extractMultipleTerms.html</loc></url>
 <url><loc>/reference/extractTerms.html</loc></url>

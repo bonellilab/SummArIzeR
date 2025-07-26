@@ -18,6 +18,7 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/01-getting-started.html">Getting Started</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/02-detailed_workflow.html">Detailed Workflow</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/03-dataframe-creation.html">Create input file from DeSeq2 object</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
       </ul></div>
@@ -43,6 +44,7 @@
 <span>  <span class="va">input</span>,</span>
 <span>  <span class="va">condition_col</span>,</span>
 <span>  <span class="va">category</span>,</span>
+<span>  background <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  split_by_reg <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  logFC_threshold <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  pval_threshold <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -65,6 +67,10 @@
 
 <dt id="arg-category">category<a class="anchor" aria-label="anchor" href="#arg-category"></a></dt>
 <dd><p>A character vector of database names for enrichment analysis.</p></dd>
+
+
+<dt id="arg-background">background<a class="anchor" aria-label="anchor" href="#arg-background"></a></dt>
+<dd><p>A background list of genes to use with enrichR. See enrichr documentation for details.</p></dd>
 
 
 <dt id="arg-split-by-reg">split_by_reg<a class="anchor" aria-label="anchor" href="#arg-split-by-reg"></a></dt>
