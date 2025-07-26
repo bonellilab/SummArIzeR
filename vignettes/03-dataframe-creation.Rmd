@@ -1,0 +1,110 @@
+---
+title: "Dataframe creation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{dataframe-creation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+
+knitr::opts_chunk$set(dpi=300,
+  dev = "svg",
+  dpi = 300,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(knitr)
+```
+
+# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138"/></a>
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+
+
+```{r, include=F}
+
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+library(DESeq2)
+library(SummArIzeR)
+```
+```{r load_data, include= T}
+data(ddsqReducedF)
+ddsqReducedF
+summary(ddsqReducedF)
+```
+The DeSeq2 objects contains the different conditions as colnames and the genes as rownames. We can extract a results table for every comparison and create a big results table.
+
+```{r create_table, include=T}
+res <- results(ddsqReducedF, contrast = c("Treatment", "IFNb", "untreated"))
+
+res_IFNb<- as.data.frame(res) %>%
+  tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "IFNb_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+res_IFNg <- results(ddsqReducedF, contrast = c("Treatment", "IFNg", "untreated")) %>%
+  as.data.frame() %>%
+   tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "IFNg_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+res_TGFb <- results(ddsqReducedF, contrast = c("Treatment", "TGFb", "untreated")) %>%
+  as.data.frame() %>%
+   tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "TGFb_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+res_IL17 <- results(ddsqReducedF, contrast = c("Treatment", "IL17", "untreated")) %>%
+  as.data.frame() %>%
+   tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "IL17_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+res_IL1b <- results(ddsqReducedF, contrast = c("Treatment", "IL1b", "untreated")) %>%
+  as.data.frame() %>%
+   tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "IL1b_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+res_IL4 <- results(ddsqReducedF, contrast = c("Treatment", "IL4", "untreated")) %>%
+  as.data.frame() %>%
+   tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "IL4_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+
+res_TNFa <- results(ddsqReducedF, contrast = c("Treatment", "TNFa", "untreated")) %>%
+  as.data.frame() %>%
+   tibble::rownames_to_column("gene") %>%
+  dplyr::select(gene, log2FoldChange, padj) %>%
+  dplyr::mutate(comparison = "TNFa_vs_untreated") %>%
+  dplyr::rename(log2fold = log2FoldChange)
+
+# Combine
+res_df <- bind_rows(res_IFNb, res_IFNg, res_TNFa, res_IL4, res_IL1b, res_IL17, res_TGFb)
+
+# Filter signifiant results
+
+res_df_signif<-res_df %>% dplyr::filter(is.na(log2fold) ==F & is.na(padj) == F & abs(log2fold)>1 & padj<= 0.05)
+
+```
