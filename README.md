@@ -55,9 +55,9 @@ devtools::install_github("wjawaid/enrichR")
 
 Visit the SummArIzeR website for Info’s about:
 
-- [getting started] (https://bonellilab.github.io/SummArIzeR/articles/01-getting-started.html)
-- [a detailed workflow and customization] (https://bonellilab.github.io/SummArIzeR/articles/02-detailed_workflow.html)
-- [how to prepare the input data from a DESeq2 object] (https://bonellilab.github.io/SummArIzeR/articles/03-dataframe-creation.html)
+- [getting started](https://bonellilab.github.io/SummArIzeR/articles/01-getting-started.html)
+- [a detailed workflow and customization](https://bonellilab.github.io/SummArIzeR/articles/02-detailed_workflow.html)
+- [how to prepare the input data from a DESeq2 object](https://bonellilab.github.io/SummArIzeR/articles/03-dataframe-creation.html)
 
 ## Bug Reports
 
