@@ -8,6 +8,7 @@ readGeneList(
   listpathSig,
   name,
   category,
+  background = NULL,
   split_by_reg = FALSE,
   logFC_threshold = 0,
   pval_threshold = 0.05,
@@ -21,6 +22,8 @@ readGeneList(
 \item{name}{The name of the condition (used in results).}
 
 \item{category}{The enrichment database to use.}
+
+\item{background}{A background list of genes to use with enrichR. See enrichr documentation for details.}
 
 \item{split_by_reg}{Logical. If \code{TRUE}, splits genes by up- and down-regulation.}
 

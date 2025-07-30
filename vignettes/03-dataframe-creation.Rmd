@@ -1,8 +1,8 @@
 ---
-title: "Dataframe creation"
+title: "Create input file from a DESeq2 object"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{dataframe-creation}
+  %\VignetteIndexEntry{Create input file}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,6 @@ knitr::opts_chunk$set(dpi=300,
 library(knitr)
 ```
 
-# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138"/></a>
 
 <!-- badges: start -->
 
@@ -42,69 +41,38 @@ library(DESeq2)
 library(SummArIzeR)
 ```
 ```{r load_data, include= T}
-data(ddsqReducedF)
+data()
 ddsqReducedF
 summary(ddsqReducedF)
 ```
-The DeSeq2 objects contains the different conditions as colnames and the genes as rownames. We can extract a results table for every comparison and create a big results table.
+The DESeq2 objects contains the different conditions as colnames and the genes as rownames. We can extract a results table for the different comparisons.
 
 ```{r create_table, include=T}
 res <- results(ddsqReducedF, contrast = c("Treatment", "IFNb", "untreated"))
+head(res)
+```
 
-res_IFNb<- as.data.frame(res) %>%
+We can generate a comprehensive results dataframe by looping through each condition. We can optionally filter the results by log2 fold change `log2fold` and adjusted p-value `padj`.
+ 
+
+```{r create_df, include=T}
+
+condition_list<-c("IFNb", "IFNg", "IL17", "IL1b", "IL4")
+counter<-0
+for(cond in condition_list){
+  counter<-counter + 1
+  res_i <- results(ddsqReducedF, contrast = c("Treatment", cond, "untreated"))%>% 
+     as.data.frame() %>%
   tibble::rownames_to_column("gene") %>%
   dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "IFNb_vs_untreated") %>%
+  dplyr::mutate(comparison = str_glue(cond,"_vs_untreated")) %>%
   dplyr::rename(log2fold = log2FoldChange)
-
-res_IFNg <- results(ddsqReducedF, contrast = c("Treatment", "IFNg", "untreated")) %>%
-  as.data.frame() %>%
-   tibble::rownames_to_column("gene") %>%
-  dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "IFNg_vs_untreated") %>%
-  dplyr::rename(log2fold = log2FoldChange)
-
-res_TGFb <- results(ddsqReducedF, contrast = c("Treatment", "TGFb", "untreated")) %>%
-  as.data.frame() %>%
-   tibble::rownames_to_column("gene") %>%
-  dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "TGFb_vs_untreated") %>%
-  dplyr::rename(log2fold = log2FoldChange)
-
-res_IL17 <- results(ddsqReducedF, contrast = c("Treatment", "IL17", "untreated")) %>%
-  as.data.frame() %>%
-   tibble::rownames_to_column("gene") %>%
-  dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "IL17_vs_untreated") %>%
-  dplyr::rename(log2fold = log2FoldChange)
-
-res_IL1b <- results(ddsqReducedF, contrast = c("Treatment", "IL1b", "untreated")) %>%
-  as.data.frame() %>%
-   tibble::rownames_to_column("gene") %>%
-  dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "IL1b_vs_untreated") %>%
-  dplyr::rename(log2fold = log2FoldChange)
-
-res_IL4 <- results(ddsqReducedF, contrast = c("Treatment", "IL4", "untreated")) %>%
-  as.data.frame() %>%
-   tibble::rownames_to_column("gene") %>%
-  dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "IL4_vs_untreated") %>%
-  dplyr::rename(log2fold = log2FoldChange)
-
-
-res_TNFa <- results(ddsqReducedF, contrast = c("Treatment", "TNFa", "untreated")) %>%
-  as.data.frame() %>%
-   tibble::rownames_to_column("gene") %>%
-  dplyr::select(gene, log2FoldChange, padj) %>%
-  dplyr::mutate(comparison = "TNFa_vs_untreated") %>%
-  dplyr::rename(log2fold = log2FoldChange)
-
-# Combine
-res_df <- bind_rows(res_IFNb, res_IFNg, res_TNFa, res_IL4, res_IL1b, res_IL17, res_TGFb)
-
+ if(counter == 1){res<-res_i}
+if(counter >1){res<-rbind(res, res_i)}  
+  
+}
 # Filter signifiant results
 
-res_df_signif<-res_df %>% dplyr::filter(is.na(log2fold) ==F & is.na(padj) == F & abs(log2fold)>1 & padj<= 0.05)
-
+res_df_signif<-res %>% dplyr::filter(is.na(log2fold) ==F & is.na(padj) == F & abs(log2fold)>1 & padj<= 0.05)
+head(res_df_signif)
 ```

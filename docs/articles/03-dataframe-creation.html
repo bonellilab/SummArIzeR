@@ -5,18 +5,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>dataframe-creation • SummArIzeR</title>
+<title>Create input file from a DESeq2 object • SummArIzeR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="dataframe-creation">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create input file from a DESeq2 object">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">SummArIzeR</a>
 
@@ -32,7 +32,7 @@
 <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/01-getting-started.html">Getting Started</a></li>
 <li class="nav-item"><a class="nav-link" href="../articles/02-detailed_workflow.html">Detailed Workflow</a></li>
-<li class="active nav-item"><a class="nav-link" href="../articles/03-dataframe-creation.html">Create input file from DeSeq2 object</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/03-dataframe-creation.html">Create input file</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -51,7 +51,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>dataframe-creation</h1>
+      <h1>Create input file from a DESeq2 object</h1>
             
       
 
@@ -61,10 +61,6 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div class="section level2">
-<h2 id="summarizer">SummArIzeR
-<a><img src="reference/figures/SummArIzeRlogo.png" align="right" height="138"></a><a class="anchor" aria-label="anchor" href="#summarizer"></a>
-</h2>
 <!-- badges: start -->
 <!-- badges: end -->
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -81,68 +77,53 @@
 <span><span class="co">#&gt; colData names(4): Cell Pat Treatment sizeFactor</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ddsqReducedF</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "DESeqDataSet object of length 58051 with 58 metadata columns"</span></span></code></pre></div>
-<p>The DeSeq2 objects contains the different conditions as colnames and
-the genes as rownames. We can extract a results table for every
-comparison and create a big results table.</p>
+<p>The DESeq2 objects contains the different conditions as colnames and
+the genes as rownames. We can extract a results table for the different
+comparisons.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IFNb"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res_IFNb</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="co">#&gt; log2 fold change (MLE): Treatment IFNb vs untreated </span></span>
+<span><span class="co">#&gt; Wald test p-value: Treatment IFNb vs untreated </span></span>
+<span><span class="co">#&gt; DataFrame with 6 rows and 6 columns</span></span>
+<span><span class="co">#&gt;            baseMean log2FoldChange     lfcSE      stat    pvalue      padj</span></span>
+<span><span class="co">#&gt;           &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; DDX11L1    0.000000             NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; WASH7P     0.109984       0.776279   5.94781  0.130515  0.896159        NA</span></span>
+<span><span class="co">#&gt; MIR6859-1  0.000000             NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; MIR1302-2  0.000000             NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; FAM138A    0.000000             NA        NA        NA        NA        NA</span></span>
+<span><span class="co">#&gt; OR4G4P     0.000000             NA        NA        NA        NA        NA</span></span></code></pre></div>
+<p>We can generate a comprehensive results dataframe by looping through
+each condition. We can optionally filter the results by log2 fold change
+<code>log2fold</code> and adjusted p-value <code>padj</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">condition_list</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IFNb"</span>, <span class="st">"IFNg"</span>, <span class="st">"IL17"</span>, <span class="st">"IL1b"</span>, <span class="st">"IL4"</span><span class="op">)</span></span>
+<span><span class="va">counter</span><span class="op">&lt;-</span><span class="fl">0</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">cond</span> <span class="kw">in</span> <span class="va">condition_list</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">counter</span><span class="op">&lt;-</span><span class="va">counter</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="va">res_i</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="va">cond</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"IFNb_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html" class="external-link">str_glue</a></span><span class="op">(</span><span class="va">cond</span>,<span class="st">"_vs_untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res_IFNg</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IFNg"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"IFNg_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res_TGFb</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"TGFb"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"TGFb_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res_IL17</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IL17"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"IL17_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res_IL1b</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IL1b"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"IL1b_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res_IL4</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IL4"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"IL4_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">res_TNFa</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"TNFa"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="st">"TNFa_vs_untreated"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>log2fold <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Combine</span></span>
-<span><span class="va">res_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">res_IFNb</span>, <span class="va">res_IFNg</span>, <span class="va">res_TNFa</span>, <span class="va">res_IL4</span>, <span class="va">res_IL1b</span>, <span class="va">res_IL17</span>, <span class="va">res_TGFb</span><span class="op">)</span></span>
-<span></span>
+<span> <span class="kw">if</span><span class="op">(</span><span class="va">counter</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">{</span><span class="va">res</span><span class="op">&lt;-</span><span class="va">res_i</span><span class="op">}</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="va">counter</span> <span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span><span class="op">{</span><span class="va">res</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">res_i</span><span class="op">)</span><span class="op">}</span>  </span>
+<span>  </span>
+<span><span class="op">}</span></span>
 <span><span class="co"># Filter signifiant results</span></span>
 <span></span>
-<span><span class="va">res_df_signif</span><span class="op">&lt;-</span><span class="va">res_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">log2fold</span><span class="op">)</span> <span class="op">==</span><span class="cn">F</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span> <span class="op">==</span> <span class="cn">F</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log2fold</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="va">padj</span><span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
-</div>
+<span><span class="va">res_df_signif</span><span class="op">&lt;-</span><span class="va">res</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">log2fold</span><span class="op">)</span> <span class="op">==</span><span class="cn">F</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span> <span class="op">==</span> <span class="cn">F</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log2fold</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="va">padj</span><span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_df_signif</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       gene log2fold         padj        comparison</span></span>
+<span><span class="co">#&gt; 1 MTND1P23 1.321531 4.332564e-02 IFNb_vs_untreated</span></span>
+<span><span class="co">#&gt; 2  PLEKHN1 1.797689 3.147407e-05 IFNb_vs_untreated</span></span>
+<span><span class="co">#&gt; 3     HES4 3.647470 1.744922e-05 IFNb_vs_untreated</span></span>
+<span><span class="co">#&gt; 4    ISG15 6.963267 4.082580e-77 IFNb_vs_untreated</span></span>
+<span><span class="co">#&gt; 5 TNFRSF14 1.094154 1.905473e-04 IFNb_vs_untreated</span></span>
+<span><span class="co">#&gt; 6     IFI6 6.486454 1.722375e-70 IFNb_vs_untreated</span></span></code></pre></div>
   </main>
 </div>
 

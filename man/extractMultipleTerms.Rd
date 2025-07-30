@@ -8,6 +8,7 @@ extractMultipleTerms(
   input,
   condition_col,
   categories,
+  background = NULL,
   split_by_reg = FALSE,
   logFC_threshold = 0,
   pval_threshold = 0.05,
@@ -21,6 +22,8 @@ extractMultipleTerms(
 \item{condition_col}{A character vector of the column name(s) of the conditions to analyze.}
 
 \item{categories}{A character vector of database categories for enrichment analysis.}
+
+\item{background}{A background list of genes to use with enrichR. See enrichr documentation for details.}
 
 \item{split_by_reg}{Logical. If \code{TRUE}, splits genes by up- and down-regulation.}
 

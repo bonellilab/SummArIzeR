@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Summarize enrichment terms with LLMs • SummArIzeR</title>
+<title>SummArIzeR • SummArIzeR</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Summarize enrichment terms with LLMs">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="SummArIzeR">
 <meta name="description" content="Summarize enrichment terms using graph clustering and LLM based-consensus parent term.">
 <meta property="og:description" content="Summarize enrichment terms using graph clustering and LLM based-consensus parent term.">
 </head>
@@ -18,7 +18,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">SummArIzeR</a>
 
@@ -34,7 +34,7 @@
 <li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="articles/01-getting-started.html">Getting Started</a></li>
 <li class="nav-item"><a class="nav-link" href="articles/02-detailed_workflow.html">Detailed Workflow</a></li>
-<li class="nav-item"><a class="nav-link" href="articles/03-dataframe-creation.html">Create input file from DeSeq2 object</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/03-dataframe-creation.html">Create input file</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -48,14 +48,15 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="summarizer-">SummArIzeR <a><img src="reference/figures/SummArIzeRlogo.png" align="right" height="50"></a>
-<a class="anchor" aria-label="anchor" href="#summarizer-"></a>
-</h1></div>
+
+<div class="section level2">
+<h2 id="summarizer-1">SummArIzeR<a class="anchor" aria-label="anchor" href="#summarizer-1"></a>
+</h2>
+<p><img src="reference/figures/SummArIzeRlogo.png" width="20%" style="float: right; margin-left: 20px; margin-bottom: 10px;"></p>
 <!-- badges: start -->
 <!-- badges: end -->
 <p><code>SummArIzeR</code> is an R package, that allows an easy use of EnrichR to compare enrichment results from multiple databases of multiple conditons. It results in a clustering of enriched terms and enables the annotation of these terms by creating a promt for large language models such as gpt4. Results can be vizualised in a Heatmap.</p>
-<p>If you are using <code>SummArIzeR</code> for your publication, please cite us:</p>
-<p>SummArIzeR: Simplifying cross-database enrichment result clustering and annotation via large language models Marie Brinkmann, Michael Bonelli, Anela Tosevska bioRxiv 2025.05.28.656331; doi: <a href="https://doi.org/10.1101/2025.05.28.656331" class="external-link uri">https://doi.org/10.1101/2025.05.28.656331</a></p>
+</div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
@@ -67,29 +68,27 @@
 <li>Calculates similarities of results terms based on included genes</li>
 <li>Clusters terms using random walk algorithm</li>
 <li>Generates a prompt for a LLM to summarized cluster annotations</li>
-<li>Allows easy heatmap visualization</li>
+<li>Allows easy visualization</li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
-<p>You can install the development version of SummArIzeR from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install devtools if not already installed</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Install SummArIzeR</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"bonellilab/SummArIzeR"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Additional packages</span></span>
-<span></span>
-<span><span class="co"># Install factoextra from CRAN</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"factoextra"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Install `enrichR`</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"wjawaid/enrichR"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/Workflow_figure.png" width="150%" style="display: block; margin: auto;"></p>
+<p><strong>Steps to perform an enrichment analysis with <code>SummArIzeR</code>:</strong></p>
+<ul>
+<li>Enrichment analysis</li>
+<li>Treshold selection for Term clustering</li>
+<li>Term annotation using LLMs</li>
+<li>Vizualisation</li>
+</ul>
 </div>
-
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you are using <code>SummArIzeR</code> for your publication, please cite us:</p>
+<p>SummArIzeR: Simplifying cross-database enrichment result clustering and annotation via large language models Marie Brinkmann, Michael Bonelli, Anela Tosevska bioRxiv 2025.05.28.656331; doi: <a href="https://doi.org/10.1101/2025.05.28.656331" class="external-link uri">https://doi.org/10.1101/2025.05.28.656331</a></p>
+</div>
 <div class="section level2">
 <h2 id="bug-reports">Bug Reports<a class="anchor" aria-label="anchor" href="#bug-reports"></a>
 </h2>

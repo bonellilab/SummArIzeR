@@ -23,7 +23,6 @@ knitr::opts_chunk$set(
 library(knitr)
 ```
 
-# SummArIzeR <a><img src="man/figures/SummArIzeRlogo.png" align="right" height="138"/></a>
 
 <!-- badges: start -->
 
@@ -31,11 +30,11 @@ library(knitr)
 
 `SummArIzeR` is an R
 package, that allows an
-easy use of EnrichR to
+easy use of `EnrichR` to
 compare enrichment
 results from multiple
 databases of multiple
-conditons. It results in
+conditions. It results in
 a clustering of enriched
 terms and enables the
 annotation of these
@@ -43,51 +42,7 @@ terms by creating a
 promt for large language
 models such as gpt4.
 Results can be
-vizualised in a Heatmap.
-
-If you are using
-`SummArIzeR` for your
-publication, please cite
-us:
-
-SummArIzeR: Simplifying
-cross-database
-enrichment result
-clustering and
-annotation via large
-language models Marie
-Brinkmann, Michael
-Bonelli, Anela Tosevska
-bioRxiv
-2025.05.28.656331; doi:
-<https://doi.org/10.1101/2025.05.28.656331>
-
-## Features
-
--   Perform enrichment
-    analysis using
-    `enrichR`.
--   Allows analysis of
-    multiple conditions
--   Analyze up- and
-    down-regulated genes
-    separately.
--   Filter terms by
-    p-value and gene
-    thresholds.
--   Calculates
-    similarities of
-    results terms based
-    on included genes
--   Clusters terms using
-    random walk
-    algorithm
--   Generates a prompt
-    for a LLM to
-    summarized cluster
-    annotations
--   Allows easy heatmap
-    visualization
+visualized in a Bubbleplot or Heatmap.
 
 ## Installation
 
@@ -115,14 +70,8 @@ devtools::install_github("wjawaid/enrichR")
 
 ## Example
 
-This is a basic example
-which shows you how to
-run SummArIzeR. We
-create an example
-dataframe from two
-celltypes comparing a
-disease and control
-group:
+This is a basic example which shows you how to run `SummArIzeR`. We
+create an example dataframe from two celltypes and two conditions:
 
 ```{r, warning = FALSE,message = FALSE, example}
 library(SummArIzeR)
@@ -139,13 +88,13 @@ genelist_df <- data.frame(
     "IL21", "CXCR5", "TYK2", "IL22", "IL17A", "IL17F", "MCP1", "IL1RN", "CXCL10", "CXCL11", 
     "CD40LG", "IL6R", "IL27", "CD28", "CD80", "CD86", "IL2RA", "CTLA4", "PDCD1"
   ),
-  Condition = c(
-    "Disease", "Disease", "Control", "Disease", "Disease", "Disease", "Control", "Control", "Disease", "Control", 
-    "Disease", "Disease", "Control", "Disease", "Disease", "Control", "Disease", "Control", "Disease", "Disease", 
-    "Control", "Disease", "Disease", "Control", "Disease", "Control", "Control", "Control", "Disease", "Disease", 
-    "Disease", "Control", "Control", "Disease", "Disease", "Disease", "Disease", "Control", "Disease", "Disease", 
-    "Disease", "Disease", "Control", "Control", "Control", "Disease", "Control", "Control", "Control"
-  ),
+  Comparison = c(
+    "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", 
+    "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", 
+    "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", 
+    "Disease1_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease1_vs_Control", 
+    "Disease1_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease1_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control", "Disease2_vs_Control"
+    ),
   CellType = c(
     "CD4", "CD4", "CD4", "Monocytes", "Monocytes", "CD4", "CD4", "Monocytes", "CD4", "Monocytes", 
     "CD4", "Monocytes", "Monocytes", "CD4", "CD4", "CD4", "CD4", "CD4", "CD4", "Monocytes", 
@@ -157,54 +106,36 @@ genelist_df <- data.frame(
 )
 ```
 
-We can perform the
-enrichment analysis for
-the different conditions
-CellType and Group: Here
-we extract the top 5
-hits from every database
-and every condition. The
-input is data.frame with
-gene-level data. Must
-include a "genes"
-column, conditions
-column, and, optionally,
-"log2fold" if splitting
-by regulation. If
-split_by_reg (default =
-FALSE) is set to TRUE,
-enrichment is performed
-separately on up- and
-down-regulated genes.
-The logFC_threshold
-(default = 0) parameter
-defines the log
-fold-change cutoff used
-to define up/down
-regulation when
-split_by_reg = TRUE. The
-adjusted p-value cutoff
-is used to filter
-significant enriched
-terms. The parameter n
-(default = 10) shwos the
-number of top enriched
-terms to return per
-condition and per
-category, whereas the
-min_genes_threshold
-(default = 3) is the
-minimum number of genes
-required to consider a
-term in downstream
-analysis. The enrichment
-categories can be chosen
-from the set of
-libraries available in
+We can perform enrichment analysis across the different conditions: CellType and Comparison.
+In this example, we extract the **top 5 enriched terms** from each database and for every condition.
+
+The input is a data.frame containing gene-level data, with the following required columns:
+
+`genes`: character vector of gene symbols. 
+
+`conditions`: condition labels (e.g., comparisons or cell types). 
+
+`log2fold` (optional): used when splitting by regulation. 
+
+If `split_by_reg = TRUE` (default is `FALSE`), enrichment is performed separately for up- and down-regulated genes.  
+
+The `logFC_threshold` parameter (default: `0`) defines the log2 fold-change cutoff to distinguish up/down regulation when using `split_by_reg`.  
+
+
+To filter enriched terms, an adjusted p-value `pval_threshold` cutoff is applied.  
+
+Additional key parameters include:  
+
+`n` (default: 10): number of top enriched terms returned per condition and per category.  
+
+`min_genes_threshold` (default: 3): minimum number of overlapping genes required for a term to be considered in downstream clustering and annotation.  
+
+
+The enrichment `categories` can be chosen from the set of libraries available in
 [EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
 
 ```{r, enrichment, message = FALSE, cache=TRUE, results='hide'}
-Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Condition"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
+Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Comparison"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
 
@@ -214,20 +145,20 @@ head(Termlist_all, n = 5)
 ```
 
 Edges below the
-similarity treshold (ts)
+similarity threshold `ts`
 are deleted. The optimal
-treshold can be
+threshold can be
 validated by checking
 the number of clusters,
 the connected terms and
 the modularity. The
 threshold value
-determins which edges
+determines which edges
 between terms (nodes)
 are retained in the
 network (those with a
 distance weight higher
-than ts). Smaller values
+than `ts`). Smaller values
 include more edges;
 larger values result in
 sparser graphs:
@@ -242,11 +173,14 @@ visualized, and if
 needed, the threshold
 can be readjusted.
 
-```{r, cluster_network, include=F, fig.width=15, fig.height=12}
+```{r, cluster_network, eval=F, fig.width=15, fig.height=12}
 plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
 #htmltools::tagList(plot)
 ```
-
+```{r, cluster_network_code, include=F, fig.width=15, fig.height=12}
+plot<-TRUplotIgraph(Termlist_all, ts  = 0.3)
+#htmltools::tagList(plot)
+```
 ```{r, plot_network, fig.width=1, fig.height=1}
 plot
 ```

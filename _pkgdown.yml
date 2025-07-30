@@ -1,5 +1,14 @@
 template:
   bootstrap: 5
+  bslib:
+    bootswatch: minty
+    pkgdown-nav-height: 100px
+home:
+  title: "SummArIzeR"
+  strip_header: true
+  sidebar: true
+  # Override the homepage content
+  path: index.md
 
 navbar:
   left:
@@ -9,5 +18,16 @@ navbar:
       href: articles/01-getting-started.html
     - text: "Detailed Workflow"
       href: articles/02-detailed_workflow.html
-    - text: "Create input file from DeSeq2 object"
+    - text: "Create input file"
       href: articles/03-dataframe-creation.html
+
+articles:
+  - title: "Getting Started"
+    contents:
+      - 01-getting-started
+  - title: "Detailed Workflow"
+    contents:
+      - 02-detailed_workflow
+  - title: "Create input file"
+    contents:
+      - 03-dataframe-creation
