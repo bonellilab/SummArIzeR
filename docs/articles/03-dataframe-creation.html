@@ -64,8 +64,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ddsqReducedF</span><span class="op">)</span></span>
-<span><span class="va">ddsqReducedF</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_data"</span><span class="op">)</span> </span>
+<span><span class="va">example_data</span></span>
 <span><span class="co">#&gt; class: DESeqDataSet </span></span>
 <span><span class="co">#&gt; dim: 58051 32 </span></span>
 <span><span class="co">#&gt; metadata(1): version</span></span>
@@ -75,13 +75,13 @@
 <span><span class="co">#&gt; colnames(32): FLS_Pat1_IFNb FLS_Pat1_IFNg ... FLS_Pat4_TNFa</span></span>
 <span><span class="co">#&gt;   FLS_Pat4_untreated</span></span>
 <span><span class="co">#&gt; colData names(4): Cell Pat Treatment sizeFactor</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ddsqReducedF</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "DESeqDataSet object of length 58051 with 58 metadata columns"</span></span></code></pre></div>
 <p>The DESeq2 objects contains the different conditions as colnames and
 the genes as rownames. We can extract a results table for the different
 comparisons.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IFNb"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">example_data</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"IFNb"</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; log2 fold change (MLE): Treatment IFNb vs untreated </span></span>
 <span><span class="co">#&gt; Wald test p-value: Treatment IFNb vs untreated </span></span>
@@ -103,7 +103,7 @@ each condition. We can optionally filter the results by log2 fold change
 <span><span class="va">counter</span><span class="op">&lt;-</span><span class="fl">0</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">cond</span> <span class="kw">in</span> <span class="va">condition_list</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">counter</span><span class="op">&lt;-</span><span class="va">counter</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>  <span class="va">res_i</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">ddsqReducedF</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="va">cond</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="va">res_i</span> <span class="op">&lt;-</span> <span class="fu">results</span><span class="op">(</span><span class="va">example_data</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="va">cond</span>, <span class="st">"untreated"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>

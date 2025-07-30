@@ -41,14 +41,14 @@ library(DESeq2)
 library(SummArIzeR)
 ```
 ```{r load_data, include= T}
-data()
-ddsqReducedF
-summary(ddsqReducedF)
+data("example_data") 
+example_data
+summary(example_data)
 ```
 The DESeq2 objects contains the different conditions as colnames and the genes as rownames. We can extract a results table for the different comparisons.
 
 ```{r create_table, include=T}
-res <- results(ddsqReducedF, contrast = c("Treatment", "IFNb", "untreated"))
+res <- results(example_data, contrast = c("Treatment", "IFNb", "untreated"))
 head(res)
 ```
 
@@ -61,7 +61,7 @@ condition_list<-c("IFNb", "IFNg", "IL17", "IL1b", "IL4")
 counter<-0
 for(cond in condition_list){
   counter<-counter + 1
-  res_i <- results(ddsqReducedF, contrast = c("Treatment", cond, "untreated"))%>% 
+  res_i <- results(example_data, contrast = c("Treatment", cond, "untreated"))%>% 
      as.data.frame() %>%
   tibble::rownames_to_column("gene") %>%
   dplyr::select(gene, log2FoldChange, padj) %>%
