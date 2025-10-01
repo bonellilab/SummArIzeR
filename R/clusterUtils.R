@@ -334,12 +334,13 @@ plotBubbleplot <- function(
     )) +
       ggplot2::geom_point() +
       ggplot2::scale_colour_gradient2(low = plot_colors$default[1], mid = plot_colors$default[2], high = plot_colors$default[3]) +
-      ggplot2::scale_size(name = "p.adj.", range = c(3, 10)) + 
+      ggplot2::scale_size(name = "-log10(p.adj)", range = c(3, 10)) + 
       ggplot2::theme_minimal() +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
   }
   
   return(Bplot)
 }
+
 
 
