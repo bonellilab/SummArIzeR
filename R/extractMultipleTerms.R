@@ -10,7 +10,14 @@
 #' @param logFC_threshold The threshold for determining up/down-regulation. Defaults to `0`.
 #' @param pval_threshold Numeric; adjusted p-value cutoff. Default is 0.05.
 #' @param n Integer; number of top terms to return. Default is 10.
-#' 
+#' @param min_genes_threshold Integer; minimum genes to overlap between terms. 
+#' @param enrichment_method Which method to use for enrichment, "enrichr" (requires internet connection), or "gmt" (offline, requires gmt file input. 
+#' @param gmt_files Required if enrichment_method = "gmt". Path to one or more local gmt file(s). For gmt data format see https://docs.gsea-msigdb.org/#GSEA/Data_Formats/. 
+#' @param gmt_min_overlap Minimum overlap between geneset and dataset
+#' @param gmt_min_set_size Minimum size of geneset
+#' @param gmt_max_set_size Maximum size of geneset
+#' @param verbose Logical. If TRUE, print informative messages about the progress. 
+#' @param show_progress Logical. If TRUE, display a progress bar during computation.
 #' @return A combined data frame of enrichment terms for all specified conditions and categories.
 #' @examples
 #' # Example usage
@@ -175,5 +182,6 @@ extractMultipleTerms <- function(input, condition_col, categories = NULL, backgr
     return(final_results)
   }
 }
+
 
 
