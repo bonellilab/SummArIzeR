@@ -109,8 +109,9 @@ The enrichment `categories` can be chosen from the set of libraries available in
 
 ```{r, enrichment, message = FALSE, cache=TRUE, results='hide'}
 Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Comparison"), 
-categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), 
-pval_threshold = 0.05, n = 5, split_by_reg = T)
+                                  categories = c("GO_Biological_Process_2023",
+                                                 "Reactome_2022", "BioPlanet_2019"), 
+                                  pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
 Enrichment analysis can also be performed offline by setting the 'enrichment_method' to '"gmt"'.
@@ -122,13 +123,14 @@ If the format is '.txt', the file can be renamed to '.gmt'.
 
 ```{r, enrichment_offline, message = FALSE, cache=TRUE, results='hide'}
 library_path<-c(
-  "./examples/libraries/GO_Biological_Process_2023.gmt",
-  "./examples/libraries/Reactome_2022.gmt",
-"./examples/libraries/BioPlanet_2019.gmt"
+  "../examples/libraries/GO_Biological_Process_2023.gmt",
+  "../examples/libraries/Reactome_2022.gmt",
+"../examples/libraries/BioPlanet_2019.gmt"
 )
-Termlist_all_offline<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Comparison"),
-gmt_files = library_path , pval_threshold = 0.05, n = 5,
-split_by_reg = T,enrichment_method = "gmt" )
+Termlist_all_offline<-extractMultipleTerms(genelist_df, 
+                                           condition_col = c("CellType", "Comparison"),
+                                          gmt_files = library_path , pval_threshold = 0.05, n = 5,
+                                          split_by_reg = T,enrichment_method = "gmt" )
 
 ```
 ```{r, view, include=T}
