@@ -108,13 +108,32 @@ The enrichment `categories` can be chosen from the set of libraries available in
 [EnrichR](https://maayanlab.cloud/Enrichr/#libraries):
 
 ```{r, enrichment, message = FALSE, cache=TRUE, results='hide'}
-Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Comparison"), categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), pval_threshold = 0.05, n = 5, split_by_reg = T)
+Termlist_all<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Comparison"), 
+categories = c("GO_Biological_Process_2023","Reactome_2022", "BioPlanet_2019"), 
+pval_threshold = 0.05, n = 5, split_by_reg = T)
 
 ```
+Enrichment analysis can also be performed offline by setting the 'enrichment_method' to '"gmt"'.
+One or more local '.gmt' libraries must be provided via a file path.
 
+Libraries can be downloaded from : 
+[EnrichR](https://maayanlab.cloud/Enrichr/#libraries)
+If the format is '.txt', the file can be renamed to '.gmt'.
+
+```{r, enrichment_offline, message = FALSE, cache=TRUE, results='hide'}
+library_path<-c(
+  "./examples/libraries/GO_Biological_Process_2023.gmt",
+  "./examples/libraries/Reactome_2022.gmt",
+"./examples/libraries/BioPlanet_2019.gmt"
+)
+Termlist_all_offline<-extractMultipleTerms(genelist_df, condition_col = c("CellType", "Comparison"),
+gmt_files = library_path , pval_threshold = 0.05, n = 5,
+split_by_reg = T,enrichment_method = "gmt" )
+
+```
 ```{r, view, include=T}
 head(Termlist_all, n = 5)
-
+head(Termlist_all_offline, n = 5)
 ```
 
 Edges below the
