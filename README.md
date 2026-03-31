@@ -14,10 +14,8 @@ such as gpt4. Results can be vizualised in a Heatmap.
 
 If you are using `SummArIzeR` for your publication, please cite us:
 
-SummArIzeR: Simplifying cross-database enrichment result clustering and
-annotation via large language models Marie Brinkmann, Michael Bonelli,
-Anela Tosevska bioRxiv 2025.05.28.656331; doi:
-<https://doi.org/10.1101/2025.05.28.656331>
+Marie Brinkmann, Michael Bonelli, Anela Tosevska, SummArIzeR: simplifying cross-database enrichment result clustering and annotation via large language models, Bioinformatics, Volume 42, Issue 3, March 2026, btag102
+<https://doi.org/10.1093/bioinformatics/btag102>
 
 ## Features
 
