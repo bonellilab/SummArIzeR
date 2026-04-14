@@ -8,18 +8,19 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`SummArIzeR` is an R package, that allows an easy use of EnrichR to
-compare enrichment results from multiple databases of multiple
-conditons. It results in a clustering of enriched terms and enables the
+`SummArIzeR` is an R package, that makes it easy to perform enrichment analysis and
+compare the results from multiple databases of multiple conditons.
+It uses EnrichR but also supports offline enrichment with local `.gmt` files.
+It results in a clustering of enriched terms and enables the
 annotation of these terms by creating a promt for large language models
-such as gpt4. Results can be vizualised in a Heatmap.
+such as gpt4. Results can be vizualised in a Heatmap or Bubbleplot.
 
 ## Features
 
-- Perform enrichment analysis using `enrichR`.
+- Perform enrichment analysis using `enrichR` or local `.gmt` files
 - Allows analysis of multiple conditions
-- Analyze up- and down-regulated genes separately.
-- Filter terms by p-value and gene thresholds.
+- Analyze up- and down-regulated genes separately
+- Filter terms by p-value and gene thresholds
 - Calculates similarities of results terms based on included genes
 - Clusters terms using random walk algorithm
 - Generates a prompt for a LLM to summarized cluster annotations
@@ -40,10 +41,10 @@ such as gpt4. Results can be vizualised in a Heatmap.
 
 If you are using `SummArIzeR` for your publication, please cite us:
 
-SummArIzeR: Simplifying cross-database enrichment result clustering and
-annotation via large language models Marie Brinkmann, Michael Bonelli,
-Anela Tosevska bioRxiv 2025.05.28.656331; doi:
-<https://doi.org/10.1101/2025.05.28.656331>
+Marie Brinkmann, Michael Bonelli, Anela Tosevska, SummArIzeR: simplifying cross-database enrichment result clustering and annotation via large language models,
+Bioinformatics, Volume 42, Issue 3, March 2026, btag102
+<https://doi.org/10.1093/bioinformatics/btag102>
+
 
 ## Bug Reports
 

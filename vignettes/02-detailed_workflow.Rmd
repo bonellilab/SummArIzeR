@@ -28,22 +28,12 @@ library(knitr)
 
 <!-- badges: end -->
 
-`SummArIzeR` is an R
-package, that allows an
-easy use of `EnrichR` to
-compare enrichment
-results from multiple
-databases of multiple
-conditions. It results in
-a clustering of enriched
-terms and enables the
-annotation of these
-terms by creating a
-promt for large language
-models such as gpt4.
-Results can be
-visualized in a Bubbleplot or Heatmap.
-
+`SummArIzeR` is an R package, that makes it easy to perform enrichment analysis and
+compare the results from multiple databases of multiple conditons.
+It uses EnrichR but also supports offline enrichment with local `.gmt` files.
+It results in a clustering of enriched terms and enables the
+annotation of these terms by creating a promt for large language models
+such as gpt4. Results can be vizualised in a Heatmap or Bubbleplot.
 
 
 ## Example
